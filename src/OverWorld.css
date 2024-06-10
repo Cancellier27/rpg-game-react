@@ -1,0 +1,6 @@
+.game-canvas {
+position: relative;
+
+image-rendering: pixelated;
+}
+
