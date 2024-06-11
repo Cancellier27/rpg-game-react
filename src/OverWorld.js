@@ -1,61 +1,28 @@
 import "./OverWorld.css"
 
 import baseImg from "./images/maps/DemoLower.png"
-import heroPng from "./images/characters/people/hero.png"
-import shadowPng from "./images/characters/shadow.png"
+import GameObject from "./components/GameObject"
 
 function OverWorld() {
   return (
+    // "canvas" zone
     <div className="game-canvas" width={352} height={198}>
-      <img
-        src={baseImg}
-        style={{
-          position: "absolute",
-          top: "0px",
-          left: "0px"
-        }}
+      {/* static map image */}
+      <img className="base-img" src={baseImg} />
+
+      {/* Hero png */}
+      <GameObject
+        x={5}
+        y={6}
+        src={require("./images/characters/people/hero.png")}
       />
 
-      <div
-        style={{
-          position: "absolute",
-          height: "32px",
-          width: "32px",
-          top: "78px",
-          left: "72px",
-          overflow: "hidden",
-        }}
-      >
-        <img
-          src={shadowPng}
-          style={{
-            position: "absolute",
-            top: "0px",
-            left: "0px"
-          }}
-        />
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          height: "32px",
-          width: "32px",
-          top: "78px",
-          left: "72px",
-          overflow: "hidden",
-          // outline: "1px solid red"
-        }}
-      >
-        <img
-          src={heroPng}
-          style={{
-            position: "absolute",
-            top: "0px",
-            left: "0px"
-          }}
-        />
-      </div>
+      {/* npc1 png */}
+      <GameObject
+        x={7}
+        y={9}
+        src={require("./images/characters/people/npc1.png")}
+      />
     </div>
   )
 }

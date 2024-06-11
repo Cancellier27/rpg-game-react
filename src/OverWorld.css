@@ -1,6 +1,12 @@
 .game-canvas {
 position: relative;
-
 image-rendering: pixelated;
+}
+
+.base-img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 0
 }
 
