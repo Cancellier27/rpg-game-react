@@ -1,29 +1,23 @@
+import {useEffect, useRef, useState} from "react"
 import "./OverWorld.css"
 
-import baseImg from "./images/maps/DemoLower.png"
-import GameObject from "./components/GameObject"
+// import baseImg from "./images/maps/DemoLower.png"
 
-function OverWorld() {
-  return (
-    // "canvas" zone
-    <div className="game-canvas" width={352} height={198}>
-      {/* static map image */}
-      <img className="base-img" src={baseImg} />
+export default function OverWorld() {
+  const canvasRef = useRef(null)
 
-      {/* Hero png */}
-      <GameObject
-        x={5}
-        y={6}
-        src={require("./images/characters/people/hero.png")}
-      />
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const context = canvas.getContext("2d")
 
-      {/* npc1 png */}
-      <GameObject
-        x={7}
-        y={9}
-        src={require("./images/characters/people/npc1.png")}
-      />
-    </div>
-  )
+    const image = new Image()
+
+    image.onload = () => {
+      context.drawImage(image, 0, 0)
+    }
+
+    image.src = require("./images/maps/DemoLower.png")
+  }, [])
+
+  return <canvas ref={canvasRef} width={352} height={198}></canvas>
 }
-export default OverWorld
