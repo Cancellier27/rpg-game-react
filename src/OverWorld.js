@@ -1,23 +1,60 @@
 import {useEffect, useRef, useState} from "react"
 import "./OverWorld.css"
 
-// import baseImg from "./images/maps/DemoLower.png"
+import Sprite from "./components/Sprite"
+import MapSprite from "./components/MapSprite"
+import {GameObject} from "./GameObjects/GameObject"
 
 export default function OverWorld() {
-  const canvasRef = useRef(null)
+  const [gameObjects, setGameObjects] = useState([])
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const context = canvas.getContext("2d")
+    const map1 = new GameObject({
+      type: "map",
+      src: require("./images/maps/DemoLower.png")
+    })
 
-    const image = new Image()
+    const hero = new GameObject({
+      x: 5,
+      y: 6
+    })
 
-    image.onload = () => {
-      context.drawImage(image, 0, 0)
-    }
+    const npc1 = new GameObject({
+      x: 6,
+      y: 7,
+      src: require("./images/characters/people/npc1.png")
+    })
 
-    image.src = require("./images/maps/DemoLower.png")
+    setGameObjects([
+      ...gameObjects,
+      map1.getState(),
+      hero.getState(),
+      npc1.getState()
+    ])
   }, [])
 
-  return <canvas ref={canvasRef} width={352} height={198}></canvas>
+  if (!gameObjects) {
+    return null
+  }
+
+  console.log(gameObjects)
+
+  return (
+    <>
+      {gameObjects.map((sprite) => {
+        if (sprite.type === "map") {
+          return <MapSprite requireImageUrl={sprite.requireImageUrl} key={1} />
+        } else {
+          return (
+            <Sprite
+              frameCoord={sprite.frameCoord}
+              size={sprite.size}
+              requireImageUrl={sprite.requireImageUrl}
+              key={2}
+            />
+          )
+        }
+      })}
+    </>
+  )
 }
