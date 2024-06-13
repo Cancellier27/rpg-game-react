@@ -12,11 +12,11 @@ export const OVERWORLD_MAPS = {
         y: utils.withGrid(6),
         isPlayerControlled: true
       }),
-      // npc1: new Person({
-      //   x: utils.withGrid(7),
-      //   y: utils.withGrid(9),
-      //   src: require("../images/characters/people/npc1.png")
-      // })
+      npc1: new Person({
+        x: utils.withGrid(7),
+        y: utils.withGrid(9),
+        src: require("../images/characters/people/npc1.png")
+      })
     }
   },
   Kitchen: {

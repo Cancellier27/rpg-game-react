@@ -25,6 +25,7 @@ export default function OverWorld() {
     }
   }, [levelData])
 
+
   function startGameLoop() {
     const fps = 60
 
@@ -32,6 +33,7 @@ export default function OverWorld() {
     directionInput.init()
 
     const step = () => {
+
 
       let gameObjectsArray = Object.values(levelData.gameObjects).map(
         (object) => object.getState()
@@ -60,12 +62,14 @@ export default function OverWorld() {
 
   return (
     <>
+    {/* draw lower layer map */}
       {isLoaded && (
         <div className="map-lower" style={{zIndex: 0}}>
           <MapSprite requireImageUrl={mapLower} key={"Lower"} />
         </div>
       )}
 
+{/* draw characters */}
       {isLoaded &&
         gameObjects.map((object) => {
           return (
@@ -75,11 +79,13 @@ export default function OverWorld() {
               requireImageUrl={object.requireImageUrl}
               isShadow={object.shadow}
               animation={object.animation}
+              cameraPerson={levelData.gameObjects.hero}
               key={object.frameCoord}
             />
           )
         })}
 
+{/* draw upper layer map */}
       {isLoaded && (
         <div className="map-upper" style={{zIndex: 20}}>
           <MapSprite requireImageUrl={mapUpper} key={"upper"} />
