@@ -9,6 +9,7 @@ export default function OverWorld() {
   const [gameObjects, setGameObjects] = useState([])
 
   useEffect(() => {
+    
     const map1 = new GameObject({
       type: "map",
       src: require("./images/maps/DemoLower.png")
@@ -16,12 +17,14 @@ export default function OverWorld() {
 
     const hero = new GameObject({
       x: 5,
-      y: 6
+      y: 6,
+      shadow: true
     })
 
     const npc1 = new GameObject({
-      x: 6,
+      x: 4,
       y: 7,
+      shadow: true,
       src: require("./images/characters/people/npc1.png")
     })
 
@@ -37,20 +40,20 @@ export default function OverWorld() {
     return null
   }
 
-  console.log(gameObjects)
 
   return (
     <>
       {gameObjects.map((sprite) => {
         if (sprite.type === "map") {
-          return <MapSprite requireImageUrl={sprite.requireImageUrl} key={1} />
+          return <MapSprite requireImageUrl={sprite.requireImageUrl} key={Date.now()} />
         } else {
           return (
             <Sprite
               frameCoord={sprite.frameCoord}
               size={sprite.size}
               requireImageUrl={sprite.requireImageUrl}
-              key={2}
+              isShadow={sprite.shadow}
+              key={Date.now()}
             />
           )
         }

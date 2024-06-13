@@ -4,6 +4,7 @@ export class GameObject {
     this.x = config.x || 0
     this.y = config.y || 0
     this.size = config.size || 32
+    this.shadow = config.shadow || false
     this.requireImageUrl =
       config.src || require("../images/characters/people/hero.png")
   }
@@ -13,7 +14,8 @@ export class GameObject {
       frameCoord: [this.x, this.y],
       size: this.size,
       requireImageUrl: this.requireImageUrl,
-      type: this.type
+      type: this.type,
+      shadow: this.shadow
     }
   }
 }

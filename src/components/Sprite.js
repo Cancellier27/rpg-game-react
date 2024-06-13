@@ -8,7 +8,7 @@ import {
   Y_ADJUSTMENT
 } from "../helpers/consts"
 
-export default function Sprite({frameCoord, size, requireImageUrl}) {
+export default function Sprite({frameCoord, size, requireImageUrl, isShadow}) {
   const canvasRef = useRef()
 
   useEffect(() => {
@@ -19,25 +19,29 @@ export default function Sprite({frameCoord, size, requireImageUrl}) {
     ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
     //Draw a graphic to the canvas tag
-    const tileSheetX = frameCoord[0]
-    const tileSheetY = frameCoord[1]
+    const x = frameCoord[0] * CELL_SIZE - X_ADJUSTMENT
+    const y = frameCoord[1] * CELL_SIZE - Y_ADJUSTMENT
 
     const image = new Image()
+    const shadow = new Image()
 
     image.onload = () => {
+      isShadow && ctx.drawImage(shadow, x, y)
+
       ctx.drawImage(
         image, // Image to pull from
         0, // Left X corner of frame
         0, // Top Y corner of frame
         size, //How much to crop from the sprite sheet (X)
         size, //How much to crop from the sprite sheet (Y)
-        tileSheetX * CELL_SIZE - X_ADJUSTMENT, //Where to place this on canvas tag X (0)
-        tileSheetY * CELL_SIZE - Y_ADJUSTMENT, //Where to place this on canvas tag Y (0)
+        x, //Where to place this on canvas tag X (0)
+        y, //Where to place this on canvas tag Y (0)
         size, //How large to scale it (X)
         size //How large to scale it (Y)
       )
     }
 
+    shadow.src = require("../images/characters/shadow.png")
     image.src = requireImageUrl
   }, [frameCoord, size])
 
