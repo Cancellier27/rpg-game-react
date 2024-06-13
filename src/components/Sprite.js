@@ -8,7 +8,13 @@ import {
   Y_ADJUSTMENT
 } from "../helpers/consts"
 
-export default function Sprite({frameCoord, size, requireImageUrl, isShadow}) {
+export default function Sprite({
+  frameCoord,
+  size,
+  requireImageUrl,
+  isShadow,
+  animation
+}) {
   const canvasRef = useRef()
 
   useEffect(() => {
@@ -19,8 +25,11 @@ export default function Sprite({frameCoord, size, requireImageUrl, isShadow}) {
     ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
     //Draw a graphic to the canvas tag
-    const x = frameCoord[0] * CELL_SIZE - X_ADJUSTMENT
-    const y = frameCoord[1] * CELL_SIZE - Y_ADJUSTMENT
+    const x = frameCoord[0] - X_ADJUSTMENT
+    const y = frameCoord[1] - Y_ADJUSTMENT
+
+    const animationX = animation[0] * CELL_SIZE * 2
+    const animationY = animation[1] * CELL_SIZE * 2
 
     const image = new Image()
     const shadow = new Image()
@@ -30,8 +39,8 @@ export default function Sprite({frameCoord, size, requireImageUrl, isShadow}) {
 
       ctx.drawImage(
         image, // Image to pull from
-        0, // Left X corner of frame
-        0, // Top Y corner of frame
+        animationX, // Left X corner of frame
+        animationY, // Top Y corner of frame
         size, //How much to crop from the sprite sheet (X)
         size, //How much to crop from the sprite sheet (Y)
         x, //Where to place this on canvas tag X (0)

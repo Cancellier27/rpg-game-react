@@ -1,63 +1,90 @@
 import {useEffect, useRef, useState} from "react"
+import {OVERWORLD_MAPS} from "./helpers/maps"
 import "./OverWorld.css"
 
+// React components
 import Sprite from "./components/Sprite"
 import MapSprite from "./components/MapSprite"
-import {GameObject} from "./GameObjects/GameObject"
+
+// Classes
+import { DirectionInput } from "./GameObjects/DirectionInput"
 
 export default function OverWorld() {
+  const [levelData, setLevelData] = useState(null)
+  const [mapLower, setMapLower] = useState(null)
+  const [mapUpper, setMapUpper] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [gameObjects, setGameObjects] = useState([])
 
   useEffect(() => {
-    
-    const map1 = new GameObject({
-      type: "map",
-      src: require("./images/maps/DemoLower.png")
-    })
+    setLevelData(OVERWORLD_MAPS.DemoRoom)
 
-    const hero = new GameObject({
-      x: 5,
-      y: 6,
-      shadow: true
-    })
+    // starts gameloop when component mounts
+    if (levelData) {
+      startGameLoop()
+    }
+  }, [levelData])
 
-    const npc1 = new GameObject({
-      x: 4,
-      y: 7,
-      shadow: true,
-      src: require("./images/characters/people/npc1.png")
-    })
+  function startGameLoop() {
+    const fps = 60
 
-    setGameObjects([
-      ...gameObjects,
-      map1.getState(),
-      hero.getState(),
-      npc1.getState()
-    ])
-  }, [])
+    const directionInput = new DirectionInput()
+    directionInput.init()
 
-  if (!gameObjects) {
-    return null
+    const step = () => {
+
+      let gameObjectsArray = Object.values(levelData.gameObjects).map(
+        (object) => object.getState()
+      )
+
+      Object.values(levelData.gameObjects).forEach((object) => {
+        object.update({
+          arrow: directionInput.direction
+        })
+      })
+
+      setMapLower(levelData.lowerSrc)
+      setMapUpper(levelData.upperSrc)
+      setGameObjects(gameObjectsArray)
+      setIsLoaded(true)
+
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          step()
+        })
+      }, 1000 / fps)
+    }
+
+    step()
   }
-
 
   return (
     <>
-      {gameObjects.map((sprite) => {
-        if (sprite.type === "map") {
-          return <MapSprite requireImageUrl={sprite.requireImageUrl} key={Date.now()} />
-        } else {
+      {isLoaded && (
+        <div className="map-lower" style={{zIndex: 0}}>
+          <MapSprite requireImageUrl={mapLower} key={"Lower"} />
+        </div>
+      )}
+
+      {isLoaded &&
+        gameObjects.map((object) => {
           return (
             <Sprite
-              frameCoord={sprite.frameCoord}
-              size={sprite.size}
-              requireImageUrl={sprite.requireImageUrl}
-              isShadow={sprite.shadow}
-              key={Date.now()}
+              frameCoord={object.frameCoord}
+              size={object.size}
+              requireImageUrl={object.requireImageUrl}
+              isShadow={object.shadow}
+              animation={object.animation}
+              key={object.frameCoord}
             />
           )
-        }
-      })}
+        })}
+
+      {isLoaded && (
+        <div className="map-upper" style={{zIndex: 20}}>
+          <MapSprite requireImageUrl={mapUpper} key={"upper"} />
+        </div>
+      )}
     </>
   )
 }
