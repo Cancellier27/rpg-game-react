@@ -7,13 +7,14 @@ import Sprite from "./components/Sprite"
 import MapSprite from "./components/MapSprite"
 
 // Classes
-import { DirectionInput } from "./GameObjects/DirectionInput"
+import {DirectionInput} from "./GameObjects/DirectionInput"
 
 export default function OverWorld() {
   const [levelData, setLevelData] = useState(null)
   const [mapLower, setMapLower] = useState(null)
   const [mapUpper, setMapUpper] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [cameraPerson, setCameraPerson] = useState(null)
   const [gameObjects, setGameObjects] = useState([])
 
   useEffect(() => {
@@ -25,7 +26,6 @@ export default function OverWorld() {
     }
   }, [levelData])
 
-
   function startGameLoop() {
     const fps = 60
 
@@ -33,17 +33,20 @@ export default function OverWorld() {
     directionInput.init()
 
     const step = () => {
-
-
-      let gameObjectsArray = Object.values(levelData.gameObjects).map(
-        (object) => object.getState()
-      )
-
+      // update objects
       Object.values(levelData.gameObjects).forEach((object) => {
         object.update({
           arrow: directionInput.direction
         })
       })
+
+      // set camera person - hero
+      setCameraPerson(levelData.gameObjects.hero)
+
+      // create an iterable array to get the objects elements
+      let gameObjectsArray = Object.values(levelData.gameObjects).map(
+        (object) => object.getState()
+      )
 
       setMapLower(levelData.lowerSrc)
       setMapUpper(levelData.upperSrc)
@@ -62,14 +65,18 @@ export default function OverWorld() {
 
   return (
     <>
-    {/* draw lower layer map */}
+      {/* draw lower layer map */}
       {isLoaded && (
         <div className="map-lower" style={{zIndex: 0}}>
-          <MapSprite requireImageUrl={mapLower} key={"Lower"} />
+          <MapSprite
+            requireImageUrl={mapLower}
+            cameraPerson={cameraPerson}
+            key={"Lower"}
+          />
         </div>
       )}
 
-{/* draw characters */}
+      {/* draw characters */}
       {isLoaded &&
         gameObjects.map((object) => {
           return (
@@ -79,16 +86,20 @@ export default function OverWorld() {
               requireImageUrl={object.requireImageUrl}
               isShadow={object.shadow}
               animation={object.animation}
-              cameraPerson={levelData.gameObjects.hero}
+              cameraPerson={cameraPerson}
               key={object.frameCoord}
             />
           )
         })}
 
-{/* draw upper layer map */}
+      {/* draw upper layer map */}
       {isLoaded && (
         <div className="map-upper" style={{zIndex: 20}}>
-          <MapSprite requireImageUrl={mapUpper} key={"upper"} />
+          <MapSprite
+            requireImageUrl={mapUpper}
+            cameraPerson={cameraPerson}
+            key={"upper"}
+          />
         </div>
       )}
     </>

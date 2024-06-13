@@ -7,7 +7,7 @@ import {
   X_ADJUSTMENT,
   Y_ADJUSTMENT
 } from "../helpers/consts"
-import { utils } from "../helpers/utils"
+import {utils} from "../helpers/utils"
 
 export default function Sprite({
   frameCoord,
@@ -27,7 +27,8 @@ export default function Sprite({
     ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
     //Draw a graphic to the canvas tag
-    const x = frameCoord[0] - X_ADJUSTMENT + utils.withGrid(10.5) - cameraPerson.x
+    const x =
+      frameCoord[0] - X_ADJUSTMENT + utils.withGrid(10.5) - cameraPerson.x
     const y = frameCoord[1] - Y_ADJUSTMENT + utils.withGrid(6) - cameraPerson.y
 
     const animationX = animation[0] * CELL_SIZE * 2

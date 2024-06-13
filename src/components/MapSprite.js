@@ -2,8 +2,9 @@ import "./components.css"
 
 import {useEffect, useRef, useState} from "react"
 import {CANVAS_SIZE} from "../helpers/consts"
+import {utils} from "../helpers/utils"
 
-export default function MapSprite({requireImageUrl}) {
+export default function MapSprite({requireImageUrl, cameraPerson}) {
   const canvasRef = useRef()
 
   useEffect(() => {
@@ -18,13 +19,13 @@ export default function MapSprite({requireImageUrl}) {
     image.onload = () => {
       ctx.drawImage(
         image, // Image to pull from
-        0, // Left X corner of frame
-        0 // Top Y corner of frame
+        utils.withGrid(10.5) - cameraPerson.x, // Left X corner of frame
+        utils.withGrid(6) - cameraPerson.y // Top Y corner of frame
       )
     }
 
     image.src = requireImageUrl
-  }, [])
+  })
 
   return (
     <canvas

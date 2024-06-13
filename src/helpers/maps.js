@@ -6,7 +6,7 @@ export const OVERWORLD_MAPS = {
   DemoRoom: {
     lowerSrc: require("../images/maps/DemoLower.png"),
     upperSrc: require("../images/maps/DemoUpper.png"),
-    gameObjects: { 
+    gameObjects: {
       hero: new Person({
         x: utils.withGrid(5),
         y: utils.withGrid(6),
@@ -25,7 +25,7 @@ export const OVERWORLD_MAPS = {
     gameObjects: {
       hero: new GameObject({
         x: 3,
-        y: 5,
+        y: 5
       }),
       npcA: new GameObject({
         x: 9,
@@ -38,5 +38,5 @@ export const OVERWORLD_MAPS = {
         src: require("../images/characters/people/npc3.png")
       })
     }
-  },
+  }
 }
