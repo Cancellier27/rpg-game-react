@@ -16,51 +16,63 @@ export default function OverWorld() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [cameraPerson, setCameraPerson] = useState(null)
   const [gameObjects, setGameObjects] = useState([])
+  const [directionInput, setDirectionInput] = useState(null)
 
   useEffect(() => {
     setLevelData(OVERWORLD_MAPS.DemoRoom)
+    setDirectionInput(new DirectionInput())
 
-    // starts gameloop when component mounts
-    if (levelData) {
+    // starts gameloop when both variables are fulfilled
+    if (levelData && directionInput) {
+      directionInput.init()
       startGameLoop()
     }
   }, [levelData])
 
-  function startGameLoop() {
-    const fps = 60
-
-    const directionInput = new DirectionInput()
-    directionInput.init()
-
-    const step = () => {
-      // update objects
-      Object.values(levelData.gameObjects).forEach((object) => {
-        object.update({
-          arrow: directionInput.direction
-        })
+  function gameLoopStepWork(delta) {
+    Object.values(levelData.gameObjects).forEach((object) => {
+      object.update({
+        delta, // timeStamp variable to maybe use on characters
+        arrow: directionInput.direction
       })
+    })
 
-      // set camera person - hero
-      setCameraPerson(levelData.gameObjects.hero)
+    // set camera person - hero
+    setCameraPerson(levelData.gameObjects.hero)
 
-      // create an iterable array to get the objects elements
-      let gameObjectsArray = Object.values(levelData.gameObjects).map(
-        (object) => object.getState()
-      )
+    // create an iterable array to get the objects elements
+    let gameObjectsArray = Object.values(levelData.gameObjects).map((object) =>
+      object.getState()
+    )
 
-      setMapLower(levelData.lowerSrc)
-      setMapUpper(levelData.upperSrc)
-      setGameObjects(gameObjectsArray)
-      setIsLoaded(true)
+    setMapLower(levelData.lowerSrc)
+    setMapUpper(levelData.upperSrc)
+    setGameObjects(gameObjectsArray)
+    setIsLoaded(true)
+  }
 
-      setTimeout(() => {
-        requestAnimationFrame(() => {
-          step()
-        })
-      }, 1000 / fps)
+  function startGameLoop() {
+    let previousMs
+    const step = 1 / 60 // setting to 60 fps for all refresh rates
+
+    const stepFn = (timeStamp) => {
+      if (previousMs === undefined) {
+        previousMs = timeStamp
+      }
+
+      let delta = (timeStamp - previousMs) / 1000
+      while (delta >= step) {
+        gameLoopStepWork(delta)
+        delta -= step
+      }
+      previousMs = timeStamp - delta * 1000 // Make sure we don't lose unprocessed (delta) time
+
+      // business as usual tick
+      requestAnimationFrame(stepFn)
     }
 
-    step()
+    // First tick
+    requestAnimationFrame(stepFn)
   }
 
   return (

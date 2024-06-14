@@ -55,7 +55,7 @@ export default function Sprite({
 
     shadow.src = require("../images/characters/shadow.png")
     image.src = requireImageUrl
-  }, [frameCoord, size])
+  }, [frameCoord])
 
   return (
     <canvas
