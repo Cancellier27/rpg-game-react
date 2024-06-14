@@ -39,9 +39,11 @@ export class Person extends GameObject {
     
     // walk behavior --------------------------
     if (behavior.type === "walk") {
-      // mapData collisions true or false
+      // stop here is space is not free
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
-        // stops moving when touches a wall
+        behavior.retry && setTimeout(() => {
+          this.startBehavior(state, behavior)
+        }, 1000)
         return
       }
       // ready to walk

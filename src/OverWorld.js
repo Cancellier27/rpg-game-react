@@ -49,6 +49,10 @@ export default function OverWorld() {
     let gameObjectsArray = Object.values(levelData.gameObjects).map((object) =>
       object.getState()
     )
+    // sort the array to be in Y order of rendering
+    gameObjectsArray.sort((a,b) => {
+      return a.frameCoord[1] - b.frameCoord[1]
+    })
 
     setMapLower(levelData.lowerSrc)
     setMapUpper(levelData.upperSrc)

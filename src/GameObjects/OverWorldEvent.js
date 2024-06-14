@@ -12,7 +12,8 @@ export class OverWorldEvent {
       },
       {
         type: "walk",
-        direction: this.event.direction
+        direction: this.event.direction,
+        retry: true
       }
     )
 
