@@ -1,4 +1,5 @@
 import {GameObject} from "./GameObject"
+import {utils} from "../helpers/utils"
 
 export class Person extends GameObject {
   constructor(config) {
@@ -23,7 +24,7 @@ export class Person extends GameObject {
 
       //Case: keyboard ready and have any arrow pressed
       if (this.isPlayerControlled && state.arrow) {
-        this.stateBehavior(state, {
+        this.startBehavior(state, {
           type: "walk",
           direction: state.arrow
         })
@@ -32,19 +33,31 @@ export class Person extends GameObject {
     }
   }
 
-  stateBehavior(state, behavior) {
+  startBehavior(state, behavior) {
     // move to this direction
     this.direction = behavior.direction
+    
+    // walk behavior --------------------------
     if (behavior.type === "walk") {
-      // walls collisions true or false
-      if (state.walls.isSpaceTaken(this.x, this.y, this.direction)) {
+      // mapData collisions true or false
+      if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
         // stops moving when touches a wall
         return
       }
-      // moves the wall of the hero while he moves
-      state.walls.moveWall(this.x, this.y, this.direction)
       // ready to walk
+      // moves the wall of the hero while he moves
+      state.map.moveWall(this.x, this.y, this.direction)
       this.movementProgressRemaining = 16
+      this.updateSprite(state)
+    }
+
+    // stand behavior --------------------------
+    if(behavior.type === "stand") {
+      setTimeout(() => {
+        utils.emitEvent("PersonStandComplete", {
+          whoId: this.id,
+        })
+      }, behavior.time)
     }
   }
 
@@ -52,6 +65,15 @@ export class Person extends GameObject {
     const [property, change] = this.directionUpdate[this.direction]
     this[property] += change
     this.movementProgressRemaining -= 1
+
+    if(this.movementProgressRemaining === 0) {
+      
+      // finished walking!
+      utils.emitEvent("PersonWalkingComplete", {
+        whoId: this.id,
+      })
+    }
+
   }
 
   updateSprite() {

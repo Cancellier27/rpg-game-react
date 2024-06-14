@@ -36,6 +36,7 @@ export class Walking {
     this.animationFrameLimit = config.animationFrameLimit || 8
     this.animationFrameProgress = this.animationFrameLimit
 
+    // reference GameObject
     this.gameObject = config.gameObject
   }
 

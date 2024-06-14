@@ -11,8 +11,8 @@ import {DirectionInput} from "./GameObjects/DirectionInput"
 import {OverWorldMap} from "./GameObjects/OverWorldMap"
 
 export default function OverWorld() {
-  const [map, setMap] = useState("DemoRoom")
-  const [walls, setWalls] = useState({})
+  const [mapName, setMapName] = useState("DemoRoom")
+  const [mapData, setMapData] = useState(null)
   const [levelData, setLevelData] = useState(null)
   const [mapLower, setMapLower] = useState(null)
   const [mapUpper, setMapUpper] = useState(null)
@@ -22,23 +22,23 @@ export default function OverWorld() {
   const [directionInput, setDirectionInput] = useState(null)
 
   useEffect(() => {
-    setLevelData(OVERWORLD_MAPS[map])
-    setWalls(new OverWorldMap({map: map}))
+    setLevelData(OVERWORLD_MAPS[mapName])
+    setMapData(new OverWorldMap({map: mapName}))
     setDirectionInput(new DirectionInput())
 
     // starts gameloop when both variables are fulfilled
-    if (levelData && directionInput && walls) {
-      directionInput.init()
+    if (levelData && directionInput && mapData) {
       startGameLoop()
     }
   }, [levelData])
+  
 
   function gameLoopStepWork(delta) {
     Object.values(levelData.gameObjects).forEach((object) => {
       object.update({
         delta, // timeStamp variable to maybe use on characters
         arrow: directionInput.direction,
-        walls: walls
+        map: mapData
       })
     })
 
@@ -57,8 +57,9 @@ export default function OverWorld() {
   }
 
   function startGameLoop() {
-    // create dynamic walls for the npcs and for the hero when he moves
-    walls.mountObjects()
+    // create dynamic mapData for the npcs and for the hero when he moves
+    mapData.mountObjects()
+    directionInput.init()
 
     let previousMs
     const step = 1 / 60 // setting to 60 fps for all refresh rates

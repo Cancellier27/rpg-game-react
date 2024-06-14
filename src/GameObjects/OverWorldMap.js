@@ -7,6 +7,8 @@ export class OverWorldMap {
     // walls collision coordinates object
     this.walls = OVERWORLD_MAPS[this.map].walls || {}
     this.gameObjects = OVERWORLD_MAPS[this.map].gameObjects || {}
+
+    this.isCutscenePlaying = false
   }
 
   isSpaceTaken(currentX, currentY, direction) {

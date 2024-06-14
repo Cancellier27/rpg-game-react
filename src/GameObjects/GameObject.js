@@ -1,4 +1,5 @@
 import {Walking} from "./Walking"
+import {OverWorldEvent} from "./OverWorldEvent"
 
 export class GameObject {
   constructor(config) {
@@ -10,8 +11,7 @@ export class GameObject {
     this.direction = config.direction || "down"
     this.size = config.size || 32
     this.shadow = config.shadow || true
-    this.requireImageUrl =
-      config.src || require("../images/characters/people/hero.png")
+    this.requireImageUrl = config.src || require("../images/characters/people/hero.png")
     this.walking = new Walking({
       gameObject: this
     })
@@ -45,7 +45,7 @@ export class GameObject {
     eventConfig.who = this.id
 
     // create an event instance out of our next event config
-    const eventHandler = new overWorldEvent({map, event: eventConfig})
+    const eventHandler = new OverWorldEvent({map: map, event: eventConfig})
     await eventHandler.init()
 
     // restart the loop 
