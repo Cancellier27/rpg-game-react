@@ -17,6 +17,13 @@ export const OVERWORLD_MAPS = {
         y: utils.withGrid(9),
         src: require("../images/characters/people/npc1.png")
       })
+    },
+    walls: {
+      // walls collisions based on map
+      [utils.asGridCoord(7, 6)]: true,
+      [utils.asGridCoord(8, 6)]: true,
+      [utils.asGridCoord(7, 7)]: true,
+      [utils.asGridCoord(8, 7)]: true
     }
   },
   Kitchen: {

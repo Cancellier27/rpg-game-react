@@ -2,6 +2,7 @@ import {Walking} from "./Walking"
 
 export class GameObject {
   constructor(config) {
+    this.isMounted = false
     this.type = config.type || "npc"
     this.x = config.x || 0
     this.y = config.y || 0
@@ -13,6 +14,11 @@ export class GameObject {
     this.walking = new Walking({
       gameObject: this
     })
+  }
+
+  mount(map) {
+    this.isMounted = true
+    map.addWall(this.x, this.y)
   }
 
   update() {}

@@ -8,8 +8,11 @@ import MapSprite from "./components/MapSprite"
 
 // Classes
 import {DirectionInput} from "./GameObjects/DirectionInput"
+import {OverWorldCollisions} from "./GameObjects/OverWorldCollisions"
 
 export default function OverWorld() {
+  const [map, setMap] = useState("DemoRoom")
+  const [walls, setWalls] = useState({})
   const [levelData, setLevelData] = useState(null)
   const [mapLower, setMapLower] = useState(null)
   const [mapUpper, setMapUpper] = useState(null)
@@ -19,11 +22,12 @@ export default function OverWorld() {
   const [directionInput, setDirectionInput] = useState(null)
 
   useEffect(() => {
-    setLevelData(OVERWORLD_MAPS.DemoRoom)
+    setLevelData(OVERWORLD_MAPS[map])
+    setWalls(new OverWorldCollisions({map: map}))
     setDirectionInput(new DirectionInput())
 
     // starts gameloop when both variables are fulfilled
-    if (levelData && directionInput) {
+    if (levelData && directionInput && walls) {
       directionInput.init()
       startGameLoop()
     }
@@ -33,7 +37,8 @@ export default function OverWorld() {
     Object.values(levelData.gameObjects).forEach((object) => {
       object.update({
         delta, // timeStamp variable to maybe use on characters
-        arrow: directionInput.direction
+        arrow: directionInput.direction,
+        walls: walls
       })
     })
 
@@ -52,6 +57,9 @@ export default function OverWorld() {
   }
 
   function startGameLoop() {
+    // create dynamic walls for the npcs and for the hero when he moves
+    walls.mountObjects()
+
     let previousMs
     const step = 1 / 60 // setting to 60 fps for all refresh rates
 
