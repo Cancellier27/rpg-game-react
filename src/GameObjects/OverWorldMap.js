@@ -1,5 +1,6 @@
 import {utils} from "../helpers/utils"
 import {OVERWORLD_MAPS} from "../helpers/maps"
+import {OverWorldEvent} from "./OverWorldEvent"
 
 export class OverWorldMap {
   constructor(config) {
@@ -18,13 +19,28 @@ export class OverWorldMap {
 
   mountObjects() {
     Object.keys(this.gameObjects).forEach((key) => {
-
       let object = this.gameObjects[key]
       object.id = key
 
       // determine if the object should actually mount
       object.mount(this)
     })
+  }
+
+  async startCutscene(events) {
+    // frezes screen
+    this.isCutscenePlaying = true
+
+    for (let i = 0; i < events.length; i++) {
+      const eventHandler = new OverWorldEvent({
+        map: this,
+        event: events[i]
+      })
+      await eventHandler.init()
+    }
+
+    // resume movements
+    this.isCutscenePlaying = false
   }
 
   //  add a new wall to the object

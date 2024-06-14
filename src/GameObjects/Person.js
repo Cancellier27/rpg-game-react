@@ -23,7 +23,7 @@ export class Person extends GameObject {
       // more cases for starting loop
 
       //Case: keyboard ready and have any arrow pressed
-      if (this.isPlayerControlled && state.arrow) {
+      if (!state.map.isCutscenePlaying && this.isPlayerControlled && state.arrow) {
         this.startBehavior(state, {
           type: "walk",
           direction: state.arrow
@@ -41,6 +41,8 @@ export class Person extends GameObject {
     if (behavior.type === "walk") {
       // stop here is space is not free
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+
+        // retry the npc automatic movement every 1 sec
         behavior.retry && setTimeout(() => {
           this.startBehavior(state, behavior)
         }, 1000)

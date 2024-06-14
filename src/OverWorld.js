@@ -62,8 +62,15 @@ export default function OverWorld() {
 
   function startGameLoop() {
     // create dynamic mapData for the npcs and for the hero when he moves
-    mapData.mountObjects()
     directionInput.init()
+    mapData.mountObjects()
+    mapData.startCutscene([
+      {who: "hero", type: "walk", direction: "down"},
+      {who: "hero", type: "walk", direction: "down"},
+      {who: "hero", type: "walk", direction: "down"},
+      {who: "npcA", type: "walk", direction: "left"},
+      {who: "npcA", type: "stand", direction: "up", time: 800},
+    ])
 
     let previousMs
     const step = 1 / 60 // setting to 60 fps for all refresh rates
