@@ -15,8 +15,13 @@ export class OverWorldCollisions {
   }
 
   mountObjects() {
-    Object.values(this.gameObjects).forEach((obj) => {
-      obj.mount(this)
+    Object.keys(this.gameObjects).forEach((key) => {
+
+      let object = this.gameObjects[key]
+      object.id = key
+
+      // determine if the object should actually mount
+      object.mount(this)
     })
   }
 

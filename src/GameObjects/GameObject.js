@@ -2,6 +2,7 @@ import {Walking} from "./Walking"
 
 export class GameObject {
   constructor(config) {
+    this.id = null
     this.isMounted = false
     this.type = config.type || "npc"
     this.x = config.x || 0
@@ -14,14 +15,41 @@ export class GameObject {
     this.walking = new Walking({
       gameObject: this
     })
+
+    this.behaviorLoop = config.behaviorLoop || []
+    this.behaviorLoopIndex = 0
   }
 
   mount(map) {
     this.isMounted = true
     map.addWall(this.x, this.y)
+
+    // If we have a behavior, kick off after a short delay
+    setTimeout(() => {
+      this.doBehaviorEvent(map)
+    }, 10)
   }
 
   update() {}
+
+  // executes the behavior on the map data for each object
+  async doBehaviorEvent(map) {
+    let eventConfig = this.behaviorLoop[this.behaviorLoopIndex]
+    eventConfig.who = this.id
+
+    const eventHandler = new overWorldEvent({map, event: eventConfig})
+    await eventHandler.init()
+
+    // restart the loop 
+    this.behaviorLoopIndex += 1
+    if(this.behaviorLoopIndex === this.behaviorLoop.length) {
+      this.behaviorLoopIndex = 0
+    }
+
+    // calls itself again!
+    this.doBehaviorEvent(map)
+ 
+  }
 
   getState() {
     return {
