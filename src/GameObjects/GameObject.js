@@ -34,9 +34,17 @@ export class GameObject {
 
   // executes the behavior on the map data for each object
   async doBehaviorEvent(map) {
+
+    // don't do anything is there is a cutscene playing or there is not config to be ran from the object
+    if(map.isCutscenePlaying || this.behaviorLoop.length === 0) {
+      return
+    }
+
+    // setting up the behavior event
     let eventConfig = this.behaviorLoop[this.behaviorLoopIndex]
     eventConfig.who = this.id
 
+    // create an event instance out of our next event config
     const eventHandler = new overWorldEvent({map, event: eventConfig})
     await eventHandler.init()
 

@@ -1,7 +1,7 @@
 import {utils} from "../helpers/utils"
 import {OVERWORLD_MAPS} from "../helpers/maps"
 
-export class OverWorldCollisions {
+export class OverWorldMap {
   constructor(config) {
     this.map = config.map
     // walls collision coordinates object

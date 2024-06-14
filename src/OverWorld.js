@@ -8,7 +8,7 @@ import MapSprite from "./components/MapSprite"
 
 // Classes
 import {DirectionInput} from "./GameObjects/DirectionInput"
-import {OverWorldCollisions} from "./GameObjects/OverWorldCollisions"
+import {OverWorldMap} from "./GameObjects/OverWorldMap"
 
 export default function OverWorld() {
   const [map, setMap] = useState("DemoRoom")
@@ -23,7 +23,7 @@ export default function OverWorld() {
 
   useEffect(() => {
     setLevelData(OVERWORLD_MAPS[map])
-    setWalls(new OverWorldCollisions({map: map}))
+    setWalls(new OverWorldMap({map: map}))
     setDirectionInput(new DirectionInput())
 
     // starts gameloop when both variables are fulfilled
