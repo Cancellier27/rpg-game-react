@@ -5,10 +5,12 @@ import "./components.css"
 // React components
 import Sprite from "./Sprite"
 import MapSprite from "./MapSprite"
+import TextBalloon from "./TextBalloon"
 
 // Classes
 import {DirectionInput} from "../GameObjects/DirectionInput"
 import {OverWorldMap} from "../GameObjects/OverWorldMap"
+import {TextMessage} from "../GameObjects/TextMessage"
 
 export default function OverWorld() {
   const [mapName, setMapName] = useState("DemoRoom")
@@ -16,10 +18,17 @@ export default function OverWorld() {
   const [levelData, setLevelData] = useState(null)
   const [mapLower, setMapLower] = useState(null)
   const [mapUpper, setMapUpper] = useState(null)
+  const [textMessageObj, setTextMessageObj] = useState(
+    new TextMessage({
+      text: "",
+      onComplete: () => null
+    })
+  )
   const [isLoaded, setIsLoaded] = useState(false)
   const [cameraPerson, setCameraPerson] = useState(null)
   const [gameObjects, setGameObjects] = useState([])
   const [directionInput, setDirectionInput] = useState(null)
+  const [isMessageDisplayed, setIsMessageDisplayed] = useState(false)
 
   useEffect(() => {
     setLevelData(OVERWORLD_MAPS[mapName])
@@ -63,13 +72,19 @@ export default function OverWorld() {
     // create dynamic mapData for the npcs and for the hero when he moves
     directionInput.init()
     mapData.mountObjects()
-    mapData.startCutscene([
-      {who: "hero", type: "walk", direction: "down"},
-      {who: "hero", type: "walk", direction: "down"},
-      {who: "hero", type: "walk", direction: "down"},
-      {who: "npcA", type: "walk", direction: "left"},
-      {who: "npcA", type: "stand", direction: "up", time: 800}
-    ])
+    mapData.startCutscene(
+      [
+        {who: "hero", type: "walk", direction: "down"},
+        {who: "hero", type: "walk", direction: "down"},
+        {who: "npcA", type: "walk", direction: "left"},
+        {who: "npcA", type: "walk", direction: "left"},
+        {who: "npcA", type: "stand", direction: "up", time: 100},
+        {type: "textMessage", text: "Hello Thereeeeee!"},
+        {who: "npcA", type: "walk", direction: "right"},
+        {who: "npcA", type: "walk", direction: "right"},
+      ],
+      textMessageObj, setIsMessageDisplayed
+    )
 
     let previousMs
     const step = 1 / 60 // setting to 60 fps for all refresh rates
@@ -95,7 +110,7 @@ export default function OverWorld() {
   }
 
   return (
-    <>
+    <div className="overWorld-container">
       {/* draw lower layer map */}
       {isLoaded && (
         <div className="overWorld-map-lower">
@@ -133,6 +148,14 @@ export default function OverWorld() {
           />
         </div>
       )}
-    </>
+
+      {isMessageDisplayed && (
+        <TextBalloon
+          text={textMessageObj.getState()}
+          setIsMessageDisplayed={setIsMessageDisplayed}
+          textMessageObj={textMessageObj}
+        />
+      )}
+    </div>
   )
 }

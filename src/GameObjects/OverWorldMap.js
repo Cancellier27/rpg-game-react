@@ -27,7 +27,7 @@ export class OverWorldMap {
     })
   }
 
-  async startCutscene(events) {
+  async startCutscene(events, textMessageObj, setIsMessageDisplayed) {
     // frezes screen
     this.isCutscenePlaying = true
 
@@ -37,14 +37,21 @@ export class OverWorldMap {
         map: this,
         event: events[i]
       })
-      await eventHandler.init()
+      if (events[i].type === "textMessage") {
+        setIsMessageDisplayed(true)
+        await eventHandler.init(textMessageObj)
+      } else {
+        await eventHandler.init()
+      }
     }
 
     // resume movements
     this.isCutscenePlaying = false
 
     // reset NPCs to redo their behavior
-    Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
+    Object.values(this.gameObjects).forEach((object) =>
+      object.doBehaviorEvent(this)
+    )
   }
 
   //  add a new wall to the object

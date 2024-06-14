@@ -1,3 +1,5 @@
+import { TextMessage } from "./TextMessage"
+
 export class OverWorldEvent {
   constructor({map, event}) {
     this.map = map
@@ -51,9 +53,21 @@ export class OverWorldEvent {
     document.addEventListener("PersonStandComplete", completeHandler)
   }
 
-  init() {
-    return new Promise((resolve) => {
-      this[this.event.type](resolve)
-    })
+  textMessage(resolve, obj) {
+    obj.text = this.event.text
+    obj.onComplete = () => resolve()
+
+  }
+
+  init(obj = null) {
+    if(obj === null) {
+      return new Promise((resolve) => {
+        this[this.event.type](resolve)
+      })
+    } else {
+      return new Promise((resolve) => {
+        this.textMessage(resolve, obj)
+      })
+    } 
   }
 }

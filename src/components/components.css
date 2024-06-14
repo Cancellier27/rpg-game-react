@@ -16,6 +16,11 @@
 
 /* OverWorld ------------------ */
 
+.overWorld-container {
+  width: 100%;
+  height: 100%;
+}
+
 .overWorld-map-lower {
   z-index: 0;
 }
@@ -24,8 +29,8 @@
   z-index: 20;
 }
 
-/* TextBaloom -------------- */
-.TextMessage {
+/* TextBalloon -------------- */
+.text-message {
   position: absolute;
   left: 0;
   right: 0;
@@ -35,12 +40,13 @@
   background: var(--menu-background);
   border-top: 1px solid var(--menu-border-color);
   color: var(--menu-font-color);
+  z-index: 30;
 }
-.TextMessage_p {
+.text-message-p {
   margin: 0;
   font-size: 12px;
 }
-.TextMessage_button {
+.text-message-button {
   margin: 0;
   font-size: 8px;
   padding: 0;
