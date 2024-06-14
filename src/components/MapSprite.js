@@ -29,7 +29,7 @@ export default function MapSprite({requireImageUrl, cameraPerson}) {
 
   return (
     <canvas
-      className="game-canvas"
+      className="map-canvas"
       width={CANVAS_SIZE.X}
       height={CANVAS_SIZE.Y}
       ref={canvasRef}

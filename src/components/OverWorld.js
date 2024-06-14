@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from "react"
-import {OVERWORLD_MAPS} from "./helpers/maps"
-import "./OverWorld.css"
+import {OVERWORLD_MAPS} from "../helpers/maps"
+import "./components.css"
 
 // React components
-import Sprite from "./components/Sprite"
-import MapSprite from "./components/MapSprite"
+import Sprite from "./Sprite"
+import MapSprite from "./MapSprite"
 
 // Classes
-import {DirectionInput} from "./GameObjects/DirectionInput"
-import {OverWorldMap} from "./GameObjects/OverWorldMap"
+import {DirectionInput} from "../GameObjects/DirectionInput"
+import {OverWorldMap} from "../GameObjects/OverWorldMap"
 
 export default function OverWorld() {
   const [mapName, setMapName] = useState("DemoRoom")
@@ -31,7 +31,6 @@ export default function OverWorld() {
       startGameLoop()
     }
   }, [levelData])
-  
 
   function gameLoopStepWork(delta) {
     Object.values(levelData.gameObjects).forEach((object) => {
@@ -50,7 +49,7 @@ export default function OverWorld() {
       object.getState()
     )
     // sort the array to be in Y order of rendering
-    gameObjectsArray.sort((a,b) => {
+    gameObjectsArray.sort((a, b) => {
       return a.frameCoord[1] - b.frameCoord[1]
     })
 
@@ -69,7 +68,7 @@ export default function OverWorld() {
       {who: "hero", type: "walk", direction: "down"},
       {who: "hero", type: "walk", direction: "down"},
       {who: "npcA", type: "walk", direction: "left"},
-      {who: "npcA", type: "stand", direction: "up", time: 800},
+      {who: "npcA", type: "stand", direction: "up", time: 800}
     ])
 
     let previousMs
@@ -99,7 +98,7 @@ export default function OverWorld() {
     <>
       {/* draw lower layer map */}
       {isLoaded && (
-        <div className="map-lower" style={{zIndex: 0}}>
+        <div className="overWorld-map-lower">
           <MapSprite
             requireImageUrl={mapLower}
             cameraPerson={cameraPerson}
@@ -126,7 +125,7 @@ export default function OverWorld() {
 
       {/* draw upper layer map */}
       {isLoaded && (
-        <div className="map-upper" style={{zIndex: 20}}>
+        <div className="overWorld-map-upper">
           <MapSprite
             requireImageUrl={mapUpper}
             cameraPerson={cameraPerson}

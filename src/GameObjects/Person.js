@@ -5,6 +5,7 @@ export class Person extends GameObject {
   constructor(config) {
     super(config)
     this.movementProgressRemaining = 0
+    this.isStanding = false
 
     this.isPlayerControlled = config.isPlayerControlled || false
 
@@ -23,7 +24,11 @@ export class Person extends GameObject {
       // more cases for starting loop
 
       //Case: keyboard ready and have any arrow pressed
-      if (!state.map.isCutscenePlaying && this.isPlayerControlled && state.arrow) {
+      if (
+        !state.map.isCutscenePlaying &&
+        this.isPlayerControlled &&
+        state.arrow
+      ) {
         this.startBehavior(state, {
           type: "walk",
           direction: state.arrow
@@ -36,16 +41,16 @@ export class Person extends GameObject {
   startBehavior(state, behavior) {
     // move to this direction
     this.direction = behavior.direction
-    
+
     // walk behavior --------------------------
     if (behavior.type === "walk") {
       // stop here is space is not free
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
-
         // retry the npc automatic movement every 1 sec
-        behavior.retry && setTimeout(() => {
-          this.startBehavior(state, behavior)
-        }, 1000)
+        behavior.retry &&
+          setTimeout(() => {
+            this.startBehavior(state, behavior)
+          }, 1000)
         return
       }
       // ready to walk
@@ -56,12 +61,14 @@ export class Person extends GameObject {
     }
 
     // stand behavior --------------------------
-    if(behavior.type === "stand") {
+    if (behavior.type === "stand") {
+      this.isStanding = true
       setTimeout(() => {
         utils.emitEvent("PersonStandComplete", {
-          whoId: this.id,
+          whoId: this.id
         })
       }, behavior.time)
+      this.isStanding = false
     }
   }
 
@@ -70,14 +77,12 @@ export class Person extends GameObject {
     this[property] += change
     this.movementProgressRemaining -= 1
 
-    if(this.movementProgressRemaining === 0) {
-      
+    if (this.movementProgressRemaining === 0) {
       // finished walking!
       utils.emitEvent("PersonWalkingComplete", {
-        whoId: this.id,
+        whoId: this.id
       })
     }
-
   }
 
   updateSprite() {

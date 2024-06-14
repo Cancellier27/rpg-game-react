@@ -31,6 +31,7 @@ export class OverWorldMap {
     // frezes screen
     this.isCutscenePlaying = true
 
+    // do the cutscene
     for (let i = 0; i < events.length; i++) {
       const eventHandler = new OverWorldEvent({
         map: this,
@@ -41,6 +42,9 @@ export class OverWorldMap {
 
     // resume movements
     this.isCutscenePlaying = false
+
+    // reset NPCs to redo their behavior
+    Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
   }
 
   //  add a new wall to the object

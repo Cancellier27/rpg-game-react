@@ -1,5 +1,4 @@
-import OverWorld from "./OverWorld"
-
+import OverWorld from "./components/OverWorld"
 
 function App() {
   return <OverWorld />

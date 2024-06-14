@@ -59,7 +59,7 @@ export default function Sprite({
 
   return (
     <canvas
-      className="game-canvas"
+      className="sprite-canvas"
       width={CANVAS_SIZE.X}
       height={CANVAS_SIZE.Y}
       ref={canvasRef}
