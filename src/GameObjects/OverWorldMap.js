@@ -27,8 +27,8 @@ export class OverWorldMap {
     })
   }
 
-  async startCutscene(events, textMessageObj, setIsMessageDisplayed) {
-    // frezes screen
+  async startCutscene(events, setIsMessageDisplayed = null) {
+    // fezes screen
     this.isCutscenePlaying = true
 
     // do the cutscene
@@ -37,9 +37,10 @@ export class OverWorldMap {
         map: this,
         event: events[i]
       })
+      // checks if it is a textMessage cutscene 
       if (events[i].type === "textMessage") {
         setIsMessageDisplayed(true)
-        await eventHandler.init(textMessageObj)
+        await eventHandler.init()
       } else {
         await eventHandler.init()
       }

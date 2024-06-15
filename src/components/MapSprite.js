@@ -1,6 +1,6 @@
 import "./components.css"
 
-import {useEffect, useRef, useState} from "react"
+import {useEffect, useRef} from "react"
 import {CANVAS_SIZE} from "../helpers/consts"
 import {utils} from "../helpers/utils"
 

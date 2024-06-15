@@ -1,6 +1,6 @@
 import "./components.css"
 
-export default function TextBalloon({text, setIsMessageDisplayed, textMessageObj}) {
+export default function TextBalloon({setIsMessageDisplayed, textMessageObj}) {
 
   function onClickHandler() {
     setIsMessageDisplayed(false)
@@ -9,7 +9,7 @@ export default function TextBalloon({text, setIsMessageDisplayed, textMessageObj
 
   return (
     <div className="text-message">
-      <p className="text-message-p">{text}</p>
+      <p className="text-message-p">{textMessageObj.getState()}</p>
       <button className="text-message-button" onClick={onClickHandler} >Next</button>
     </div>
   )

@@ -10,7 +10,7 @@ import TextBalloon from "./TextBalloon"
 // Classes
 import {DirectionInput} from "../GameObjects/DirectionInput"
 import {OverWorldMap} from "../GameObjects/OverWorldMap"
-import {TextMessage} from "../GameObjects/TextMessage"
+import {textMessageObj} from "../GameObjects/OverWorldEvent"
 
 export default function OverWorld() {
   const [mapName, setMapName] = useState("DemoRoom")
@@ -18,12 +18,6 @@ export default function OverWorld() {
   const [levelData, setLevelData] = useState(null)
   const [mapLower, setMapLower] = useState(null)
   const [mapUpper, setMapUpper] = useState(null)
-  const [textMessageObj, setTextMessageObj] = useState(
-    new TextMessage({
-      text: "",
-      onComplete: () => null
-    })
-  )
   const [isLoaded, setIsLoaded] = useState(false)
   const [cameraPerson, setCameraPerson] = useState(null)
   const [gameObjects, setGameObjects] = useState([])
@@ -39,7 +33,7 @@ export default function OverWorld() {
     if (levelData && directionInput && mapData) {
       startGameLoop()
     }
-  }, [levelData])
+  }, [levelData, mapName])
 
   function gameLoopStepWork(delta) {
     Object.values(levelData.gameObjects).forEach((object) => {
@@ -80,11 +74,10 @@ export default function OverWorld() {
         {who: "npcA", type: "walk", direction: "left"},
         {who: "npcA", type: "stand", direction: "up", time: 100},
         {type: "textMessage", text: "Hello Thereeeeee!"},
+        {type: "textMessage", text: "see ya"},
         {who: "npcA", type: "walk", direction: "right"},
         {who: "npcA", type: "walk", direction: "right"},
-      ],
-      textMessageObj, setIsMessageDisplayed
-    )
+      ], setIsMessageDisplayed)
 
     let previousMs
     const step = 1 / 60 // setting to 60 fps for all refresh rates
@@ -151,7 +144,6 @@ export default function OverWorld() {
 
       {isMessageDisplayed && (
         <TextBalloon
-          text={textMessageObj.getState()}
           setIsMessageDisplayed={setIsMessageDisplayed}
           textMessageObj={textMessageObj}
         />
