@@ -11,6 +11,7 @@ import TextBalloon from "./TextBalloon"
 import {DirectionInput} from "../GameObjects/DirectionInput"
 import {OverWorldMap} from "../GameObjects/OverWorldMap"
 import {textMessageObj} from "../GameObjects/OverWorldEvent"
+import { KeyPressListener } from "../GameObjects/KeyPressListener"
 
 export default function OverWorld() {
   const [mapName, setMapName] = useState("DemoRoom")
@@ -66,18 +67,19 @@ export default function OverWorld() {
     // create dynamic mapData for the npcs and for the hero when he moves
     directionInput.init()
     mapData.mountObjects()
-    mapData.startCutscene(
-      [
-        {who: "hero", type: "walk", direction: "down"},
-        {who: "hero", type: "walk", direction: "down"},
-        {who: "npcA", type: "walk", direction: "left"},
-        {who: "npcA", type: "walk", direction: "left"},
-        {who: "npcA", type: "stand", direction: "up", time: 100},
-        {type: "textMessage", text: "Hello Thereeeeee!"},
-        {type: "textMessage", text: "see ya"},
-        {who: "npcA", type: "walk", direction: "right"},
-        {who: "npcA", type: "walk", direction: "right"},
-      ], setIsMessageDisplayed)
+    // mapData.startCutscene(
+    //   [
+    //     {who: "hero", type: "walk", direction: "down"},
+    //     {who: "hero", type: "walk", direction: "down"},
+    //     {who: "npcA", type: "walk", direction: "left"},
+    //     {who: "npcA", type: "walk", direction: "left"},
+    //     {who: "npcA", type: "stand", direction: "up", time: 100},
+    //     {type: "textMessage", text: "Hello Thereeeeee!"},
+    //     {type: "textMessage", text: "see ya"},
+    //     {who: "npcA", type: "walk", direction: "right"},
+    //     {who: "npcA", type: "walk", direction: "right"},
+    //   ], setIsMessageDisplayed)
+    bindActionInput()
 
     let previousMs
     const step = 1 / 60 // setting to 60 fps for all refresh rates
@@ -100,6 +102,13 @@ export default function OverWorld() {
 
     // First tick
     requestAnimationFrame(stepFn)
+  }
+
+  function bindActionInput() {
+    new KeyPressListener("Enter", () => {
+      // Is there anyone to talk here?
+      mapData.checkForActionCutscene()
+    })
   }
 
   return (

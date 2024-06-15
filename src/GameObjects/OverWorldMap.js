@@ -37,7 +37,7 @@ export class OverWorldMap {
         map: this,
         event: events[i]
       })
-      // checks if it is a textMessage cutscene 
+      // checks if it is a textMessage cutscene
       if (events[i].type === "textMessage") {
         setIsMessageDisplayed(true)
         await eventHandler.init()
@@ -53,6 +53,16 @@ export class OverWorldMap {
     Object.values(this.gameObjects).forEach((object) =>
       object.doBehaviorEvent(this)
     )
+  }
+
+  // check is there is anyone in front of hero.
+  checkForActionCutscene() {
+    const hero = this.gameObjects.hero
+    const nextCoord = utils.nextPosition(hero.x, hero.y, hero.direction)
+    const match = Object.values(this.gameObjects).find((object) => {
+      return `${object.x},${object.y}` === `${nextCoord.x},${nextCoord.y}`
+    })
+    console.log(match)
   }
 
   //  add a new wall to the object
