@@ -25,7 +25,7 @@ export const OVERWORLD_MAPS = {
         talking: [
           {
             events: [
-              {type: "textMessage", text: "Hello Thereeeeee!"},
+              {type: "textMessage", text: "Hello Thereeeeee!", faceHero: "npcA"},
               {type: "textMessage", text: "See ya around"},
               {who: "hero", type: "walk", direction: "left"},
             ]

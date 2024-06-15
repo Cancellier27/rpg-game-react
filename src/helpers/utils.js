@@ -31,10 +31,20 @@ export const utils = {
     return {x, y}
   },
 
-  emitEvent(name, detail) {
-      const event = new CustomEvent(name, {
-        detail: detail
-      })
-      document.dispatchEvent(event)
+  oppositeDirection(direction) {
+    if (direction === "right") {
+      return "left"
+    } else if (direction === "left") {
+      return "right"
+    } else if (direction === "up") {
+      return "down"
+    } else return "up"
   },
+
+  emitEvent(name, detail) {
+    const event = new CustomEvent(name, {
+      detail: detail
+    })
+    document.dispatchEvent(event)
+  }
 }

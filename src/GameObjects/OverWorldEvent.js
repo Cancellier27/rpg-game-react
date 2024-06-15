@@ -1,4 +1,5 @@
 import { TextMessage } from "./TextMessage"
+import { utils } from "../helpers/utils"
 
 export const textMessageObj = new TextMessage({
   text: "",
@@ -59,6 +60,11 @@ export class OverWorldEvent {
   }
 
   textMessage(resolve) {
+    if (this.event.faceHero) {
+      const obj = this.map.gameObjects[this.event.faceHero]
+      obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
+    }
+
     textMessageObj.text = this.event.text
     textMessageObj.onComplete = () => resolve()
     textMessageObj.isShowingMessage = true
