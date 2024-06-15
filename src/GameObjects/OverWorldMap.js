@@ -56,13 +56,16 @@ export class OverWorldMap {
   }
 
   // check is there is anyone in front of hero.
-  checkForActionCutscene() {
+  checkForActionCutscene(setIsMessageDisplayed) {
     const hero = this.gameObjects.hero
     const nextCoord = utils.nextPosition(hero.x, hero.y, hero.direction)
     const match = Object.values(this.gameObjects).find((object) => {
       return `${object.x},${object.y}` === `${nextCoord.x},${nextCoord.y}`
     })
-    console.log(match)
+    // fires a cutscene when hero finds another npc and press enter
+    if(!this.isCutscenePlaying && match && match.talking.length) {
+      this.startCutscene(match.talking[0].events, setIsMessageDisplayed)
+    }
   }
 
   //  add a new wall to the object

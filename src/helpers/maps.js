@@ -21,6 +21,15 @@ export const OVERWORLD_MAPS = {
           {type: "stand", direction: "up", time: 800},
           {type: "stand", direction: "right", time: 1200},
           {type: "stand", direction: "up", time: 1200},
+        ],
+        talking: [
+          {
+            events: [
+              {type: "textMessage", text: "Hello Thereeeeee!"},
+              {type: "textMessage", text: "See ya around"},
+              {who: "hero", type: "walk", direction: "left"},
+            ]
+          }
         ]
       }),
       npcB: new Person({

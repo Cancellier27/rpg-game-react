@@ -107,7 +107,7 @@ export default function OverWorld() {
   function bindActionInput() {
     new KeyPressListener("Enter", () => {
       // Is there anyone to talk here?
-      mapData.checkForActionCutscene()
+      mapData.checkForActionCutscene(setIsMessageDisplayed)
     })
   }
 
