@@ -3,7 +3,6 @@ export class TextMessage {
     this.text = text || ""
     this.onComplete = onComplete || {}
     this.element = null
-    this.isShowingMessage = false
   }
 
   getState() {
