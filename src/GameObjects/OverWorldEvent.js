@@ -1,10 +1,5 @@
-import { TextMessage } from "./TextMessage"
+import { textMessageObj } from "../GameObjects/classes"
 import { utils } from "../helpers/utils"
-
-export const textMessageObj = new TextMessage({
-  text: "",
-  onComplete: null
-})
 
 export class OverWorldEvent {
   constructor({map, event}) {
@@ -67,7 +62,11 @@ export class OverWorldEvent {
 
     textMessageObj.text = this.event.text
     textMessageObj.onComplete = () => resolve()
-    textMessageObj.isShowingMessage = true
+  }
+
+  changeMap(resolve) {
+    this.map.map = this.event.map
+    resolve()
   }
 
   init() {

@@ -1,13 +1,16 @@
-import {utils} from "../helpers/utils"
 import {OVERWORLD_MAPS} from "../helpers/maps"
+import {utils} from "../helpers/utils"
 import {OverWorldEvent} from "./OverWorldEvent"
 
 export class OverWorldMap {
   constructor(config) {
     this.map = config.map
-    // walls collision coordinates object
+
+    this.overWorld = null
+
     this.walls = OVERWORLD_MAPS[this.map].walls || {}
     this.gameObjects = OVERWORLD_MAPS[this.map].gameObjects || {}
+    this.cutsceneSpaces = OVERWORLD_MAPS[this.map].cutsceneSpaces || {}
 
     this.isCutscenePlaying = false
   }
@@ -27,7 +30,7 @@ export class OverWorldMap {
     })
   }
 
-  async startCutscene(events, setIsMessageDisplayed = null) {
+  async startCutscene(events, setMessage = null) {
     // fezes screen
     this.isCutscenePlaying = true
 
@@ -39,7 +42,7 @@ export class OverWorldMap {
       })
       // checks if it is a textMessage cutscene
       if (events[i].type === "textMessage") {
-        setIsMessageDisplayed(true)
+        setMessage(true)
         await eventHandler.init()
       } else {
         await eventHandler.init()
@@ -56,15 +59,23 @@ export class OverWorldMap {
   }
 
   // check is there is anyone in front of hero.
-  checkForActionCutscene(setIsMessageDisplayed) {
+  checkForActionCutscene(setMessage) {
     const hero = this.gameObjects.hero
     const nextCoord = utils.nextPosition(hero.x, hero.y, hero.direction)
     const match = Object.values(this.gameObjects).find((object) => {
       return `${object.x},${object.y}` === `${nextCoord.x},${nextCoord.y}`
     })
     // fires a cutscene when hero finds another npc and press enter
-    if(!this.isCutscenePlaying && match && match.talking.length) {
-      this.startCutscene(match.talking[0].events, setIsMessageDisplayed)
+    if (!this.isCutscenePlaying && match && match.talking.length) {
+      this.startCutscene(match.talking[0].events, setMessage)
+    }
+  }
+
+  checkForFootstepCutscene(setMessage) {
+    const hero = this.gameObjects["hero"]
+    const match = this.cutsceneSpaces[`${hero.x}, ${hero.y}`]
+    if (!this.isCutscenePlaying && match) {
+      this.startCutscene(match[0].events, setMessage)
     }
   }
 

@@ -1,17 +1,22 @@
 import "./components.css"
 import {KeyPressListener} from "../GameObjects/KeyPressListener"
-import {useEffect, useState} from "react"
-
-export default function TextBalloon({setIsMessageDisplayed, textMessageObj}) {
-  useEffect(() => {
+import {textMessageObj} from "../GameObjects/classes"
+import {useEffect} from "react"
+ 
+export default function TextBalloon({setIsMessageDisplayed}) {
+  
+  useEffect (() => {
+    console.log("rendering")
     return () => {
       const actionListener = new KeyPressListener("Enter", () => {
         actionListener.unbind()
         done()
+        console.log("enter")
       })
     }
-  }, [])
+  }, [setIsMessageDisplayed])
 
+    
   function onClickHandler() {
     done()
   }
@@ -20,6 +25,8 @@ export default function TextBalloon({setIsMessageDisplayed, textMessageObj}) {
     setIsMessageDisplayed(false)
     textMessageObj.onComplete()
   }
+  
+  
 
   return (
     <div className="text-message">

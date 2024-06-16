@@ -1,5 +1,4 @@
-import {useEffect, useRef, useState} from "react"
-import {OVERWORLD_MAPS} from "../helpers/maps"
+import {useEffect, useState} from "react"
 import "./components.css"
 
 // React components
@@ -8,48 +7,43 @@ import MapSprite from "./MapSprite"
 import TextBalloon from "./TextBalloon"
 
 // Classes
-import {DirectionInput} from "../GameObjects/DirectionInput"
-import {OverWorldMap} from "../GameObjects/OverWorldMap"
-import {textMessageObj} from "../GameObjects/OverWorldEvent"
-import { KeyPressListener } from "../GameObjects/KeyPressListener"
+import {overWorldMap, directionInput, map} from "../GameObjects/classes"
+import {KeyPressListener} from "../GameObjects/KeyPressListener"
+import {OVERWORLD_MAPS} from "../helpers/maps"
 
 export default function OverWorld() {
-  const [mapName, setMapName] = useState("DemoRoom")
-  const [mapData, setMapData] = useState(null)
-  const [levelData, setLevelData] = useState(null)
+  const [levelData, setLevelData] = useState(OVERWORLD_MAPS[`${overWorldMap.map}`])
   const [mapLower, setMapLower] = useState(null)
   const [mapUpper, setMapUpper] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [cameraPerson, setCameraPerson] = useState(null)
   const [gameObjects, setGameObjects] = useState([])
-  const [directionInput, setDirectionInput] = useState(null)
   const [isMessageDisplayed, setIsMessageDisplayed] = useState(false)
 
   useEffect(() => {
-    setLevelData(OVERWORLD_MAPS[mapName])
-    setMapData(new OverWorldMap({map: mapName}))
-    setDirectionInput(new DirectionInput())
+    // setoverWorldMap(overWorldMap)
+    // setLevelData(OVERWORLD_MAPS[`${overWorldMap.map}`])
+    console.log("go")
+    startGameLoop()
+    return  () => {
 
-    // starts gameloop when both variables are fulfilled
-    if (levelData && directionInput && mapData) {
-      startGameLoop()
     }
-  }, [levelData, mapName])
+  }, [])
 
   function gameLoopStepWork(delta) {
-    Object.values(levelData.gameObjects).forEach((object) => {
+    Object.values(map.gameObjects).forEach((object) => {
       object.update({
         delta, // timeStamp variable to maybe use on characters
         arrow: directionInput.direction,
-        map: mapData
+        map: overWorldMap
       })
     })
 
     // set camera person - hero
-    setCameraPerson(levelData.gameObjects.hero)
+    setCameraPerson(map.gameObjects.hero)
 
     // create an iterable array to get the objects elements
-    let gameObjectsArray = Object.values(levelData.gameObjects).map((object) =>
+    let gameObjectsArray = Object.values(map.gameObjects).map((object) =>
       object.getState()
     )
     // sort the array to be in Y order of rendering
@@ -57,34 +51,25 @@ export default function OverWorld() {
       return a.frameCoord[1] - b.frameCoord[1]
     })
 
-    setMapLower(levelData.lowerSrc)
-    setMapUpper(levelData.upperSrc)
+    setMapLower(map.lowerSrc)
+    setMapUpper(map.upperSrc)
     setGameObjects(gameObjectsArray)
     setIsLoaded(true)
   }
 
   function startGameLoop() {
-    // create dynamic mapData for the npcs and for the hero when he moves
+    // create dynamic overWorldMap for the npcs and for the hero when he moves
     directionInput.init()
-    mapData.mountObjects()
-    // mapData.startCutscene(
-    //   [
-    //     {who: "hero", type: "walk", direction: "down"},
-    //     {who: "hero", type: "walk", direction: "down"},
-    //     {who: "npcA", type: "walk", direction: "left"},
-    //     {who: "npcA", type: "walk", direction: "left"},
-    //     {who: "npcA", type: "stand", direction: "up", time: 100},
-    //     {type: "textMessage", text: "Hello Thereeeeee!"},
-    //     {type: "textMessage", text: "see ya"},
-    //     {who: "npcA", type: "walk", direction: "right"},
-    //     {who: "npcA", type: "walk", direction: "right"},
-    //   ], setIsMessageDisplayed)
+    overWorldMap.mountObjects()
     bindActionInput()
-
+    bindHeroPositionCheck()
     let previousMs
     const step = 1 / 60 // setting to 60 fps for all refresh rates
-
+    
+    // console.log(map)
+    // console.log(map.gameObjects)
     const stepFn = (timeStamp) => {
+
       if (previousMs === undefined) {
         previousMs = timeStamp
       }
@@ -107,7 +92,16 @@ export default function OverWorld() {
   function bindActionInput() {
     new KeyPressListener("Enter", () => {
       // Is there anyone to talk here?
-      mapData.checkForActionCutscene(setIsMessageDisplayed)
+      overWorldMap.checkForActionCutscene(setIsMessageDisplayed)
+    })
+  }
+
+  function bindHeroPositionCheck() {
+    document.addEventListener("PersonWalkingComplete", (event) => {
+      if (event.detail.whoId === "hero") {
+        // Hero's positing changed
+        overWorldMap.checkForFootstepCutscene(setIsMessageDisplayed)
+      }
     })
   }
 
@@ -152,10 +146,7 @@ export default function OverWorld() {
       )}
 
       {isMessageDisplayed && (
-        <TextBalloon
-          setIsMessageDisplayed={setIsMessageDisplayed}
-          textMessageObj={textMessageObj}
-        />
+        <TextBalloon setIsMessageDisplayed={setIsMessageDisplayed} />
       )}
     </div>
   )
