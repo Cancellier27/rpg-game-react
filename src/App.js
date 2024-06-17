@@ -7,13 +7,14 @@ import {
   spriteKitchenUpperImageAtom
 } from "./atoms/mapLevelSpritesImageAtom"
 import {
+  spriteShadowImageAtom,
   spriteHeroImageAtom,
   spriteNpc1ImageAtom,
   spriteNpc2ImageAtom,
   spriteNpc3ImageAtom
 } from "./atoms/npcLevelSpritesImageAtom"
 import {SPRITE_SHEET_SRC} from "./helpers/consts"
-import RenderLevel from "./components/RenderLevel"
+import RenderLevel from "./components/general/RenderLevel"
 
 function App() {
   // Maps
@@ -30,7 +31,10 @@ function App() {
     spriteKitchenUpperImageAtom
   )
 
-  // Npcs
+  // Npcs and shadow
+  
+  const [spriteShadowImage, setSpriteShadowImage] =
+    useRecoilState(spriteShadowImageAtom)
   const [spriteHeroImage, setSpriteHeroImage] =
     useRecoilState(spriteHeroImageAtom)
   const [spriteNpc1Image, setSpriteNpc1Image] =
@@ -74,8 +78,15 @@ function App() {
     }
   }, [setSpriteDemoRoomUpperImage, setSpriteKitchenUpperImage])
 
-  // NPCs
+  // NPCs and Shadow
   useEffect(() => {
+    // Shadow
+    const shadowImage = new Image()
+    shadowImage.src = SPRITE_SHEET_SRC.NpcShadow
+    shadowImage.onload = () => {
+      setSpriteShadowImage(shadowImage)
+    }
+
     // Hero
     const heroImage = new Image()
     heroImage.src = SPRITE_SHEET_SRC.Hero
@@ -104,6 +115,7 @@ function App() {
       setSpriteNpc3Image(npc3Image)
     }
   }, [
+    setSpriteShadowImage,
     setSpriteHeroImage,
     setSpriteNpc1Image,
     setSpriteNpc2Image,
@@ -116,6 +128,7 @@ function App() {
     !spriteKitchenLowerImage ||
     !spriteDemoRoomUpperImage ||
     !spriteKitchenUpperImage ||
+    !spriteShadowImage ||
     !spriteHeroImage ||
     !spriteNpc1Image ||
     !spriteNpc2Image ||

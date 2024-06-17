@@ -1,17 +1,18 @@
-import "./components.css"
-import {utils} from "../helpers/utils"
+import "./spritesComponents.css"
+import {utils} from "../../helpers/utils"
 import {useEffect, useRef} from "react"
-import { useRecoilValue } from "recoil";
-import {spriteDemoRoomLowerImageAtom} from "../atoms/mapLevelSpritesImageAtom"
-import {lowerMapsImages} from "../atoms/mapLevelSpritesImageAtom"
-import {currentLevelIdAtom} from "../atoms/currentLevelIdAtom"
-import {CANVAS_SIZE} from "../helpers/consts"
+import {useRecoilValue} from "recoil"
+import {lowerMapsImages} from "../../atoms/mapLevelSpritesImageAtom"
+import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
+import {CANVAS_SIZE} from "../../helpers/consts"
 
 export default function MapSprite({level}) {
-  // const mapSpriteImage = useRecoilValue(lowerMapsImages[currentLevelIdAtom])
+  // get the map id name used at the moment
   const mapId = useRecoilValue(currentLevelIdAtom)
+
+  // get the map image based on the map id
   const mapSpriteImage = useRecoilValue(lowerMapsImages[mapId])
-  
+
   const canvasRef = useRef()
 
   useEffect(() => {
@@ -25,7 +26,8 @@ export default function MapSprite({level}) {
 
     ctx.drawImage(
       mapSpriteImage, // Image to pull from
-      0,0
+      0,
+      0
       // utils.withGrid(10.5) // Left X corner of frame
       // utils.withGrid(6) // Top Y corner of frame
     )
@@ -33,10 +35,10 @@ export default function MapSprite({level}) {
 
   return (
     <canvas
+      ref={canvasRef}
       className="map-canvas"
       width={CANVAS_SIZE.X}
       height={CANVAS_SIZE.Y}
-      ref={canvasRef}
     />
   )
 }

@@ -1,0 +1,15 @@
+/* Sprite -------------------- */
+.sprite-canvas {
+  top: 0;
+  left: 0;
+  position: absolute;
+  image-rendering: pixelated;
+}
+
+/* MapSprite -------------------- */
+.map-canvas {
+  top: 0;
+  left: 0;
+  position: absolute;
+  image-rendering: pixelated;
+}

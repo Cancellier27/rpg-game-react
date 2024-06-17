@@ -1,4 +1,4 @@
-import "./components.css"
+import "./hud.css"
 import {KeyPressListener} from "../GameObjects/KeyPressListener"
 import {textMessageObj} from "../GameObjects/classes"
 import {useEffect} from "react"
