@@ -1,6 +1,6 @@
 import "./components.css"
 import {useEffect, useState} from "react"
-import {useRecoilValue} from "recoil"
+import {useRecoilState, useRecoilValue} from "recoil"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {OverWorld} from "../../classes/OverWorld"
 
@@ -9,7 +9,7 @@ import NpcsPlacementTiles from "./NpcsPlacementTiles"
 
 export default function RenderLevel() {
   const [level, setLevel] = useState(null)
-  const currentLevelId = useRecoilValue(currentLevelIdAtom)
+  const [currentLevelId, setCurrentLevelId] = useRecoilState(currentLevelIdAtom)
 
   useEffect(() => {
     // Create and subscribe to state changes
@@ -30,14 +30,24 @@ export default function RenderLevel() {
     return null
   }
 
+  function handleGoKitchen() {
+    let nextLevel = currentLevelId === "DemoRoom" ? "Kitchen" : "DemoRoom"
+    setCurrentLevelId(nextLevel)
+  }
+
   return (
-    <div className="overWorld-container">
-      <div className="overWorld-map-lower">
-        <BackgroundMapTiles level={level} />
-      </div>{" "}
-      <div className="overWorld-npcs">
-        <NpcsPlacementTiles level={level} />
+    <>
+      <div className="overWorld-container">
+        <div className="overWorld-map-lower">
+          <BackgroundMapTiles level={level} />
+        </div>{" "}
+        <div className="overWorld-npcs">
+          <NpcsPlacementTiles level={level} />
+        </div>
       </div>
-    </div>
+      <button style={{zIndex: 50}} onClick={handleGoKitchen}>
+        ChangeLevel
+      </button>
+    </>
   )
 }

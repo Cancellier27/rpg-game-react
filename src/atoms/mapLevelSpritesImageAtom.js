@@ -26,3 +26,8 @@ export const lowerMapsImages = {
   DemoRoom: spriteDemoRoomLowerImageAtom,
   Kitchen: spriteKitchenLowerImageAtom
 }
+
+export const upperMapsImages = {
+  DemoRoom: spriteDemoRoomUpperImageAtom,
+  Kitchen: spriteKitchenUpperImageAtom
+}

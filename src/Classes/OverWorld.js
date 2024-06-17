@@ -1,9 +1,12 @@
+
 import LevelsMap from "../levels/levelsMap"
 import {DirectionInput} from "./DirectionInput"
+import {OverWorldMap} from "./OverWorldMap"
+import {GameLoop} from "./GameLoop"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
-    this.id = levelId
+    this.levelId = levelId
     this.onEmit = onEmit
     this.directionInput = new DirectionInput()
     // this.walking = new Walking()
@@ -11,18 +14,38 @@ export class OverWorld {
     this.init()
   }
 
-  init() {
-    this.levelData = LevelsMap[this.id]
-    this.gameObjects = this.levelData.gameObjects
+  startGameLoop() {
+    this.gameLoop?.stop();
+    this.gameLoop = new GameLoop(() => {
+      this.tick();
+    });
+  }
 
-    // set the id variable in the object to its key value
-    Object.keys(this.gameObjects).forEach(key => {
-      let object = this.gameObjects[key]
-      object.id = key
-    })
+  tick() {
+    // Object.values(this.gameObjects).forEach((obj) => {
+    //   obj.x += 0.02
+    // })
+
+    // emit changes to React
+    this.onEmit(this.getState())
+  }
+
+  init() {
+    this.levelData = LevelsMap[this.levelId]
+
+    // initializes OverWorldMap
+    this.overWorldMap = new OverWorldMap(this.levelData)
+    this.overWorldMap.init()
+
+    // getting the gameObjects from OverWorldMap
+    this.gameObjects = this.overWorldMap.gameObjects
+
+    // start GameLoop
+    this.startGameLoop()
   }
 
   destroy() {
+    this.gameLoop.stop();
     this.directionInput.unbind()
   }
 

@@ -1,19 +1,17 @@
 import "./spritesComponents.css"
-import {utils} from "../../helpers/utils"
 import {useEffect, useRef} from "react"
+
 import {useRecoilValue} from "recoil"
 import {lowerMapsImages} from "../../atoms/mapLevelSpritesImageAtom"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
+
 import {CANVAS_SIZE} from "../../helpers/consts"
 
-export default function MapSprite({level}) {
-  // get the map id name used at the moment
-  const mapId = useRecoilValue(currentLevelIdAtom)
-
-  // get the map image based on the map id
-  const mapSpriteImage = useRecoilValue(lowerMapsImages[mapId])
-
+export default function MapSpriteLower({level}) {
   const canvasRef = useRef()
+
+  const mapId = useRecoilValue(currentLevelIdAtom)
+  const mapSpriteImage = useRecoilValue(lowerMapsImages[mapId])
 
   useEffect(() => {
     /** @type {HTMLCanvasElement} */

@@ -1,5 +1,11 @@
-import MapSprite from "../spriteComponents/MapSprite"
+import MapSpriteLower from "../spriteComponents/MapSpriteLower"
+import MapSpriteUpper from "../spriteComponents/MapSpriteUpper"
 
 export default function BackgroundMapTiles({level}) {
-  return <MapSprite level={level} />
+  return (
+    <div>
+      <MapSpriteLower className="map-lower" level={level} />
+      <MapSpriteUpper className="map-upper" level={level} />
+    </div>
+  )
 }

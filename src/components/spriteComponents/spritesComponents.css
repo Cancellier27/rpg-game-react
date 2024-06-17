@@ -13,3 +13,11 @@
   position: absolute;
   image-rendering: pixelated;
 }
+
+.map-lower {
+  z-index: 0;
+}
+
+.map-upper {
+  z-index: 20;
+}

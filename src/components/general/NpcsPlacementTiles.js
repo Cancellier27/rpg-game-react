@@ -14,6 +14,7 @@ export default function NpcsPlacementTiles({level}) {
         npc={obj.id}
         x={obj.x}
         y={obj.y}
+        level={level}
       />
     )
   })

@@ -5,10 +5,4 @@
   height: 100%;
 }
 
-.overWorld-map-lower {
-  z-index: 0;
-}
 
-.overWorld-map-upper {
-  z-index: 20;
-}
