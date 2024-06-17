@@ -1,5 +1,5 @@
 import { utils } from "../helpers/utils"
-import { Person } from "../GameObjects/Person"
+import { Person } from "../Classes/Person"
 
 export const Kitchen = {
   lowerSrc: require("../images/maps/KitchenLower.png"),

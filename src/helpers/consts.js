@@ -7,12 +7,12 @@ export const X_ADJUSTMENT = 8
 export const Y_ADJUSTMENT = 18
 
 export const SPRITE_SHEET_SRC = {
-  DemoRoomLower: "/images/maps/DemoLower",
-  DemoRoomUpper: "/images/maps/DemoUpper",
-  KitchenLower: "/images/maps/KitchenLower",
-  KitchenUpper: "/images/maps/KitchenUpper",
-  Hero: "/images/character/people/hero",
-  Npc1: "/images/character/people/npc1",
-  Npc2: "/images/character/people/npc2",
-  Npc3: "/images/character/people/npc3",
+  DemoRoomLower: require("../images/maps/DemoLower.png"),
+  DemoRoomUpper: require("../images/maps/DemoUpper.png"),
+  KitchenLower: require("../images/maps/KitchenLower.png"),
+  KitchenUpper: require("../images/maps/KitchenUpper.png"),
+  Hero: require("../images/characters/people/hero.png"),
+  Npc1: require("../images/characters/people/npc1.png"),
+  Npc2: require("../images/characters/people/npc2.png"),
+  Npc3: require("../images/characters/people/npc3.png"),
 }

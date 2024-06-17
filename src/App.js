@@ -13,6 +13,7 @@ import {
   spriteNpc3ImageAtom
 } from "./atoms/npcLevelSpritesImageAtom"
 import {SPRITE_SHEET_SRC} from "./helpers/consts"
+import RenderLevel from "./components/RenderLevel"
 
 function App() {
   // Maps
@@ -22,15 +23,15 @@ function App() {
   const [spriteDemoRoomUpperImage, setSpriteDemoRoomUpperImage] =
     useRecoilState(spriteDemoRoomUpperImageAtom)
   // Kitchen
-  const [spriteKitchenLowerImage, SetSpriteKitchenLowerImage] = useRecoilState(
+  const [spriteKitchenLowerImage, setSpriteKitchenLowerImage] = useRecoilState(
     spriteKitchenLowerImageAtom
   )
-  const [spriteKitchenUpperImage, SetSpriteKitchenUpperImage] = useRecoilState(
+  const [spriteKitchenUpperImage, setSpriteKitchenUpperImage] = useRecoilState(
     spriteKitchenUpperImageAtom
   )
 
   // Npcs
-  const [spriteHeroImage, SetSpriteHeroImage] =
+  const [spriteHeroImage, setSpriteHeroImage] =
     useRecoilState(spriteHeroImageAtom)
   const [spriteNpc1Image, setSpriteNpc1Image] =
     useRecoilState(spriteNpc1ImageAtom)
@@ -52,9 +53,9 @@ function App() {
     const kitchenLowerImage = new Image()
     kitchenLowerImage.src = SPRITE_SHEET_SRC.KitchenLower
     kitchenLowerImage.onload = () => {
-      SetSpriteKitchenLowerImage(kitchenLowerImage)
+      setSpriteKitchenLowerImage(kitchenLowerImage)
     }
-  }, [spriteDemoRoomLowerImage, spriteKitchenLowerImage])
+  }, [setSpriteDemoRoomLowerImage, setSpriteKitchenLowerImage])
 
   // Maps Upper
   useEffect(() => {
@@ -69,9 +70,9 @@ function App() {
     const kitchenUpperImage = new Image()
     kitchenUpperImage.src = SPRITE_SHEET_SRC.KitchenUpper
     kitchenUpperImage.onload = () => {
-      SetSpriteKitchenUpperImage(kitchenUpperImage)
+      setSpriteKitchenUpperImage(kitchenUpperImage)
     }
-  }, [spriteDemoRoomUpperImage, spriteKitchenUpperImage])
+  }, [setSpriteDemoRoomUpperImage, setSpriteKitchenUpperImage])
 
   // NPCs
   useEffect(() => {
@@ -79,7 +80,7 @@ function App() {
     const heroImage = new Image()
     heroImage.src = SPRITE_SHEET_SRC.Hero
     heroImage.onload = () => {
-      SetSpriteHeroImage(heroImage)
+      setSpriteHeroImage(heroImage)
     }
 
     // Npc1
@@ -102,20 +103,19 @@ function App() {
     npc3Image.onload = () => {
       setSpriteNpc3Image(npc3Image)
     }
-  }, [spriteHeroImage, spriteNpc1Image, spriteNpc2Image, spriteNpc3Image])
+  }, [
+    setSpriteHeroImage,
+    setSpriteNpc1Image,
+    setSpriteNpc2Image,
+    setSpriteNpc3Image
+  ])
 
-  // Maps Lower
-  if (!spriteDemoRoomLowerImage || !spriteKitchenLowerImage) {
-    return null
-  }
-
-  // Maps Upper
-  if (!spriteDemoRoomUpperImage || !spriteKitchenUpperImage) {
-    return null
-  }
-
-  // NPCs
+  // state load check
   if (
+    !spriteDemoRoomLowerImage ||
+    !spriteKitchenLowerImage ||
+    !spriteDemoRoomUpperImage ||
+    !spriteKitchenUpperImage ||
     !spriteHeroImage ||
     !spriteNpc1Image ||
     !spriteNpc2Image ||
@@ -124,7 +124,7 @@ function App() {
     return null
   }
 
-  return <p>Rendering</p>
+  return <RenderLevel />
 }
 
 export default App

@@ -1,23 +1,28 @@
-import { atom } from "recoil";
+import {atom} from "recoil"
 
 // DemoRoom
 export const spriteDemoRoomLowerImageAtom = atom({
   key: "spriteDemoRoomLowerImageAtom",
-  default: null,
-});
+  default: null
+})
 
 export const spriteDemoRoomUpperImageAtom = atom({
   key: "spriteDemoRoomUpperImageAtom",
-  default: null,
-});
+  default: null
+})
 
 // Kitchen
 export const spriteKitchenLowerImageAtom = atom({
   key: "spriteKitchenLowerImageAtom",
-  default: null,
-});
+  default: null
+})
 
 export const spriteKitchenUpperImageAtom = atom({
   key: "spriteKitchenUpperImageAtom",
-  default: null,
-});
+  default: null
+})
+
+export const lowerMapsImages = {
+  DemoRoom: spriteDemoRoomLowerImageAtom,
+  Kitchen: spriteKitchenLowerImageAtom
+}

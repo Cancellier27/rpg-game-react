@@ -1,9 +1,9 @@
-import DemoRoom from "./DemoRoom";
-import Kitchen from "./DemoKitchen";
+import {DemoRoom} from "./DemoRoom";
+// import {Kitchen} from "./Kitchen";
 
 const Levels = {
   DemoRoom: DemoRoom,
-  Kitchen: Kitchen,
+  // Kitchen: Kitchen,
 };
 
 export default Levels;
