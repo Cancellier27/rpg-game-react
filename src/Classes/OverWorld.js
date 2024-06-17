@@ -1,6 +1,5 @@
 import LevelsMap from "../levels/levelsMap"
 import {DirectionInput} from "./DirectionInput"
-import {Walking} from "./Walking"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
@@ -14,7 +13,13 @@ export class OverWorld {
 
   init() {
     this.levelData = LevelsMap[this.id]
-    // this.gameObjects = this.levelData.gameObjects
+    this.gameObjects = this.levelData.gameObjects
+
+    // set the id variable in the object to its key value
+    Object.keys(this.gameObjects).forEach(key => {
+      let object = this.gameObjects[key]
+      object.id = key
+    })
   }
 
   destroy() {
@@ -23,7 +28,7 @@ export class OverWorld {
 
   getState() {
     return {
-      // gameObjects: this.gameObjects,
+      gameObjects: this.gameObjects,
       restart: () => {
         this.init()
       }

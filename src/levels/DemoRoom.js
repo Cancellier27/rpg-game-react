@@ -1,35 +1,16 @@
-import { utils } from "../helpers/utils"
+import { GameObject } from "../classes/GameObject"
 
 export const DemoRoom = {
-  // gameObjects: {
-  //   hero: new Person({
-  //     x: utils.withGrid(5),
-  //     y: utils.withGrid(6),
-  //     isPlayerControlled: true
-  //   }),
-  //   npcA: new Person({
-  //     x: utils.withGrid(7),
-  //     y: utils.withGrid(9),
-  //     behaviorLoop: [
-  //       {type: "stand", direction: "left", time: 800},
-  //       {type: "stand", direction: "up", time: 800},
-  //       {type: "stand", direction: "right", time: 1200},
-  //       {type: "stand", direction: "up", time: 1200}
-  //     ],
-  //     talking: [
-  //       {
-  //         events: [
-  //           {
-  //             type: "textMessage",
-  //             text: "Hello Thereeeeee!",
-  //             faceHero: "npcA"
-  //           },
-  //           {type: "textMessage", text: "See ya around"},
-  //           {who: "hero", type: "walk", direction: "left"}
-  //         ]
-  //       }
-  //     ]
-  //   }),
+  gameObjects: {
+    hero: new GameObject({
+      x: 5,
+      y: 6,
+      isPlayerControlled: true
+    }),
+    npc1: new GameObject({
+      x: 7,
+      y: 9,
+    }),
   //   npcB: new Person({
   //     x: utils.withGrid(8),
   //     y: utils.withGrid(5),
@@ -42,7 +23,7 @@ export const DemoRoom = {
   //       {type: "walk", direction: "down"}
   //     ]
   //   })
-  // },
+  },
   // walls: {
   //   // walls collisions based on map
   //   [utils.asGridCoord(7, 6)]: true,

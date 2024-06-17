@@ -9,16 +9,19 @@ import {
   CELL_SIZE,
 } from "../../helpers/consts"
 
-export default function Sprite({level}) {
+export default function Sprite({npc, x, y}) {
   // get the map id name used at the moment
   const mapId = useRecoilValue(currentLevelIdAtom)
 
   // get the shadow image
   const shadowSpriteImage = useRecoilValue(npcImages["shadow"])
   // get the hero image
-  const npcSpriteImage = useRecoilValue(npcImages["hero"])
+  const npcSpriteImage = useRecoilValue(npcImages[npc])
 
   const canvasRef = useRef()
+
+  const coord_X = x * CELL_SIZE - 8
+  const coord_Y = y * CELL_SIZE - 18
 
   useEffect(() => {
     const canvasEl = canvasRef.current
@@ -27,9 +30,6 @@ export default function Sprite({level}) {
     //Clear out anything in the canvas tag
     ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
-    const x = 5 * CELL_SIZE - 8
-    const y = 6 * CELL_SIZE - 18
-
     //Draw shadow to the canvas
     ctx.drawImage(
       shadowSpriteImage,
@@ -37,8 +37,8 @@ export default function Sprite({level}) {
       0, // Top Y corner of frame
       CELL_SIZE * 2, // width of cut
       CELL_SIZE * 2, // height of cut
-      x,
-      y,
+      coord_X,
+      coord_Y,
       CELL_SIZE * 2, // x scale
       CELL_SIZE * 2 // y scale
     )
@@ -50,8 +50,8 @@ export default function Sprite({level}) {
       0, // Top Y corner of frame
       CELL_SIZE * 2, // width of cut
       CELL_SIZE * 2, // height of cut
-      x,
-      y,
+      coord_X,
+      coord_Y,
       CELL_SIZE * 2, // x scale
       CELL_SIZE * 2 // y scale
     )

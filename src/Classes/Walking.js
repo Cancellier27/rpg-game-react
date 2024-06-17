@@ -30,14 +30,11 @@ export class Walking {
         [0, 3]
       ]
     }
-    this.currentAnimation = "idle-down" //config.currentAnimation || "idleDown"
+    this.currentAnimation = config.currentAnimation || "idleDown"
     this.currentAnimationFrame = 0
 
     this.animationFrameLimit = config.animationFrameLimit || 8
     this.animationFrameProgress = this.animationFrameLimit
-
-    // reference GameObject
-    this.gameObject = config.gameObject
   }
 
   get frame() {
