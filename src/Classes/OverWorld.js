@@ -8,8 +8,6 @@ export class OverWorld {
   constructor(levelId, onEmit) {
     this.levelId = levelId
     this.onEmit = onEmit
-    this.directionInput = new DirectionInput()
-    // this.walking = new Walking()
 
     this.init()
   }
@@ -22,11 +20,13 @@ export class OverWorld {
   }
 
   tick() {
-    // Object.values(this.gameObjects).forEach((obj) => {
-    //   obj.x += 0.02
-    // })
+    Object.values(this.gameObjects).forEach((object) => {
+      object.update({
+        arrow: this.directionInput.direction
+      })
+    })
 
-    // emit changes to React
+    // EMIT CHANGES TO REACT -----------
     this.onEmit(this.getState())
   }
 
@@ -36,6 +36,10 @@ export class OverWorld {
     // initializes OverWorldMap
     this.overWorldMap = new OverWorldMap(this.levelData)
     this.overWorldMap.init()
+
+    // initializes DirectionInput
+    this.directionInput = new DirectionInput()
+    this.directionInput.init()
 
     // getting the gameObjects from OverWorldMap
     this.gameObjects = this.overWorldMap.gameObjects

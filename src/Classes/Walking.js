@@ -30,6 +30,7 @@ export class Walking {
         [0, 3]
       ]
     }
+    
     this.currentAnimation = config.currentAnimation || "idleDown"
     this.currentAnimationFrame = 0
 
