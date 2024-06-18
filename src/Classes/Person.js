@@ -1,5 +1,4 @@
 import {GameObject} from "./GameObject"
-import {utils} from "../helpers/utils"
 
 export class Person extends GameObject {
   constructor(config) {
@@ -19,12 +18,16 @@ export class Person extends GameObject {
 
   update(state) {
     this.updatePosition()
+    this.updateSprite(state)
 
-    if (this.isPlayerControlled && this.movementProgressRemaining === 0 && state.arrow) {
+    if (
+      this.isPlayerControlled &&
+      this.movementProgressRemaining === 0 &&
+      state.arrow
+    ) {
       this.direction = state.arrow
       this.movementProgressRemaining = 16
     }
-
 
     // if (this.movementProgressRemaining > 0) {
     //   this.updatePosition()
@@ -92,11 +95,18 @@ export class Person extends GameObject {
     }
   }
 
-  // updateSprite() {
-  //   if (this.movementProgressRemaining > 0) {
-  //     this.walking.setAnimation("walk-" + this.direction)
-  //     return
-  //   }
-  //   this.walking.setAnimation("idle-" + this.direction)
-  // }
+  updateSprite(state) {
+    if (
+      this.isPlayerControlled &&
+      this.movementProgressRemaining === 0 &&
+      !state.arrow
+    ) {
+      this.walking.setAnimation("idle-" + this.direction)
+      return
+    }
+
+    if (this.movementProgressRemaining > 0) {
+      this.walking.setAnimation("walk-" + this.direction)
+    }
+  }
 }

@@ -24,7 +24,10 @@ export class OverWorld {
       object.update({
         arrow: this.directionInput.direction
       })
+      object.walking.walk()
     })
+
+    
 
     // EMIT CHANGES TO REACT -----------
     this.onEmit(this.getState())

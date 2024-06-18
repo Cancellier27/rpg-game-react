@@ -4,12 +4,14 @@ import {useRecoilValue} from "recoil"
 import {npcImages} from "../../atoms/npcLevelSpritesImageAtom"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {useEffect, useRef} from "react"
-import {CANVAS_SIZE, CELL_SIZE, X_ADJUSTMENT, Y_ADJUSTMENT} from "../../helpers/consts"
+import {
+  CANVAS_SIZE,
+  CELL_SIZE,
+  X_ADJUSTMENT,
+  Y_ADJUSTMENT
+} from "../../helpers/consts"
 
-function Sprite({npc, x, y, isShadow}) {
-  // get the map id name used at the moment
-  const mapId = useRecoilValue(currentLevelIdAtom)
-
+function Sprite({npc, x, y, isShadow, frameCoord}) {
   // get the shadow image
   const shadowSpriteImage = useRecoilValue(npcImages["shadow"])
   // get the hero image
@@ -17,11 +19,18 @@ function Sprite({npc, x, y, isShadow}) {
 
   const canvasRef = useRef()
 
-  const coord_X = x - X_ADJUSTMENT
-  const coord_Y = y - Y_ADJUSTMENT
-
   useEffect(() => {
     /** @type {HTMLCanvasElement} */
+    // Sprite frame coordinate
+    const frame_X = Number(frameCoord[0])
+    const frame_Y = Number(frameCoord[1])
+
+    // console.log(frameCoord)
+
+    // screen position
+    const coord_X = x - X_ADJUSTMENT
+    const coord_Y = y - Y_ADJUSTMENT
+
     const canvasEl = canvasRef.current
     const ctx = canvasEl.getContext("2d")
 
@@ -36,8 +45,8 @@ function Sprite({npc, x, y, isShadow}) {
     // Draw npc to the canvas
     ctx.drawImage(
       npcSpriteImage, // Image to pull from
-      0, // Left X corner of frame
-      0, // Top Y corner of frame
+      frame_X * CELL_SIZE * 2, // Left X corner of frame
+      frame_Y * CELL_SIZE * 2, // Top Y corner of frame
       CELL_SIZE * 2, // width of cut
       CELL_SIZE * 2, // height of cut
       coord_X,
@@ -45,7 +54,7 @@ function Sprite({npc, x, y, isShadow}) {
       CELL_SIZE * 2, // x scale
       CELL_SIZE * 2 // y scale
     )
-  }, [])
+  }, [npcSpriteImage, frameCoord, x, y])
 
   return (
     <canvas

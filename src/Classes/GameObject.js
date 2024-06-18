@@ -1,4 +1,4 @@
-import { Walking } from "./Walking"
+import {Walking} from "./Walking"
 
 export class GameObject {
   constructor(config) {
@@ -8,12 +8,9 @@ export class GameObject {
     this.y = config.y || 0
     this.direction = config.direction || "down"
     this.isShadow = config.isShadow === undefined ? true : config.isShadow
-    this.walking = new Walking({
-      animations: null
-    })
+
+    this.walking = new Walking({})
   }
 
-  update() {
-
-  }
+  update() {}
 }
