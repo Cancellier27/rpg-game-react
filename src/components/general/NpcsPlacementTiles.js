@@ -1,7 +1,7 @@
 import NpcSprite from "../spriteComponents/NpcSprite"
 
 export default function NpcsPlacementTiles({level}) {
-  // get all gameObjects created
+  // get all gameObjects (npcs) created
   const gameObjects = level.gameObjects
   // canvas array
   const canvases = []
@@ -14,6 +14,7 @@ export default function NpcsPlacementTiles({level}) {
         npc={obj.id}
         x={obj.x}
         y={obj.y}
+        isShadow={obj.isShadow}
         level={level}
       />
     )

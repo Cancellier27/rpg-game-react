@@ -1,12 +1,12 @@
 import "./spritesComponents.css"
-import React from "react";
+import React from "react"
 import {useRecoilValue} from "recoil"
 import {npcImages} from "../../atoms/npcLevelSpritesImageAtom"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {useEffect, useRef} from "react"
-import {CANVAS_SIZE, CELL_SIZE} from "../../helpers/consts"
+import {CANVAS_SIZE, CELL_SIZE, X_ADJUSTMENT, Y_ADJUSTMENT} from "../../helpers/consts"
 
-function Sprite({npc, x, y, isShadow = true}) {
+function Sprite({npc, x, y, isShadow}) {
   // get the map id name used at the moment
   const mapId = useRecoilValue(currentLevelIdAtom)
 
@@ -17,11 +17,11 @@ function Sprite({npc, x, y, isShadow = true}) {
 
   const canvasRef = useRef()
 
-  const coord_X = x * CELL_SIZE - 8
-  const coord_Y = y * CELL_SIZE - 18
+  const coord_X = x - X_ADJUSTMENT
+  const coord_Y = y - Y_ADJUSTMENT
 
   useEffect(() => {
-     /** @type {HTMLCanvasElement} */
+    /** @type {HTMLCanvasElement} */
     const canvasEl = canvasRef.current
     const ctx = canvasEl.getContext("2d")
 
@@ -29,7 +29,7 @@ function Sprite({npc, x, y, isShadow = true}) {
     ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
     //Draw shadow to the canvas
-    if(isShadow) {
+    if (isShadow) {
       ctx.drawImage(shadowSpriteImage, coord_X, coord_Y)
     }
 
@@ -57,5 +57,5 @@ function Sprite({npc, x, y, isShadow = true}) {
   )
 }
 
-const MemoizedSprite = React.memo(Sprite);
-export default MemoizedSprite;
+const MemoizedSprite = React.memo(Sprite)
+export default MemoizedSprite
