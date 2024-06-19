@@ -36,6 +36,7 @@ export class OverWorld {
 
     // initializes OverWorldMap
     this.overWorldMap = new OverWorldMap(this.levelData)
+    this.overWorldMap.mountObjects()
 
     // initializes DirectionInput
     this.directionInput = new DirectionInput()

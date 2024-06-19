@@ -29,8 +29,8 @@ export class Person extends GameObject {
           direction: state.arrow
         })
       }
+      this.updateSprite()
     }
-    this.updateSprite()
   }
 
   startBehavior(state, behavior) {
@@ -42,15 +42,15 @@ export class Person extends GameObject {
       // stop here is space is not free
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
         // retry the npc automatic movement every 1 sec
-        behavior.retry &&
-          setTimeout(() => {
-            this.startBehavior(state, behavior)
-          }, 1000)
+        // behavior.retry &&
+        //   setTimeout(() => {
+        //     this.startBehavior(state, behavior)
+        //   }, 1000)
         return
       }
       // ready to walk
       // moves the wall of the hero while he moves
-      // state.map.moveWall(this.x, this.y, this.direction)
+      state.map.moveWall(this.x, this.y, this.direction)
       this.movementProgressRemaining = 16
       // this.updateSprite(state)
     }
@@ -69,7 +69,7 @@ export class Person extends GameObject {
   // }
 
   updatePosition() {
-    if (this.movementProgressRemaining > 0) {
+    
       const [property, change] = this.directionUpdate[this.direction]
       this[property] += change
       this.movementProgressRemaining -= Math.abs(change)
@@ -77,7 +77,7 @@ export class Person extends GameObject {
       // utils.emitEvent("PersonWalkingComplete", {
       //   whoId: this.id
       // })
-    }
+   
   }
 
   updateSprite() {
