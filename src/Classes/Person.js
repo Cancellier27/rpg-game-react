@@ -17,59 +17,44 @@ export class Person extends GameObject {
   }
 
   update(state) {
-    this.updatePosition()
-    this.updateSprite(state)
+    if (this.movementProgressRemaining > 0) {
+      this.updatePosition()
+    } else {
+      // more cases for starting walk to come here
 
-    if (
-      this.isPlayerControlled &&
-      this.movementProgressRemaining === 0 &&
-      state.arrow
-    ) {
-      this.direction = state.arrow
-      this.movementProgressRemaining = 16
+      // Keyboard ready and have an arrow pressed
+      if (this.isPlayerControlled && state.arrow) {
+        this.startBehavior(state, {
+          type: "walk",
+          direction: state.arrow
+        })
+      }
     }
-
-    // if (this.movementProgressRemaining > 0) {
-    //   this.updatePosition()
-    // } else {
-    //   // more cases for starting loop
-
-    //   //Case: keyboard ready and have any arrow pressed
-    //   if (
-    //     !state.map.isCutscenePlaying &&
-    //     this.isPlayerControlled &&
-    //     state.arrow
-    //   ) {
-    //     this.startBehavior(state, {
-    //       type: "walk",
-    //       direction: state.arrow
-    //     })
-    //   }
-    //   this.updateSprite(state)
-    // }
+    this.updateSprite()
   }
 
-  // startBehavior(state, behavior) {
-  //   // move to this direction
-  //   this.direction = behavior.direction
+  startBehavior(state, behavior) {
+    // move to this direction
+    this.direction = behavior.direction
 
-  //   // walk behavior --------------------------
-  //   if (behavior.type === "walk") {
-  //     // stop here is space is not free
-  //     if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
-  //       // retry the npc automatic movement every 1 sec
-  //       behavior.retry &&
-  //         setTimeout(() => {
-  //           this.startBehavior(state, behavior)
-  //         }, 1000)
-  //       return
-  //     }
-  //     // ready to walk
-  //     // moves the wall of the hero while he moves
-  //     state.map.moveWall(this.x, this.y, this.direction)
-  //     this.movementProgressRemaining = 16
-  //     this.updateSprite(state)
-  //   }
+    // walk behavior --------------------------
+    if (behavior.type === "walk") {
+      // stop here is space is not free
+      if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+        // retry the npc automatic movement every 1 sec
+        behavior.retry &&
+          setTimeout(() => {
+            this.startBehavior(state, behavior)
+          }, 1000)
+        return
+      }
+      // ready to walk
+      // moves the wall of the hero while he moves
+      // state.map.moveWall(this.x, this.y, this.direction)
+      this.movementProgressRemaining = 16
+      // this.updateSprite(state)
+    }
+  }
 
   //   // stand behavior --------------------------
   //   if (behavior.type === "stand") {
@@ -95,18 +80,11 @@ export class Person extends GameObject {
     }
   }
 
-  updateSprite(state) {
-    if (
-      this.isPlayerControlled &&
-      this.movementProgressRemaining === 0 &&
-      !state.arrow
-    ) {
-      this.walking.setAnimation("idle-" + this.direction)
-      return
-    }
-
+  updateSprite() {
     if (this.movementProgressRemaining > 0) {
       this.walking.setAnimation("walk-" + this.direction)
+      return
     }
+    this.walking.setAnimation("idle-" + this.direction)
   }
 }

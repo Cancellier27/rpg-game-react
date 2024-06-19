@@ -11,7 +11,7 @@ export const utils = {
   },
 
   asGridCoord(x, y) {
-    return `${x * CELL_SIZE}, ${y * CELL_SIZE}`
+    return `${x * CELL_SIZE},${y * CELL_SIZE}`
   },
 
   nextPosition(initialX, initialY, direction) {
