@@ -1,4 +1,3 @@
-
 import LevelsMap from "../levels/levelsMap"
 import {DirectionInput} from "./DirectionInput"
 import {OverWorldMap} from "./OverWorldMap"
@@ -13,10 +12,10 @@ export class OverWorld {
   }
 
   startGameLoop() {
-    this.gameLoop?.stop();
+    this.gameLoop?.stop()
     this.gameLoop = new GameLoop(() => {
-      this.tick();
-    });
+      this.tick()
+    })
   }
 
   tick() {
@@ -26,8 +25,6 @@ export class OverWorld {
       })
       object.walking.walk()
     })
-
-    
 
     // EMIT CHANGES TO REACT -----------
     this.onEmit(this.getState())
@@ -52,13 +49,14 @@ export class OverWorld {
   }
 
   destroy() {
-    this.gameLoop.stop();
+    this.gameLoop.stop()
     this.directionInput.unbind()
   }
 
   getState() {
     return {
       gameObjects: this.gameObjects,
+      cameraPerson: this.gameObjects.hero,
       restart: () => {
         this.init()
       }

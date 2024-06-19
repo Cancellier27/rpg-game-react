@@ -1,15 +1,17 @@
 import "./components.css"
-import {useEffect, useState} from "react"
+import {useEffect, useState, useRef} from "react"
 import {useRecoilState, useRecoilValue} from "recoil"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {OverWorld} from "../../classes/OverWorld"
 
-import BackgroundMapTiles from "./BackgroundMapTiles"
+import MapSpriteLower from "../spriteComponents/MapSpriteLower"
+import MapSpriteUpper from "../spriteComponents/MapSpriteUpper"
 import NpcsPlacementTiles from "./NpcsPlacementTiles"
 
 export default function RenderLevel() {
   const [level, setLevel] = useState(null)
   const [currentLevelId, setCurrentLevelId] = useRecoilState(currentLevelIdAtom)
+  const canvasRef = useRef()
 
   useEffect(() => {
     // Create and subscribe to state changes
@@ -30,24 +32,16 @@ export default function RenderLevel() {
     return null
   }
 
-  function handleGoKitchen() {
-    let nextLevel = currentLevelId === "DemoRoom" ? "Kitchen" : "DemoRoom"
-    setCurrentLevelId(nextLevel)
-  }
-
   return (
-    <>
-      <div className="overWorld-container">
-        <div className="overWorld-map-lower">
-          <BackgroundMapTiles level={level} />
-        </div>{" "}
-        <div className="overWorld-npcs">
-          <NpcsPlacementTiles level={level} />
-        </div>
+    <div className="overWorld-container">
+      {/* Lower layer to be rendered */}
+      <MapSpriteLower level={level} />
+      <div>
+        {/* mid layer */}
+        <NpcsPlacementTiles level={level} canvasRef={canvasRef} />
       </div>
-      <button style={{zIndex: 50}} onClick={handleGoKitchen}>
-        ChangeLevel
-      </button>
-    </>
+      {/* top layer to be rendered */}
+      <MapSpriteUpper level={level} />
+    </div>
   )
 }

@@ -2,7 +2,6 @@ import "./spritesComponents.css"
 import React from "react"
 import {useRecoilValue} from "recoil"
 import {npcImages} from "../../atoms/npcLevelSpritesImageAtom"
-import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {useEffect, useRef} from "react"
 import {
   CANVAS_SIZE,
@@ -10,8 +9,9 @@ import {
   X_ADJUSTMENT,
   Y_ADJUSTMENT
 } from "../../helpers/consts"
+import { utils } from "../../helpers/utils"
 
-function Sprite({npc, x, y, isShadow, frameCoord}) {
+function Sprite({level, npc, x, y, isShadow, frameCoord, cameraPerson}) {
   // get the shadow image
   const shadowSpriteImage = useRecoilValue(npcImages["shadow"])
   // get the hero image
@@ -25,11 +25,9 @@ function Sprite({npc, x, y, isShadow, frameCoord}) {
     const frame_X = Number(frameCoord[0])
     const frame_Y = Number(frameCoord[1])
 
-    // console.log(frameCoord)
-
-    // screen position
-    const coord_X = x - X_ADJUSTMENT
-    const coord_Y = y - Y_ADJUSTMENT
+    // screen position, to make the screen centralized
+    const coord_X = x - X_ADJUSTMENT + utils.withGrid(10.5) - cameraPerson.x
+    const coord_Y = y - Y_ADJUSTMENT + utils.withGrid(6) - cameraPerson.y
 
     const canvasEl = canvasRef.current
     const ctx = canvasEl.getContext("2d")
