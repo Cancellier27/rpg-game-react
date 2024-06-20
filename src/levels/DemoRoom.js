@@ -22,6 +22,7 @@ export const DemoRoom = {
       y: utils.withGrid(7),
       behaviorLoop: [
         {type: "walk", direction: "left"},
+        {type: "stand", direction: "up", time: 1000},
         {type: "walk", direction: "up"},
         {type: "walk", direction: "right"},
         {type: "walk", direction: "down"}

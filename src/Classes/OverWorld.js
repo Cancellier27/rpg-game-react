@@ -51,8 +51,18 @@ export class OverWorld {
       object.id = key
     })
 
+
+
     // start GameLoop
     this.startGameLoop()
+
+    this.overWorldMap.startCutscene([
+      {who: "hero", type: "walk", direction: "down"},
+      {who: "hero", type: "walk", direction: "down"},
+      {who: "npcA", type: "walk", direction: "left"},
+      {who: "npcA", type: "walk", direction: "left"},
+      {who: "npcA", type: "stand", direction: "up"},
+    ])
   }
 
   destroy() {
