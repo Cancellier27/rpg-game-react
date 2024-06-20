@@ -10,27 +10,40 @@ import NpcsPlacementTiles from "./NpcsPlacementTiles"
 
 export default function RenderLevel() {
   const [level, setLevel] = useState(null)
-  const [currentLevelId, setCurrentLevelId] = useRecoilState(currentLevelIdAtom)
-  const canvasRef = useRef()
+  const currentLevelId = useRecoilValue(currentLevelIdAtom)
 
+  let num = 0
   useEffect(() => {
+    let levelState = {}
     // Create and subscribe to state changes
-    const levelState = new OverWorld(currentLevelId, (newState) => {
-      setLevel(newState)
-    })
+    if(num === 1) {
+      levelState = new OverWorld(currentLevelId, (newState) => {
+        setLevel(newState)
+      })
+  
+      //Get initial state
+      setLevel(levelState.getState())
+      
+      return () => {
+        levelState.destroy()
+      }
+    }
 
-    //Get initial state
-    setLevel(levelState.getState())
+    num += 1
+
+    if(num === 2) {
+      num = 0
+    }
 
     //Destroy method when this component unmounts for cleanup
-    return () => {
-      levelState.destroy()
-    }
+    
+
   }, [currentLevelId])
 
   if (!level) {
     return null
   }
+
 
   return (
     <div className="overWorld-container">
@@ -38,7 +51,7 @@ export default function RenderLevel() {
       <MapSpriteLower level={level} />
       <div>
         {/* mid layer */}
-        <NpcsPlacementTiles level={level} canvasRef={canvasRef} />
+        <NpcsPlacementTiles level={level} />
       </div>
       {/* top layer to be rendered */}
       <MapSpriteUpper level={level} />

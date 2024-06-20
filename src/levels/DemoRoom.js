@@ -8,9 +8,24 @@ export const DemoRoom = {
       y: utils.withGrid(6),
       isPlayerControlled: true
     }),
-    npc1: new Person({
+    npcA: new Person({
       x: utils.withGrid(7),
-      y: utils.withGrid(9)
+      y: utils.withGrid(9),
+      behaviorLoop: [
+        {type: "stand", direction: "up", time: 1000},
+        {type: "stand", direction: "right", time: 1200},
+        {type: "stand", direction: "left", time: 2000}
+      ]
+    }),
+    npcB: new Person({
+      x: utils.withGrid(3),
+      y: utils.withGrid(7),
+      behaviorLoop: [
+        {type: "walk", direction: "left"},
+        {type: "walk", direction: "up"},
+        {type: "walk", direction: "right"},
+        {type: "walk", direction: "down"}
+      ]
     })
   },
   walls: {

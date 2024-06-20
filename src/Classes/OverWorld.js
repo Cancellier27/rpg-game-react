@@ -58,7 +58,7 @@ export class OverWorld {
   destroy() {
     this.gameLoop.stop()
     this.directionInput.unbind()
-  }
+   }
 
   getState() {
     return {

@@ -1,9 +1,10 @@
 import {GameObject} from "./GameObject"
+import {utils} from "../helpers/utils"
 
 export class Person extends GameObject {
   constructor(config) {
     super(config)
-    this.movementProgressRemaining = 0
+    this.movingProgressRemaining = 0
     this.isStanding = false
 
     this.isPlayerControlled = config.isPlayerControlled || false
@@ -17,74 +18,74 @@ export class Person extends GameObject {
   }
 
   update(state) {
-    if (this.movementProgressRemaining > 0) {
-      this.updatePosition()
+    if (this.movingProgressRemaining > 0) {
+      this.updatePosition();
     } else {
-      // more cases for starting walk to come here
 
-      // Keyboard ready and have an arrow pressed
-      if (this.isPlayerControlled && state.arrow) {
+      //More cases for starting to walk will come here
+      //
+      //
+
+      //Case: We're keyboard ready and have an arrow pressed
+      if (!state.map.isCutscenePlaying && this.isPlayerControlled && state.arrow) {
         this.startBehavior(state, {
           type: "walk",
           direction: state.arrow
         })
       }
-      this.updateSprite()
+      this.updateSprite(state);
     }
   }
 
   startBehavior(state, behavior) {
-    // move to this direction
-    this.direction = behavior.direction
-
-    // walk behavior --------------------------
+    //Set character direction to whatever behavior has
+    this.direction = behavior.direction;
+    
     if (behavior.type === "walk") {
-      // stop here is space is not free
+      //Stop here if space is not free
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
-        // retry the npc automatic movement every 1 sec
-        // behavior.retry &&
-        //   setTimeout(() => {
-        //     this.startBehavior(state, behavior)
-        //   }, 1000)
-        return
-      }
-      // ready to walk
-      // moves the wall of the hero while he moves
-      state.map.moveWall(this.x, this.y, this.direction)
-      this.movementProgressRemaining = 16
-      // this.updateSprite(state)
-    }
-  }
 
-  //   // stand behavior --------------------------
-  //   if (behavior.type === "stand") {
-  //     this.isStanding = true
-  //     setTimeout(() => {
-  //       utils.emitEvent("PersonStandComplete", {
-  //         whoId: this.id
-  //       })
-  //     }, behavior.time)
-  //     this.isStanding = false
-  //   }
-  // }
+        behavior.retry && setTimeout(() => {
+          this.startBehavior(state, behavior)
+        }, 1000);
+
+        return;
+      }
+
+      //Ready to walk!
+      state.map.moveWall(this.x, this.y, this.direction);
+      this.movingProgressRemaining = 16;
+      this.updateSprite(state);
+    }
+
+    if (behavior.type === "stand") {
+      setTimeout(() => {
+        utils.emitEvent("PersonStandComplete", {
+          whoId: this.id
+        })
+      }, behavior.time)
+    }
+
+  }
 
   updatePosition() {
-    
-      const [property, change] = this.directionUpdate[this.direction]
-      this[property] += change
-      this.movementProgressRemaining -= Math.abs(change)
-      // finished walking!
-      // utils.emitEvent("PersonWalkingComplete", {
-      //   whoId: this.id
-      // })
-   
-  }
+    const [property, change] = this.directionUpdate[this.direction];
+    this[property] += change;
+    this.movingProgressRemaining -= 1;
 
-  updateSprite() {
-    if (this.movementProgressRemaining > 0) {
-      this.walking.setAnimation("walk-" + this.direction)
-      return
+    if (this.movingProgressRemaining === 0) {
+      //We finished the walk!
+      utils.emitEvent("PersonWalkingComplete", {
+        whoId: this.id
+      }) 
     }
-    this.walking.setAnimation("idle-" + this.direction)
+}
+
+updateSprite() {
+  if (this.movingProgressRemaining > 0) {
+    this.walking.setAnimation("walk-"+this.direction);
+    return;
   }
+  this.walking.setAnimation("idle-"+this.direction);    
+}
 }

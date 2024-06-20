@@ -3,7 +3,10 @@ import {utils} from "../helpers/utils"
 export class OverWorldMap {
   constructor(config) {
     this.gameObjects = config.gameObjects
+    
     this.walls = config.walls || {}
+
+    this.isCutscenePlaying = false
   }
 
   changeMap(mapName) {

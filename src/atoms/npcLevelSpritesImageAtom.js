@@ -30,7 +30,7 @@ export const spriteNpc3ImageAtom = atom({
 export const npcImages = {
   shadow: spriteShadowImageAtom,
   hero: spriteHeroImageAtom,
-  npc1: spriteNpc1ImageAtom,
-  npc2: spriteNpc2ImageAtom,
-  npc3: spriteNpc3ImageAtom
+  npcA: spriteNpc1ImageAtom,
+  npcB: spriteNpc2ImageAtom,
+  npcC: spriteNpc3ImageAtom
 }
