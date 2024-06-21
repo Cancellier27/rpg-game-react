@@ -52,6 +52,13 @@ export const DemoRoom = {
           {who: "npcB", type: "stand", direction: "down"},
         ]
       }
+    ], 
+    [utils.asGridCoord(5,10)]: [
+      {
+        events: [
+          {type: "changeMap", map: "Kitchen"}
+        ]
+      }
     ]
   }
 }

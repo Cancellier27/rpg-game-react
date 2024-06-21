@@ -1,15 +1,32 @@
-import {GameObject} from "../classes/GameObject"
+import {Person} from "../classes/Person"
+import {utils} from "../helpers/utils"
 
 export const Kitchen = {
   gameObjects: {
-    hero: new GameObject({
+    hero: new Person({
       isPlayerControlled: true,
-      x: 5,
-      y: 5
+      x: utils.withGrid(5),
+      y: utils.withGrid(5)
     }),
-    npc2: new GameObject({
-      x: 10,
-      y: 8
+    npcA: new Person({
+      x: utils.withGrid(10),
+      y: utils.withGrid(8),
+      talking: [
+        {
+          events: [
+            {type: "textMessage", text: "You made it!", faceHero: "npcA"}
+          ]
+        }
+      ]
     })
+  },
+  cutsceneSpaces: {
+    [utils.asGridCoord(5,10)]: [
+      {
+        events: [
+          {type: "changeMap", map: "DemoRoom"}
+        ]
+      }
+    ]
   }
 }

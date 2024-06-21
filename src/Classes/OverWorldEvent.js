@@ -57,7 +57,9 @@ export class OverWorldEvent {
     // face the hero when talking
     if (this.event.faceHero) {
       const obj = this.map.gameObjects[this.event.faceHero]
-      obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
+      obj.direction = utils.oppositeDirection(
+        this.map.gameObjects["hero"].direction
+      )
     }
 
     const message = new TextMessage({
@@ -65,6 +67,12 @@ export class OverWorldEvent {
       onComplete: () => resolve()
     })
     message.init(this.map)
+  }
+
+  changeMap(resolve) {
+    this.map.overWorld.levelId = this.event.map
+    this.map.overWorld.startMap(this.event.map)
+    resolve()
   }
 
   init() {

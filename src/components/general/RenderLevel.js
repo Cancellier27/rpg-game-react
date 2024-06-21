@@ -1,6 +1,6 @@
 import "./components.css"
 import {useEffect, useState} from "react"
-import {useRecoilValue} from "recoil"
+import {useRecoilState} from "recoil"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {OverWorld} from "../../classes/OverWorld"
 
@@ -11,14 +11,13 @@ import TextBalloon from "../hud/TextBalloon"
 
 export default function RenderLevel() {
   const [level, setLevel] = useState(null)
-  const currentLevelId = useRecoilValue(currentLevelIdAtom)
+  const [currentLevelId, setCurrentLevelId] = useRecoilState(currentLevelIdAtom)
 
   let num = 0
   useEffect(() => {
-    let levelState = {}
     // Create and subscribe to state changes
     if (num === 1) {
-      levelState = new OverWorld(currentLevelId, (newState) => {
+      const levelState = new OverWorld(currentLevelId, (newState) => {
         setLevel(newState)
       })
 
@@ -36,7 +35,7 @@ export default function RenderLevel() {
     if (num === 2) {
       num = 0
     }
-  }, [currentLevelId])
+  }, [setCurrentLevelId])
 
   if (!level) {
     return null

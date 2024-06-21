@@ -9,7 +9,7 @@ import {CANVAS_SIZE} from "../../helpers/consts"
 export default function MapSpriteUpper({level}) {
   const canvasRef = useRef()
 
-  const mapId = useRecoilValue(currentLevelIdAtom)
+  const mapId = level.currentLevel
   const mapSpriteImage = useRecoilValue(upperMapsImages[mapId])
 
   useEffect(() => {

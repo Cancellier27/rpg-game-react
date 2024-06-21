@@ -6,6 +6,7 @@ export class OverWorldMap {
     this.gameObjects = config.gameObjects
     this.walls = config.walls || {}
     this.cutsceneSpaces = config.cutsceneSpaces || {}
+    this.overWorld = null
 
     this.isCutscenePlaying = false
 
@@ -20,16 +21,18 @@ export class OverWorldMap {
     this.messageOnComplete = null
   }
 
-  changeMap(mapName) {
-    // change the state to change the map
-  }
-
   isSpaceTaken(currentX, currentY, direction) {
     const {x, y} = utils.nextPosition(currentX, currentY, direction)
     return this.walls[`${x},${y}`] || false
   }
 
   mountObjects() {
+    // set the id variable in the object to its key value
+    Object.keys(this.gameObjects).forEach((key) => {
+      let object = this.gameObjects[key]
+      object.id = key
+    })
+
     Object.values(this.gameObjects).forEach((object) => {
       object.mount(this)
     })

@@ -2,7 +2,7 @@ import LevelsMap from "../levels/levelsMap"
 import {DirectionInput} from "./DirectionInput"
 import {OverWorldMap} from "./OverWorldMap"
 import {GameLoop} from "./GameLoop"
-import { KeyPressListener } from "./KeyPressListener"
+import {KeyPressListener} from "./KeyPressListener"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
@@ -36,40 +36,35 @@ export class OverWorld {
     new KeyPressListener("Enter", () => {
       // is there somene o talk here to?
       this.overWorldMap.checkForActionCutscene()
-      
     })
   }
 
   bindHeroPositionCheck() {
-    document.addEventListener("PersonWalkingComplete", e => {
-      if(e.detail.whoId === "hero") {
-      this.overWorldMap.checkForFootstepCutscene()
+    document.addEventListener("PersonWalkingComplete", (e) => {
+      if (e.detail.whoId === "hero") {
+        this.overWorldMap.checkForFootstepCutscene()
       }
     })
   }
 
-  init() {
-    this.levelData = LevelsMap[this.levelId]
-
+  startMap(mapConfig) {
     // initializes OverWorldMap
-    this.overWorldMap = new OverWorldMap(this.levelData)
-    this.overWorldMap.mountObjects()
+    this.overWorldMap = new OverWorldMap(LevelsMap[mapConfig])
 
+    this.overWorldMap.overWorld = this
+    this.overWorldMap.mountObjects()
+    this.gameObjects = this.overWorldMap.gameObjects
+  }
+
+  init() {
+    this.startMap(this.levelId)
+    
     this.bindActionInput()
     this.bindHeroPositionCheck()
-
+    
     // initializes DirectionInput
     this.directionInput = new DirectionInput()
     this.directionInput.init()
-
-    // getting the gameObjects levelData
-    this.gameObjects = this.levelData.gameObjects
-
-    // set the id variable in the object to its key value
-    Object.keys(this.gameObjects).forEach((key) => {
-      let object = this.gameObjects[key]
-      object.id = key
-    })
 
     // start GameLoop
     this.startGameLoop()
@@ -82,6 +77,7 @@ export class OverWorld {
 
   getState() {
     return {
+      currentLevel: this.levelId,
       gameObjects: this.gameObjects,
       cameraPerson: this.gameObjects.hero,
 
