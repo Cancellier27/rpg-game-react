@@ -15,18 +15,19 @@ export const DemoRoom = {
         {type: "stand", direction: "up", time: 1000},
         {type: "stand", direction: "right", time: 1200},
         {type: "stand", direction: "left", time: 2000}
+      ],
+      talking: [
+        {
+          events: [
+            {type: "textMessage", text: "Hellooo there!", faceHero: "npcA"},
+            {type: "textMessage", text: "see you around"},
+          ]
+        }
       ]
     }),
     npcB: new Person({
-      x: utils.withGrid(3),
-      y: utils.withGrid(7),
-      behaviorLoop: [
-        {type: "walk", direction: "left"},
-        {type: "stand", direction: "up", time: 1000},
-        {type: "walk", direction: "up"},
-        {type: "walk", direction: "right"},
-        {type: "walk", direction: "down"}
-      ]
+      x: utils.withGrid(8),
+      y: utils.withGrid(5),
     })
   },
   walls: {
@@ -36,4 +37,21 @@ export const DemoRoom = {
     [utils.asGridCoord(7, 7)]: true,
     [utils.asGridCoord(8, 7)]: true
   },
+  cutsceneSpaces: {
+    [utils.asGridCoord(7,4)]: [
+      {
+        events: [
+          {who: "npcB", type: "walk", direction: "left"},
+          {who: "npcB", type: "stand", direction: "up", time: 500},
+          {type: "textMessage", text: "You can't be in there"},
+          {type: "textMessage", text: "Get out!!"},
+          {who: "npcB", type: "walk", direction: "right"},
+          {who: "npcB", type: "stand", direction: "left"},
+          {who: "hero", type: "walk", direction: "down"},
+          {who: "hero", type: "walk", direction: "left"},
+          {who: "npcB", type: "stand", direction: "down"},
+        ]
+      }
+    ]
+  }
 }

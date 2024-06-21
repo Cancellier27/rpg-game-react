@@ -37,7 +37,7 @@ export class Person extends GameObject {
     }
   }
 
-  startBehavior(state, behavior) {
+  startBehavior(state, behavior = 10) {
     //Set character direction to whatever behavior has
     this.direction = behavior.direction;
     

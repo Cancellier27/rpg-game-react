@@ -1,11 +1,11 @@
 import {utils} from "../helpers/utils"
-import { OverWorldEvent } from "./OverWorldEvent"
+import {OverWorldEvent} from "./OverWorldEvent"
 
 export class OverWorldMap {
   constructor(config) {
     this.gameObjects = config.gameObjects
-  
     this.walls = config.walls || {}
+    this.cutsceneSpaces = config.cutsceneSpaces || {}
 
     this.isCutscenePlaying = false
 
@@ -30,7 +30,7 @@ export class OverWorldMap {
   }
 
   mountObjects() {
-    Object.values(this.gameObjects).forEach(object => {
+    Object.values(this.gameObjects).forEach((object) => {
       object.mount(this)
     })
   }
@@ -38,7 +38,7 @@ export class OverWorldMap {
   async startCutscene(events) {
     this.isCutscenePlaying = true
 
-    for (let i = 0; i<events.length; i++) {
+    for (let i = 0; i < events.length; i++) {
       const eventHandler = new OverWorldEvent({
         event: events[i],
         map: this
@@ -49,7 +49,30 @@ export class OverWorldMap {
     this.isCutscenePlaying = false
 
     // reset NPCs to their initial behaviors
-    Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
+    Object.values(this.gameObjects).forEach((object) =>
+      object.doBehaviorEvent(this)
+    )
+  }
+
+  checkForActionCutscene() {
+    const hero = this.gameObjects.hero
+    const coords = utils.nextPosition(hero.x, hero.y, hero.direction)
+    const match = Object.values(this.gameObjects).find((object) => {
+      return `${object.x},${object.y}` === `${coords.x},${coords.y}`
+    })
+
+    // fires an action cutscene when the character finds another character on the map
+    if (!this.isCutscenePlaying && match && match.talking.length) {
+      this.startCutscene(match.talking[0].events)
+    }
+  }
+
+  checkForFootstepCutscene() {
+    const hero = this.gameObjects["hero"]
+    const match = this.cutsceneSpaces[`${hero.x},${hero.y}`]
+    if (!this.isCutscenePlaying && match) {
+      this.startCutscene(match[0].events)
+    }
   }
 
   addWall(x, y) {
@@ -59,11 +82,10 @@ export class OverWorldMap {
   removeWall(x, y) {
     delete this.walls[`${x},${y}`]
   }
-  
+
   moveWall(wasX, wasY, direction) {
     this.removeWall(wasX, wasY)
-    const {x,y} = utils.nextPosition(wasX, wasY, direction)
-    this.addWall(x,y)
+    const {x, y} = utils.nextPosition(wasX, wasY, direction)
+    this.addWall(x, y)
   }
-
 }

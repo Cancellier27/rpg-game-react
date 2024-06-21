@@ -2,6 +2,7 @@ import LevelsMap from "../levels/levelsMap"
 import {DirectionInput} from "./DirectionInput"
 import {OverWorldMap} from "./OverWorldMap"
 import {GameLoop} from "./GameLoop"
+import { KeyPressListener } from "./KeyPressListener"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
@@ -31,12 +32,31 @@ export class OverWorld {
     this.onEmit(this.getState())
   }
 
+  bindActionInput() {
+    new KeyPressListener("Enter", () => {
+      // is there somene o talk here to?
+      this.overWorldMap.checkForActionCutscene()
+      
+    })
+  }
+
+  bindHeroPositionCheck() {
+    document.addEventListener("PersonWalkingComplete", e => {
+      if(e.detail.whoId === "hero") {
+      this.overWorldMap.checkForFootstepCutscene()
+      }
+    })
+  }
+
   init() {
     this.levelData = LevelsMap[this.levelId]
 
     // initializes OverWorldMap
     this.overWorldMap = new OverWorldMap(this.levelData)
     this.overWorldMap.mountObjects()
+
+    this.bindActionInput()
+    this.bindHeroPositionCheck()
 
     // initializes DirectionInput
     this.directionInput = new DirectionInput()
@@ -53,18 +73,6 @@ export class OverWorld {
 
     // start GameLoop
     this.startGameLoop()
-
-    this.overWorldMap.startCutscene([
-      {who: "hero", type: "walk", direction: "down"},
-      {who: "hero", type: "walk", direction: "down"},
-      {who: "npcA", type: "walk", direction: "left"},
-      {who: "npcA", type: "walk", direction: "left"},
-      {who: "npcA", type: "stand", direction: "up"},
-      {type: "textMessage", text: "Hellooo there!"},
-      {type: "textMessage", text: "See Ya"},
-      {who: "npcA", type: "walk", direction: "right"},
-      {who: "npcA", type: "walk", direction: "right"},
-    ])
   }
 
   destroy() {
