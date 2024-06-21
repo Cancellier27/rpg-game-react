@@ -1,43 +1,21 @@
 export class Walking {
   constructor(config) {
     this.animations = config.animations || {
-      "idle-down": [[0, 0]],
-      "idle-right": [[0, 1]],
-      "idle-up": [[0, 2]],
-      "idle-left": [[0, 3]],
-      "walk-down": [
-        [1, 0],
-        [0, 0],
-        [3, 0],
-        [0, 0]
-      ],
-      "walk-right": [
-        [1, 1],
-        [0, 1],
-        [3, 1],
-        [0, 1]
-      ],
-      "walk-up": [
-        [1, 2],
-        [0, 2],
-        [3, 2],
-        [0, 2]
-      ],
-      "walk-left": [
-        [1, 3],
-        [0, 3],
-        [3, 3],
-        [0, 3]
-      ]
+      "idle-down" : [ [0,0] ],
+      "idle-right": [ [0,1] ],
+      "idle-up"   : [ [0,2] ],
+      "idle-left" : [ [0,3] ],
+      "walk-down" : [ [1,0],[0,0],[3,0],[0,0], ],
+      "walk-right": [ [1,1],[0,1],[3,1],[0,1], ],
+      "walk-up"   : [ [1,2],[0,2],[3,2],[0,2], ],
+      "walk-left" : [ [1,3],[0,3],[3,3],[0,3], ]
     }
-    this.currentAnimation = "idle-down" //config.currentAnimation || "idleDown"
+    
+    this.currentAnimation = config.currentAnimation || "idle-down"
     this.currentAnimationFrame = 0
 
     this.animationFrameLimit = config.animationFrameLimit || 8
     this.animationFrameProgress = this.animationFrameLimit
-
-    // reference GameObject
-    this.gameObject = config.gameObject
   }
 
   get frame() {
@@ -68,13 +46,8 @@ export class Walking {
     }
   }
 
-
-  getState() {
-    const [frameX, frameY] = this.animations[this.currentAnimation][this.currentAnimationFrame]
-
+  walk() {
     this.updateAnimationProgress()
-
-    return [frameX, frameY]
   }
   
 }
