@@ -8,6 +8,16 @@ export class OverWorldMap {
     this.walls = config.walls || {}
 
     this.isCutscenePlaying = false
+
+    this.isMessageDisplaying = false
+    this.messageText = ""
+    this.messageOnComplete = null
+  }
+
+  terminateMessage() {
+    this.isMessageDisplaying = false
+    this.messageText = ""
+    this.messageOnComplete = null
   }
 
   changeMap(mapName) {
@@ -37,6 +47,9 @@ export class OverWorldMap {
     }
 
     this.isCutscenePlaying = false
+
+    // reset NPCs to their initial behaviors
+    Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
   }
 
   addWall(x, y) {

@@ -51,8 +51,6 @@ export class OverWorld {
       object.id = key
     })
 
-
-
     // start GameLoop
     this.startGameLoop()
 
@@ -62,18 +60,27 @@ export class OverWorld {
       {who: "npcA", type: "walk", direction: "left"},
       {who: "npcA", type: "walk", direction: "left"},
       {who: "npcA", type: "stand", direction: "up"},
+      {type: "textMessage", text: "Hellooo there!"},
+      {type: "textMessage", text: "See Ya"},
+      {who: "npcA", type: "walk", direction: "right"},
+      {who: "npcA", type: "walk", direction: "right"},
     ])
   }
 
   destroy() {
     this.gameLoop.stop()
     this.directionInput.unbind()
-   }
+  }
 
   getState() {
     return {
       gameObjects: this.gameObjects,
       cameraPerson: this.gameObjects.hero,
+
+      // Passing the display message data and callback
+      OWMap: this.overWorldMap,
+      messageOnComplete: this.overWorldMap.messageOnComplete,
+
       restart: () => {
         this.init()
       }

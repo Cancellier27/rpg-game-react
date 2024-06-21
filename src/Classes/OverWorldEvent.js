@@ -1,3 +1,5 @@
+import { TextMessage } from "./TextMessage";
+
 export class OverWorldEvent {
   constructor({ map, event}) {
     this.map = map;
@@ -44,6 +46,14 @@ export class OverWorldEvent {
     }
     document.addEventListener("PersonWalkingComplete", completeHandler)
 
+  }
+
+  textMessage(resolve) {
+    const message = new TextMessage({
+      text: this.event.text,
+      onComplete: () => resolve()
+    })
+    message.init(this.map)
   }
 
   init() {

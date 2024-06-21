@@ -1,39 +1,35 @@
 import "./hud.css"
-import {KeyPressListener} from "../GameObjects/KeyPressListener"
-import {textMessageObj} from "../GameObjects/classes"
-import {useEffect} from "react"
- 
-export default function TextBalloon({setIsMessageDisplayed}) {
-  
-  useEffect (() => {
-    console.log("rendering")
-    return () => {
-      const actionListener = new KeyPressListener("Enter", () => {
-        actionListener.unbind()
-        done()
-        console.log("enter")
-      })
-    }
-  }, [setIsMessageDisplayed])
+import {useEffect, useState} from "react"
 
-    
+
+export default function TextBalloon({level}) {
+  const [messageText, setMessageText] = useState(null)
+  const [isMessage, setIsMessage] = useState(null)
+
+  useEffect(() => {
+    setIsMessage(level.OWMap.isMessageDisplaying)
+    setMessageText(level.OWMap.messageText)
+  }, [level])
+
+  if(!messageText) {
+    return null
+  }
+
   function onClickHandler() {
-    done()
+    level.messageOnComplete()
+    level.OWMap.terminateMessage()
   }
-
-  function done() {
-    setIsMessageDisplayed(false)
-    textMessageObj.onComplete()
-  }
-  
-  
 
   return (
-    <div className="text-message">
-      <p className="text-message-p">{textMessageObj.getState()}</p>
-      <button className="text-message-button" onClick={onClickHandler}>
-        Next
-      </button>
+    <div>
+      {isMessage && (
+        <div className="text-message">
+          <p className="text-message-p">{messageText}</p>
+          <button className="text-message-button" onClick={onClickHandler}>
+            Next
+          </button>
+        </div>
+      )}
     </div>
   )
 }
