@@ -6,6 +6,9 @@ export const CELL_SIZE = 16
 export const X_ADJUSTMENT = 8
 export const Y_ADJUSTMENT = 18
 
+export const TEXT_APPEARING_SPEED = 70
+
+
 export const SPRITE_SHEET_SRC = {
   DemoRoomLower: require("../images/maps/DemoLower.png"),
   DemoRoomUpper: require("../images/maps/DemoUpper.png"),

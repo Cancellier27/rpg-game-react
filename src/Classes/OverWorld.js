@@ -68,6 +68,10 @@ export class OverWorld {
 
     // start GameLoop
     this.startGameLoop()
+
+    this.overWorldMap.startCutscene([
+      {type: "textMessage", text: "Hi Filipe and welcome to the development of this game! Hi Filipe and welcome to the development of this game!"}
+    ])
   }
 
   destroy() {

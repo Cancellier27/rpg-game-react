@@ -1,6 +1,6 @@
 import "./hud.css"
 import {useEffect, useState} from "react"
-
+import RevealingText from "./RevealingText"
 
 export default function TextBalloon({level}) {
   const [messageText, setMessageText] = useState(null)
@@ -24,7 +24,10 @@ export default function TextBalloon({level}) {
     <div>
       {isMessage && (
         <div className="text-message">
-          <p className="text-message-p">{messageText}</p>
+          <p className="text-message-p">
+            <RevealingText text={messageText} />
+            {/* {messageText} */}
+          </p>
           <button className="text-message-button" onClick={onClickHandler}>
             Next
           </button>
