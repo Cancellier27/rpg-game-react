@@ -8,7 +8,7 @@ export const Y_ADJUSTMENT = 18
 
 export const TEXT_APPEARING_SPEED = 70
 
-export const FADE_TIME = 1000
+export const FADE_TIME = 400
 
 export const SPRITE_SHEET_SRC = {
   DemoRoomLower: require("../images/maps/DemoLower.png"),

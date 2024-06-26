@@ -45,6 +45,7 @@ export default function RenderLevel() {
 
   return (
     <div className="overWorld-container">
+      {/* fades the screen when the map changes */}
       {level.isFadeIn && <FadeIn />}
       {level.isFadeOut && <FadeOut />}
       {/* Lower layer to be rendered */}
