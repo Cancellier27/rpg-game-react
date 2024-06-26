@@ -31,3 +31,41 @@
   right: 2px;
   bottom: 0;
 }
+
+
+.fadeIn-component {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  background-color: white;
+  opacity: 0;
+
+  animation: fadeIn 1s forwards;
+}
+
+.fadeOut-component {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  background-color: white;
+  opacity: 0;
+
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeOut {
+  100% {opacity: 0;}
+  0% {opacity: 1;}
+}
+

@@ -3,6 +3,8 @@ import {useEffect, useState} from "react"
 import {useRecoilState} from "recoil"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {OverWorld} from "../../classes/OverWorld"
+import FadeIn from "../hud/FadeIn"
+import FadeOut from "../hud/FadeOut"
 
 import MapSpriteLower from "../spriteComponents/MapSpriteLower"
 import MapSpriteUpper from "../spriteComponents/MapSpriteUpper"
@@ -43,6 +45,8 @@ export default function RenderLevel() {
 
   return (
     <div className="overWorld-container">
+      {level.isFadeIn && <FadeIn />}
+      {level.isFadeOut && <FadeOut />}
       {/* Lower layer to be rendered */}
       <MapSpriteLower level={level} />
       <div>

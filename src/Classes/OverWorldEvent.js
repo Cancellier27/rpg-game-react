@@ -70,8 +70,7 @@ export class OverWorldEvent {
   }
 
   changeMap(resolve) {
-    this.map.overWorld.levelId = this.event.map
-    this.map.overWorld.startMap(this.event.map)
+    this.map.overWorld.changeMap(this.event.map)
     resolve()
   }
 
