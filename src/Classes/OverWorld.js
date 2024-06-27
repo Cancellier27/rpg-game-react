@@ -87,10 +87,6 @@ export class OverWorld {
 
     // start GameLoop
     this.startGameLoop()
-
-    // this.overWorldMap.startCutscene([
-    //   {type: "changeMap", map: "DemoRoom"}
-    // ])
   }
 
   destroy() {
