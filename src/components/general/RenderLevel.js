@@ -3,13 +3,9 @@ import {useEffect, useState} from "react"
 import {useRecoilState} from "recoil"
 import {currentLevelIdAtom} from "../../atoms/currentLevelIdAtom"
 import {OverWorld} from "../../classes/OverWorld"
-import FadeIn from "../hud/FadeIn"
-import FadeOut from "../hud/FadeOut"
 
-import MapSpriteLower from "../spriteComponents/MapSpriteLower"
-import MapSpriteUpper from "../spriteComponents/MapSpriteUpper"
-import NpcsPlacementTiles from "./NpcsPlacementTiles"
-import TextBalloon from "../hud/TextBalloon"
+import ExploringScene from "./ExploringScene"
+import BattleScene from "./BattleScene"
 
 export default function RenderLevel() {
   const [level, setLevel] = useState(null)
@@ -43,21 +39,8 @@ export default function RenderLevel() {
     return null
   }
 
-  return (
-    <div className="overWorld-container">
-      {/* fades the screen when the map changes */}
-      {level.isFadeIn && <FadeIn />}
-      {level.isFadeOut && <FadeOut />}
-      {/* Lower layer to be rendered */}
-      <MapSpriteLower level={level} />
-      <div>
-        {/* mid layer */}
-        <NpcsPlacementTiles level={level} />
-      </div>
-      {/* top layer to be rendered */}
-      <MapSpriteUpper level={level} />
-      {/* text Message */}
-      <TextBalloon level={level} />
-    </div>
-  )
+  return <>
+  {!level.isBattle && <ExploringScene level={level} />}
+  {level.isBattle && <BattleScene level={level}/> }
+  </>
 }

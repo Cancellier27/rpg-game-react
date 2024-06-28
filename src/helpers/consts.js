@@ -20,4 +20,5 @@ export const SPRITE_SHEET_SRC = {
   Npc1: require("../images/characters/people/npc1.png"),
   Npc2: require("../images/characters/people/npc2.png"),
   Npc3: require("../images/characters/people/npc3.png"),
+  DemoRoomBattle: require("../images/maps/StreetBattle.png")
 }

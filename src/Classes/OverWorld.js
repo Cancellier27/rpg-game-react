@@ -7,6 +7,8 @@ import { FADE_TIME } from "../helpers/consts"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
+    this.isBattle = true
+
     this.levelId = levelId
     this.onEmit = onEmit
 
@@ -101,6 +103,7 @@ export class OverWorld {
       cameraPerson: this.gameObjects.hero,
       isFadeIn: this.isFadeIn,
       isFadeOut: this.isFadeOut,
+      isBattle: this.isBattle,
 
       // Passing the display message data and callback
       OWMap: this.overWorldMap,

@@ -13,6 +13,7 @@ import {
   spriteNpc2ImageAtom,
   spriteNpc3ImageAtom
 } from "./atoms/npcLevelSpritesImageAtom"
+import {spriteDemoBattleImageAtom} from "./atoms/battleMapsImageAtom"
 import {SPRITE_SHEET_SRC} from "./helpers/consts"
 import RenderLevel from "./components/general/RenderLevel"
 
@@ -31,10 +32,14 @@ function App() {
     spriteKitchenUpperImageAtom
   )
 
+  // Battle Maps
+  const [spriteDemoRoomBattleImage, setSpriteDemoRoomBattleImage] =
+    useRecoilState(spriteDemoBattleImageAtom)
+
   // Npcs and shadow
-  
-  const [spriteShadowImage, setSpriteShadowImage] =
-    useRecoilState(spriteShadowImageAtom)
+  const [spriteShadowImage, setSpriteShadowImage] = useRecoilState(
+    spriteShadowImageAtom
+  )
   const [spriteHeroImage, setSpriteHeroImage] =
     useRecoilState(spriteHeroImageAtom)
   const [spriteNpc1Image, setSpriteNpc1Image] =
@@ -77,6 +82,16 @@ function App() {
       setSpriteKitchenUpperImage(kitchenUpperImage)
     }
   }, [setSpriteDemoRoomUpperImage, setSpriteKitchenUpperImage])
+
+  // Battle Maps
+  useEffect(() => {
+    // DemoRoom
+    const demoRoomBattleImg = new Image()
+    demoRoomBattleImg.src = SPRITE_SHEET_SRC.DemoRoomBattle
+    demoRoomBattleImg.onload = () => {
+      setSpriteDemoRoomBattleImage(demoRoomBattleImg)
+    }
+  }, [setSpriteDemoRoomBattleImage])
 
   // NPCs and Shadow
   useEffect(() => {
@@ -132,7 +147,8 @@ function App() {
     !spriteHeroImage ||
     !spriteNpc1Image ||
     !spriteNpc2Image ||
-    !spriteNpc3Image
+    !spriteNpc3Image ||
+    !spriteDemoRoomBattleImage
   ) {
     return null
   }
