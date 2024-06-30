@@ -8,6 +8,9 @@ export class OverWorldMap {
     this.cutsceneSpaces = config.cutsceneSpaces || {}
     this.overWorld = null
 
+    this.isBattle = false
+    this.battle = null
+
     this.isCutscenePlaying = false
 
     this.isMessageDisplaying = false

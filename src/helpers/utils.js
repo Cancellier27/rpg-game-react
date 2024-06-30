@@ -10,6 +10,10 @@ export const utils = {
     return n * CELL_SIZE
   },
 
+  withGridBattle(n) {
+    return n * CELL_SIZE * 2
+  },
+
   asGridCoord(x, y) {
     return `${x * CELL_SIZE},${y * CELL_SIZE}`
   },

@@ -1,39 +1,37 @@
-import "./spritesComponents.css"
 import {useEffect, useRef} from "react"
 import {useRecoilValue} from "recoil"
-import {lowerMapsImages} from "../../atoms/mapLevelSpritesImageAtom"
-import {utils} from "../../helpers/utils"
+import {battleMapsImages} from "../../atoms/battleMapsImageAtom"
 import {CANVAS_SIZE} from "../../helpers/consts"
 
 export default function MapSpriteLower({level}) {
   const canvasRef = useRef()
 
-  const mapId = level.currentLevel
-  const mapSpriteImage = useRecoilValue(lowerMapsImages[mapId])
+  const mapSpriteImage = useRecoilValue(battleMapsImages[level.battle.battleMap])
 
   useEffect(() => {
     /** @type {HTMLCanvasElement} */
     const canvasEl = canvasRef.current
     const ctx = canvasEl.getContext("2d")
-    const cameraPerson = level.cameraPerson
-
-    const coord_X = utils.withGrid(10.5) - cameraPerson.x
-    const coord_Y = utils.withGrid(6) - cameraPerson.y
 
     //Clear out anything in the canvas tag
     ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
     ctx.drawImage(
       mapSpriteImage, // Image to pull from
-      coord_X,
-      coord_Y
+      0,
+      0,
+      CANVAS_SIZE.X,
+      CANVAS_SIZE.Y
     )
+
+    // makes the image look sharp
+    ctx.imageSmoothingEnabled = false
   }, [mapSpriteImage, level, canvasRef])
 
   return (
     <canvas
       ref={canvasRef}
-      className="map-canvas"
+      className="battle-map-canvas"
       width={CANVAS_SIZE.X}
       height={CANVAS_SIZE.Y}
     />

@@ -1,5 +1,6 @@
 import {utils} from "../helpers/utils"
 import {TextMessage} from "./TextMessage"
+import { Battle } from "../battleClasses/Battle"
 
 export class OverWorldEvent {
   constructor({map, event}) {
@@ -70,9 +71,19 @@ export class OverWorldEvent {
   }
 
   changeMap(resolve) {
-    this.map.overWorld.levelId = this.event.map
-    this.map.overWorld.startMap(this.event.map)
+    this.map.overWorld.changeMap(this.event.map)
     resolve()
+  }
+
+  battle(resolve) {
+    const battle = new Battle({
+      onComplete: () => {
+        resolve()
+      }
+    })
+
+    this.map.battle = battle
+    this.map.isBattle = true
   }
 
   init() {

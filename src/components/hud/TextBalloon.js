@@ -1,7 +1,6 @@
 import "./hud.css"
 import {useEffect, useState} from "react"
 
-
 export default function TextBalloon({level}) {
   const [messageText, setMessageText] = useState(null)
   const [isMessage, setIsMessage] = useState(null)

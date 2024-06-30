@@ -3,11 +3,15 @@ import {DirectionInput} from "./DirectionInput"
 import {OverWorldMap} from "./OverWorldMap"
 import {GameLoop} from "./GameLoop"
 import {KeyPressListener} from "./KeyPressListener"
+import { FADE_TIME } from "../helpers/consts"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
     this.levelId = levelId
     this.onEmit = onEmit
+
+    this.isFadeIn = false
+    this.isFadeOut = false
 
     this.init()
   }
@@ -47,6 +51,21 @@ export class OverWorld {
     })
   }
 
+  changeMap(mapConfig) {
+    this.isFadeIn = true
+
+    setTimeout(() => {
+      this.isFadeIn = false
+      this.isFadeOut = true
+      this.levelId = mapConfig
+      this.startMap(mapConfig) 
+    }, FADE_TIME)
+    
+    setTimeout(() => {
+      this.isFadeOut = false
+    }, FADE_TIME * 2)
+  }
+
   startMap(mapConfig) {
     // initializes OverWorldMap
     this.overWorldMap = new OverWorldMap(LevelsMap[mapConfig])
@@ -68,6 +87,10 @@ export class OverWorld {
 
     // start GameLoop
     this.startGameLoop()
+
+    this.overWorldMap.startCutscene([
+      {type: "battle"}
+    ])
   }
 
   destroy() {
@@ -80,6 +103,10 @@ export class OverWorld {
       currentLevel: this.levelId,
       gameObjects: this.gameObjects,
       cameraPerson: this.gameObjects.hero,
+      isFadeIn: this.isFadeIn,
+      isFadeOut: this.isFadeOut,
+      isBattle: this.overWorldMap.isBattle,
+      battle: this.overWorldMap.battle,
 
       // Passing the display message data and callback
       OWMap: this.overWorldMap,
