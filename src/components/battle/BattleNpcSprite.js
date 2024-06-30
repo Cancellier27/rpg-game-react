@@ -1,4 +1,3 @@
-// import "./spritesComponents.css"
 import React from "react"
 import {useRecoilValue} from "recoil"
 import {npcImages} from "../../atoms/npcLevelSpritesImageAtom"

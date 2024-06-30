@@ -1,4 +1,3 @@
-// import "../spriteComponents/spritesComponents.css"
 import {useEffect, useRef} from "react"
 import {useRecoilValue} from "recoil"
 import {battleMapsImages} from "../../atoms/battleMapsImageAtom"

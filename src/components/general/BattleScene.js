@@ -1,5 +1,7 @@
 import BattleMapSprite from "../battle/BattleMapSprite"
 import BattleNpcSprite from "../battle/BattleNpcSprite"
+import BattleStatusMenu from "../battle/BattleStatusMenu"
+
 
 export default function BattleScene({level}) {
   const combatants = []
@@ -22,6 +24,7 @@ export default function BattleScene({level}) {
     <div className="battle-container">
       <BattleMapSprite level={level} />
       {[combatants]}
+      <BattleStatusMenu level={level} />
     </div>
   )
 }

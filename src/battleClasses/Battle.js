@@ -11,6 +11,8 @@ export class Battle {
         team:"player",
         hp: 50,
         maxHp: 50,
+        mp:20,
+        maxMp: 20,
         xp: 0,
         level: 1,
         status: null
@@ -20,6 +22,8 @@ export class Battle {
         team:"enemy",
         hp: 50,
         maxHp: 50,
+        mp:20,
+        maxMp: 20,
         xp: 20,
         level: 1,
         status: null
