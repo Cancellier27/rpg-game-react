@@ -2,13 +2,12 @@
 import {useEffect, useRef} from "react"
 import {useRecoilValue} from "recoil"
 import {battleMapsImages} from "../../atoms/battleMapsImageAtom"
-import {utils} from "../../helpers/utils"
 import {CANVAS_SIZE} from "../../helpers/consts"
 
 export default function MapSpriteLower({level}) {
   const canvasRef = useRef()
 
-  const mapSpriteImage = useRecoilValue(battleMapsImages["DemoRoomBattle"])
+  const mapSpriteImage = useRecoilValue(battleMapsImages[level.battle.battleMap])
 
   useEffect(() => {
     /** @type {HTMLCanvasElement} */

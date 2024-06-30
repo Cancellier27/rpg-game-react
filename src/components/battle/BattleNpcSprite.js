@@ -9,7 +9,7 @@ import {
   X_ADJUSTMENT,
   Y_ADJUSTMENT
 } from "../../helpers/consts"
-import { utils } from "../../helpers/utils"
+import {utils} from "../../helpers/utils"
 
 function Sprite({level, npc, x, y, isShadow, frameCoord}) {
   // get the shadow image
@@ -26,8 +26,8 @@ function Sprite({level, npc, x, y, isShadow, frameCoord}) {
     const frame_Y = Number(frameCoord[1])
 
     // screen position, to make the screen centralized
-    const coord_X = utils.withGrid(x)
-    const coord_Y = utils.withGrid(y)
+    const coord_X = utils.withGridBattle(x) - 16
+    const coord_Y = utils.withGridBattle(y)
 
     const canvasEl = canvasRef.current
     const ctx = canvasEl.getContext("2d")
@@ -37,7 +37,13 @@ function Sprite({level, npc, x, y, isShadow, frameCoord}) {
 
     //Draw shadow to the canvas
     if (isShadow) {
-      ctx.drawImage(shadowSpriteImage, coord_X, coord_Y)
+      ctx.drawImage(
+        shadowSpriteImage,
+        coord_X,
+        coord_Y,
+        CELL_SIZE * 4,
+        CELL_SIZE * 4
+      )
     }
 
     // Draw npc to the canvas
@@ -52,8 +58,8 @@ function Sprite({level, npc, x, y, isShadow, frameCoord}) {
       CELL_SIZE * 4, // x scale
       CELL_SIZE * 4 // y scale
     )
-       // makes the image look sharp
-       ctx.imageSmoothingEnabled = false
+    // makes the image look sharp
+    ctx.imageSmoothingEnabled = false
   }, [npcSpriteImage, frameCoord, x, y])
 
   return (
