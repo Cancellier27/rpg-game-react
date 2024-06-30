@@ -9,8 +9,8 @@ export class Battle {
       "player1" : new Combatant({
         ...Players.hero,
         team:"player",
-        hp: 50,
-        maxHp: 50,
+        hp: 80,
+        maxHp: 100,
         mp:20,
         maxMp: 20,
         xp: 0,
