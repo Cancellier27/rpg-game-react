@@ -1,9 +1,12 @@
 import { Combatant } from "./Combatant";
 import {Enemies} from "../Content/Enemies"
 import {Players} from "../Content/Players"
+import { TurnCycle } from "./TurnCycle";
+import { BattleEvent } from "./BattleEvent";
 
 export class Battle {
-  constructor() {
+  constructor({map}) {
+    this.map = map
     this.battleMap = "DemoRoomBattle"
     this.combatants = {
       "player1" : new Combatant({
@@ -43,7 +46,23 @@ export class Battle {
         status: null
       }, this),
     }
+
+    this.init()
   }
 
+
+  init() {
+    this.turCycle = new TurnCycle({
+      battle: this,
+      onNewEvent: event => {
+        return new Promise(resolve => {
+          const battleEvent = new BattleEvent(event, this, this.map)
+          battleEvent.init(resolve)
+        })
+      }
+    })
+
+    this.turCycle.init()
+  }
   
 }

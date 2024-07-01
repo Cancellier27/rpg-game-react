@@ -3,7 +3,7 @@ import FadeOut from "../hud/FadeOut"
 import MapSpriteLower from "../spriteComponents/MapSpriteLower"
 import MapSpriteUpper from "../spriteComponents/MapSpriteUpper"
 import NpcsPlacementTiles from "./NpcsPlacementTiles"
-import TextBalloon from "../hud/TextBalloon"
+
 
 export default function ExploringScene({level}) {
   return (
@@ -19,8 +19,6 @@ export default function ExploringScene({level}) {
       </div>
       {/* top layer to be rendered */}
       <MapSpriteUpper level={level} />
-      {/* text Message */}
-      <TextBalloon level={level} />
     </div>
   )
 }

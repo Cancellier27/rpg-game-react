@@ -6,6 +6,7 @@ import {OverWorld} from "../../classes/OverWorld"
 
 import ExploringScene from "./ExploringScene"
 import BattleScene from "./BattleScene"
+import TextBalloon from "../hud/TextBalloon"
 
 export default function RenderLevel() {
   const [level, setLevel] = useState(null)
@@ -42,5 +43,7 @@ export default function RenderLevel() {
   return <>
   {!level.isBattle && <ExploringScene level={level} />}
   {level.isBattle && <BattleScene level={level}/> }
+  {/* text Message */}
+  <TextBalloon level={level} />
   </>
 }
