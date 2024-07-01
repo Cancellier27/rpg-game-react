@@ -1,4 +1,5 @@
 import { TextMessage } from "../classes/TextMessage"
+import { SubmissionMenu } from "./SubmissionMenu"
 
 export class BattleEvent {
   constructor(event, battle) {
@@ -7,13 +8,32 @@ export class BattleEvent {
   }
 
   textMessage(resolve) {
+    const text = this.event.text
+    .replace("{CASTER}", this.event.caster?.name)
+    .replace("{TARGET}", this.event.target?.name)
+    .replace("{ACTION}", this.event.action?.name)
+
+
     const message = new TextMessage({
-      text: this.event.text,
+      text,
       onComplete: () => {
         resolve()
       }
     })
     message.init(this.battle.map)
+  }
+
+  submissionMenu(resolve) {
+    const menu = new SubmissionMenu({
+      caster: this.event.caster,
+      enemy: this.event.enemy,
+      onComplete: submission => {
+        resolve(submission)
+      }
+    
+    })
+
+    menu.init(this.battle.map)
   }
 
   init(resolve) {

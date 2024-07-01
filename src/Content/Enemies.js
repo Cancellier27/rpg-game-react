@@ -14,7 +14,8 @@ export const Enemies = {
       x: 8,
       y: 2,
       frameCoord: [0, 3]
-    }
+    },
+    actions: ["damage1"]
   },
   e001: {
     name: "Filipe",
@@ -25,6 +26,7 @@ export const Enemies = {
       x: 9,
       y: 1,
       frameCoord: [0, 3]
-    }
+    },
+    actions: ["damage1"]
   }
 }

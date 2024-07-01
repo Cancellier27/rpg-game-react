@@ -47,6 +47,11 @@ export class Battle {
       }, this),
     }
 
+    this.activeCombatants = {
+      player: "player1",
+      enemy: "enemy1"
+    }
+
     this.init()
   }
 
