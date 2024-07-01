@@ -19,7 +19,10 @@ export class Battle {
         xp: 0,
         maxXp: 100,
         level: 1,
-        status: null
+        status: {
+          type: "sleepy",
+          expiresIn: 3
+        }
       }, this),
       "enemy1" : new Combatant({
         ...Enemies.n001,
@@ -52,7 +55,7 @@ export class Battle {
       enemy: "enemy1"
     }
 
-    this.init()
+    // this.init()
   }
 
 

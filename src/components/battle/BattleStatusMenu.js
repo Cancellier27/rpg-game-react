@@ -1,10 +1,20 @@
 import "./battle.css"
 import PlayerInfo from "./PlayerInfo"
 import EnemyInfo from "./EnemyInfo"
+import StatusBoard from "./StatusBoard" 
+import { useState } from "react"
 
 export default function BattleStatusMenu({level}) {
+  const [isStatusBoard, setIsStatusBoard] = useState(false)
+
+  function onClickHandler() {
+    setIsStatusBoard(true)
+  }
+
   return (
     <div className="battle-status-menu">
+      {isStatusBoard && <StatusBoard setIsStatusBoard={setIsStatusBoard} level={level} />}
+
       {/* Player */}
       <div className="player-status">
         <div className="player-title">
@@ -28,10 +38,10 @@ export default function BattleStatusMenu({level}) {
       <div className="menu">
         <div>
           <div className="menu-option">Attack</div>
-          <div className="menu-option">Magic</div>
+          <div className="menu-option">Items</div>
         </div>
         <div>
-          <div className="menu-option">Items</div>
+          <div className="menu-option" onClick={onClickHandler} >Status</div>
           <div className="menu-option">Escape</div>
         </div>
       </div>
