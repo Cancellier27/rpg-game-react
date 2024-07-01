@@ -14,6 +14,7 @@ export class Battle {
         mp:20,
         maxMp: 20,
         xp: 0,
+        maxXp: 100,
         level: 1,
         status: null
       }, this),
@@ -25,18 +26,22 @@ export class Battle {
         mp:20,
         maxMp: 20,
         xp: 20,
+        maxXp: 100,
         level: 1,
         status: null
       }, this),
-      // "enemy2" : new Combatant({
-      //   ...Enemies.e001,
-      //   team:"enemy",
-      //   hp: 50,
-      //   maxHp: 50,
-      //   xp: 50,
-      //   level: 1,
-      //   status: null
-      // }, this),
+      "enemy2" : new Combatant({
+        ...Enemies.e001,
+        team:"enemy",
+        hp: 50,
+        maxHp: 50,
+        mp:20,
+        maxMp: 20,
+        xp: 50,
+        maxXp: 100,
+        level: 1,
+        status: null
+      }, this),
     }
   }
 

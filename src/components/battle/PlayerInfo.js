@@ -7,7 +7,10 @@ export default function PlayerInfo({level}) {
       let mpBar = (combatant.mp / combatant.maxMp) * 100
 
       players.push(
-        <>
+        <div
+          className="player-info"
+          key={`${combatant.name},${combatant.maxHp}`}
+        >
           <p className="player-info-name">
             {`${combatant.name}`.toUpperCase()}
           </p>
@@ -23,7 +26,7 @@ export default function PlayerInfo({level}) {
             <div className="mp-bar-total"></div>
             <div className="mp-bar-used" style={{width: `${mpBar}%`}}></div>
           </div>
-        </>
+        </div>
       )
     }
   })

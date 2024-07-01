@@ -6,7 +6,10 @@ export default function PlayerInfo({level}) {
       let hpBar = (combatant.hp / combatant.maxHp) * 100
 
       enemies.push(
-        <>
+        <div
+          className="enemy-info"
+          key={`${combatant.name},${combatant.maxHp}`}
+        >
           <p className="enemy-info-name">{`${combatant.name}`.toUpperCase()}</p>
 
           <div className="enemy-info-hp">
@@ -14,7 +17,7 @@ export default function PlayerInfo({level}) {
             <div className="hp-bar-total"></div>
             <div className="hp-bar-used" style={{width: `${hpBar}%`}}></div>
           </div>
-        </>
+        </div>
       )
     }
   })

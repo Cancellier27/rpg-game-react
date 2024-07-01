@@ -12,9 +12,7 @@ export default function BattleStatusMenu({level}) {
           <p className="player-title-hp">HP</p>
           <p className="player-title-mp">MP</p>
         </div>
-        <div className="player-info">
           <PlayerInfo level={level} />
-        </div>
       </div>
 
       {/* Enemies */}
@@ -23,10 +21,7 @@ export default function BattleStatusMenu({level}) {
           <p className="enemy-title-name">ENEMY</p>
           <p className="enemy-title-hp">HP</p>
         </div>
-
-        <div className="enemy-info">
           <EnemyInfo level={level} />
-        </div>
       </div>
 
       {/* Menu */}
