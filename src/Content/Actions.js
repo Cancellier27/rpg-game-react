@@ -3,8 +3,8 @@ export const Actions = {
     name: "Whomp!",
     success: [
       {type: "textMessage", text: "{CASTER} uses {ACTION}"},
-      // {type: "animation", animation: "something happened"},
-      // {type: "stateChange", damage: 10}
+      {type: "animation", animation: "tackle"},
+      {type: "stateChange", damage: 10}
     ],
   }
 }

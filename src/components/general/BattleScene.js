@@ -2,7 +2,6 @@ import BattleMapSprite from "../battle/BattleMapSprite"
 import BattleNpcSprite from "../battle/BattleNpcSprite"
 import BattleStatusMenu from "../battle/BattleStatusMenu"
 
-
 export default function BattleScene({level}) {
   const combatants = []
   Object.values(level.battle.combatants).forEach((object) => {
@@ -10,6 +9,7 @@ export default function BattleScene({level}) {
 
     combatants.push(
       <BattleNpcSprite
+        classId={object.classId}
         npc={sprite.npc}
         x={sprite.x}
         y={sprite.y}

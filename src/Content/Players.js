@@ -6,6 +6,7 @@ export const PlayerType = {
 export const Players = {
   hero: {
     name: "Hero",
+    classId: "hero-player",
     type: PlayerType.main,
     icon: null,
     sprite: {

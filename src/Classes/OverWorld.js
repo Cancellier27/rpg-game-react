@@ -4,6 +4,7 @@ import {OverWorldMap} from "./OverWorldMap"
 import {GameLoop} from "./GameLoop"
 import {KeyPressListener} from "./KeyPressListener"
 import { FADE_TIME } from "../helpers/consts"
+import { utils } from "../helpers/utils"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
@@ -51,19 +52,19 @@ export class OverWorld {
     })
   }
 
-  changeMap(mapConfig) {
+  async changeMap(mapConfig) {
     this.isFadeIn = true
 
-    setTimeout(() => {
-      this.isFadeIn = false
-      this.isFadeOut = true
-      this.levelId = mapConfig
-      this.startMap(mapConfig) 
-    }, FADE_TIME)
+    await utils.wait(FADE_TIME)
+
+    this.isFadeIn = false
+    this.isFadeOut = true
+    this.levelId = mapConfig
+    this.startMap(mapConfig) 
     
-    setTimeout(() => {
-      this.isFadeOut = false
-    }, FADE_TIME * 2)
+    await utils.wait(FADE_TIME)
+
+    this.isFadeOut = false
   }
 
   startMap(mapConfig) {

@@ -33,18 +33,18 @@ export class Battle {
         level: 1,
         status: null
       }, this),
-      "enemy2" : new Combatant({
-        ...Enemies.e001,
-        team:"enemy",
-        hp: 50,
-        maxHp: 50,
-        mp:20,
-        maxMp: 20,
-        xp: 50,
-        maxXp: 100,
-        level: 1,
-        status: null
-      }, this),
+      // "enemy2" : new Combatant({
+      //   ...Enemies.e001,
+      //   team:"enemy",
+      //   hp: 50,
+      //   maxHp: 50,
+      //   mp:20,
+      //   maxMp: 20,
+      //   xp: 50,
+      //   maxXp: 100,
+      //   level: 1,
+      //   status: null
+      // }, this),
     }
 
     this.activeCombatants = {
@@ -61,7 +61,7 @@ export class Battle {
       battle: this,
       onNewEvent: event => {
         return new Promise(resolve => {
-          const battleEvent = new BattleEvent(event, this, this.map)
+          const battleEvent = new BattleEvent(event, this)
           battleEvent.init(resolve)
         })
       }

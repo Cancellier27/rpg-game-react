@@ -1,3 +1,4 @@
+import "./animations.css"
 import React from "react"
 import {useRecoilValue} from "recoil"
 import {npcImages} from "../../atoms/npcLevelSpritesImageAtom"
@@ -10,7 +11,7 @@ import {
 } from "../../helpers/consts"
 import {utils} from "../../helpers/utils"
 
-function Sprite({level, npc, x, y, isShadow, frameCoord}) {
+function Sprite({npc, x, y, isShadow, frameCoord, classId}) {
   // get the shadow image
   const shadowSpriteImage = useRecoilValue(npcImages["shadow"])
   // get the hero image
@@ -64,7 +65,7 @@ function Sprite({level, npc, x, y, isShadow, frameCoord}) {
   return (
     <canvas
       ref={canvasRef}
-      className="sprite-canvas"
+      className={`sprite-canvas ${classId}`}
       width={CANVAS_SIZE.X}
       height={CANVAS_SIZE.Y}
     />

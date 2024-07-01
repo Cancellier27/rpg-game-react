@@ -1,0 +1,47 @@
+/* Blink ---------------------------------------------- */
+@keyframes battle-damage-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.battle-damage-blink {
+  animation: battle-damage-blink 0.3s steps(2, start) infinite;
+}
+
+/* Tackle ---------------------------------------------- */
+@keyframes battle-tackle-right {
+  0% { transform: translate3d(0,0,0) }
+  25% { transform: translate3d(40px,-5px,0) }
+  100% { transform: translate3d(0,0,0)}
+}
+.battle-tackle-right {
+  animation: battle-tackle-right 0.8s;
+}
+@keyframes battle-tackle-left {
+  0% { transform: translate3d(0,0,0)}
+  25% { transform: translate3d(-40px, -5px,0)}
+  100% { transform: translate3d(0,0,0)}
+}
+.battle-tackle-left {
+  animation: battle-tackle-left 0.8s;
+}
+
+/* Spin ---------------------------------------------- */
+@keyframes battle-spin-right {
+  0% { transform: translate3d(0,0,0) }
+  25% { transform: translate3d(40px,-5px,0) }
+  100% { transform: translate3d(0,0,0)}
+}
+.battle-spin-right {
+  animation: battle-spin-right 0.8s;
+}
+@keyframes battle-spin-left {
+  0% { transform: translate3d(0,0,0)}
+  25% { transform: translate3d(-40px, -5px,0)}
+  100% { transform: translate3d(0,0,0)}
+}
+.battle-spin-left {
+  animation: battle-tackle-left 0.8s;
+}
+

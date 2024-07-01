@@ -7,6 +7,7 @@ export const EnemyType = {
 export const Enemies = {
   n001: {
     name: "Hailey",
+    classId: "hailey-enemy",
     type: EnemyType.normal,
     icon: null,
     sprite: {
@@ -19,6 +20,7 @@ export const Enemies = {
   },
   e001: {
     name: "Filipe",
+    classId: "filipe-enemy",
     type: EnemyType.elite,
     icon: null,
     sprite: {
