@@ -158,7 +158,6 @@
   cursor: pointer;
 }
 
-
 /* Status board container ---------------- */
 .status-board-container {
   position: absolute;
@@ -170,5 +169,68 @@
   border-top: 1px solid var(--menu-border-color);
   color: var(--menu-font-color);
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   z-index: 35;
+
+  padding: 5px 10px;
+}
+
+.status-board-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 30px;
+  font-size: 150%;
+  font-family: "VT323", monospace;
+  background: none;
+  cursor: pointer;
+}
+
+.status-board-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  border-bottom: 1px solid var(--menu-border-color);
+}
+
+.status-board-title-name {
+  text-align: center;
+  width: 20%;
+}
+
+.status-board-title-status {
+  text-align: left;
+  margin-left: 20px;
+  width: 70%;
+}
+
+.status-board-player {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.status-board-player-name {
+  text-align: center;
+  width: 20%;
+}
+
+.status-board-player-status {
+  text-align: left;
+  margin-left: 20px;
+  /* width: 70%; */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.status-board-player-status h3 {
+  margin-left: 5px;
 }
