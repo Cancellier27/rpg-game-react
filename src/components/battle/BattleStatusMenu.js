@@ -5,7 +5,7 @@ import StatusBoard from "./StatusBoard"
 import { useState } from "react"
 
 export default function BattleStatusMenu({level}) {
-  const [isStatusBoard, setIsStatusBoard] = useState(true)
+  const [isStatusBoard, setIsStatusBoard] = useState(false)
 
   function onClickHandler() {
     setIsStatusBoard(true)
