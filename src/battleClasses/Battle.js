@@ -20,8 +20,8 @@ export class Battle {
         maxXp: 100,
         level: 1,
         status: {
-          type: "sleepy",
-          expiresIn: 3
+          type: "heal",
+          expiresIn: 2
         }
       }, this),
       "enemy1" : new Combatant({
@@ -55,7 +55,7 @@ export class Battle {
       enemy: "enemy1"
     }
 
-    // this.init()
+    this.init()
   }
 
 

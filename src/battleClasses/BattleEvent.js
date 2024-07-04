@@ -39,7 +39,7 @@ export class BattleEvent {
   }
 
   async stateChange(resolve) {
-    const {caster, target, damage} = this.event
+    const {caster, target, damage, recover} = this.event
     const element = document.querySelector(`.${target.classId}`)
     
     if (damage) {
@@ -48,6 +48,18 @@ export class BattleEvent {
 
       // start blinking
       element.classList.add("battle-damage-blink")
+    }
+
+    if(recover) {
+      const who = this.event.onCaster ? caster : target
+      let newHp = who.hp + recover
+
+      if(newHp > who.maxHp) {
+        newHp = who.maxHp
+      }
+
+      who.hp = newHp
+
     }
 
     // wait a bit
