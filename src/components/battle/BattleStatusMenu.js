@@ -8,7 +8,7 @@ export default function BattleStatusMenu({level}) {
   const [isStatusBoard, setIsStatusBoard] = useState(false)
 
   function onClickHandler() {
-    setIsStatusBoard(true)
+    return isStatusBoard ? setIsStatusBoard(false) : setIsStatusBoard(true)
   }
 
   return (

@@ -39,8 +39,13 @@ export class BattleEvent {
   }
 
   async stateChange(resolve) {
-    const {caster, target, damage, recover} = this.event
+    const {caster, target, damage, recover, status, action} = this.event
     const element = document.querySelector(`.${target.classId}`)
+    let who = this.event.onCaster ? caster : target
+
+    if(action.targetType === "friendly") {
+      who = caster
+    }
     
     if (damage) {
       // modify the target to have less hp
@@ -51,7 +56,6 @@ export class BattleEvent {
     }
 
     if(recover) {
-      const who = this.event.onCaster ? caster : target
       let newHp = who.hp + recover
 
       if(newHp > who.maxHp) {
@@ -59,7 +63,13 @@ export class BattleEvent {
       }
 
       who.hp = newHp
+    }
 
+    if(status) {
+      who.status = {...status}
+    } 
+     if (status === null) {
+      who.status = null
     }
 
     // wait a bit

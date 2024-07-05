@@ -15,6 +15,6 @@ export const Players = {
       y: 2,
       frameCoord: [0, 1]
     },
-    actions: ["damage1"]
+    actions: ["negativeStatus" ,"healingStatus", "damage1"]
   }
 }

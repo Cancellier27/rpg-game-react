@@ -58,5 +58,9 @@ export const utils = {
         resolve()
       }, ms)
     })
+  },
+
+  randomFromArray(array) {
+    return array[Math.floor(Math.random() * array.length)]
   }
 }

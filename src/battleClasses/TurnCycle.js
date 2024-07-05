@@ -18,7 +18,8 @@ export class TurnCycle {
       enemy
     })
 
-    const resultingEvents = submission.action.success
+    const resultingEvents = caster.getReplacedEvents(submission.action.success)
+    
     for (let i = 0; i < resultingEvents.length; i++) {
       const event = {
         ...resultingEvents[i],
