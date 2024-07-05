@@ -1,4 +1,5 @@
 import {utils} from "../helpers/utils"
+import {FADE_TIME} from "../helpers/consts"
 import {OverWorldEvent} from "./OverWorldEvent"
 
 export class OverWorldMap {
@@ -22,6 +23,20 @@ export class OverWorldMap {
     this.isMessageDisplaying = false
     this.messageText = ""
     this.messageOnComplete = null
+  }
+
+  async startBattleScene(battle) {
+    this.overWorld.isFadeIn = true
+
+    await utils.wait(FADE_TIME)
+    this.overWorld.isFadeIn = false
+    this.overWorld.isFadeOut = true
+
+    this.battle = battle
+    this.isBattle = true
+
+    await utils.wait(FADE_TIME)
+    this.overWorld.isFadeOut = false
   }
 
   isSpaceTaken(currentX, currentY, direction) {

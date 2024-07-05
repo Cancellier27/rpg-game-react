@@ -83,8 +83,8 @@ export class OverWorldEvent {
       map: this.map
     })
 
-    this.map.battle = battle
-    this.map.isBattle = true
+    this.map.startBattleScene(battle) 
+
   }
 
   init() {

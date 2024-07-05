@@ -59,6 +59,13 @@ export const DemoRoom = {
           {type: "changeMap", map: "Kitchen"}
         ]
       }
+    ],
+    [utils.asGridCoord(1,4)]: [
+      {
+        events: [
+          {type: "battle"}
+        ]
+      }
     ]
   }
 }
