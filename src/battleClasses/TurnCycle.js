@@ -48,6 +48,12 @@ export class TurnCycle {
       
     }
 
+    // check for status expired
+    const expiredEvent = caster.decrementStatus()
+    if(expiredEvent) {
+      await this.onNewEvent(expiredEvent)
+    }
+
 
     this.currentTeam = this.currentTeam === "player" ? "enemy" : "player"
     this.turn()

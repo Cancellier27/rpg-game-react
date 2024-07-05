@@ -21,7 +21,7 @@ export class Battle {
         level: 1,
         status: {
           type: "heal",
-          expiresIn: 2
+          expiresIn: 1
         }
       }, this),
       "enemy1" : new Combatant({
