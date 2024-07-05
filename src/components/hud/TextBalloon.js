@@ -10,7 +10,7 @@ export default function TextBalloon({level}) {
     setMessageText(level.OWMap.messageText)
   }, [level])
 
-  if(!messageText) {
+  if (!messageText) {
     return null
   }
 
@@ -18,17 +18,31 @@ export default function TextBalloon({level}) {
     level.messageOnComplete()
     level.OWMap.terminateMessage()
   }
-
-  return (
-    <div>
-      {isMessage && (
-        <div className="text-message">
-          <p className="text-message-p">{messageText}</p>
-          <button className="text-message-button" onClick={onClickHandler}>
-            Next
-          </button>
-        </div>
-      )}
-    </div>
-  )
+  if (level.isBattle) {
+    return (
+      <div>
+        {isMessage && (
+          <div className="text-message-battle">
+            <p className="text-message-p">{messageText}</p>
+            <button className="text-message-button" onClick={onClickHandler}>
+              Next
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        {isMessage && (
+          <div className="text-message">
+            <p className="text-message-p">{messageText}</p>
+            <button className="text-message-button" onClick={onClickHandler}>
+              Next
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  }
 }
