@@ -89,9 +89,9 @@ export class OverWorld {
     // start GameLoop
     this.startGameLoop()
 
-    // this.overWorldMap.startCutscene([
-    //   {type: "battle"}
-    // ])
+    this.overWorldMap.startCutscene([
+      {type: "battle"}
+    ])
   }
 
   destroy() {

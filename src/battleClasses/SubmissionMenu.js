@@ -15,6 +15,11 @@ export class SubmissionMenu {
   }
 
   init(map) {
-    this.decide()
+
+    if(this.caster.isPlayerControlled) {
+      // show some ui
+    } else {
+      this.decide()
+    }
   }
 }
