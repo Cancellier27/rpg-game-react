@@ -2,15 +2,80 @@ import "./battle.css"
 import PlayerInfo from "./PlayerInfo"
 import EnemyInfo from "./EnemyInfo"
 import StatusBoard from "./StatusBoard"
-import {useState} from "react"
+import {useEffect, useState} from "react"
+import {KeyPressListener} from "../../classes/KeyPressListener"
+import AttackOptions from "./AttackOptions"
 
 export default function BattleStatusMenu({level}) {
   const [isStatusBoard, setIsStatusBoard] = useState(false)
-  const [isAttack, setIsAttack] = useState(true)
+  const [isAttack, setIsAttack] = useState(false)
 
   function onClickStatusHandler() {
     return isStatusBoard ? setIsStatusBoard(false) : setIsStatusBoard(true)
   }
+
+  useEffect(() => {
+    let prevFocus
+
+    document.querySelectorAll(".menu-option").forEach((button) => {
+      button.addEventListener("mouseenter", () => {
+        button.focus()
+      })
+      button.addEventListener("focus", () => {
+        prevFocus = button
+        // descriptionElementText.innerText = button.dataset.description;
+      })
+    })
+
+    setTimeout(() => {
+      document.querySelector(".menu-option").focus()
+    }, 10)
+
+    const keyPressUp = new KeyPressListener("ArrowUp", () => {
+      const current = Number(prevFocus.getAttribute("data-button"))
+      const prevButton = Array.from(
+        document.querySelectorAll("button[data-button]")
+      ).find((el) => {
+        return Number(el.dataset.button) === current - 1
+      })
+      prevButton?.focus()
+    })
+    const keyPressDown = new KeyPressListener("ArrowDown", () => {
+      const current = Number(prevFocus.getAttribute("data-button"))
+      const nextButton = Array.from(
+        document.querySelectorAll("button[data-button]")
+      ).find((el) => {
+        return Number(el.dataset.button) === current + 1
+      })
+      nextButton?.focus()
+    })
+    const keyPressLeft = new KeyPressListener("ArrowLeft", () => {
+      const current = Number(prevFocus.getAttribute("data-button"))
+      const nextButton = Array.from(
+        document.querySelectorAll("button[data-button]")
+      ).find((el) => {
+        return Number(el.dataset.button) === current - 2
+      })
+      nextButton?.focus()
+    })
+    const keyPressRight = new KeyPressListener("ArrowRight", () => {
+      const current = Number(prevFocus.getAttribute("data-button"))
+      const nextButton = Array.from(
+        document.querySelectorAll("button[data-button]")
+      ).find((el) => {
+        return Number(el.dataset.button) === current + 2
+      })
+      nextButton?.focus()
+    })
+
+    // remove event listener if components unmounts
+    return () => {
+      keyPressUp.unbind()
+      keyPressDown.unbind()
+      keyPressLeft.unbind()
+      keyPressRight.unbind()
+    }
+  }, [])
 
   return (
     <div className="battle-status-menu">
@@ -18,24 +83,7 @@ export default function BattleStatusMenu({level}) {
         <StatusBoard setIsStatusBoard={setIsStatusBoard} level={level} />
       )}
 
-      {isAttack && (
-        <div className="attack-list-container">
-          <div
-            className="attack-list-close-click"
-            onClick={() => setIsAttack(false)}
-          ></div>
-          <div className="attack-list">
-            <div>Attack 1</div>
-            <div>Attack 2</div>
-            <div>Attack 3</div>
-            <div>Attack 4</div>
-            <div>Attack 5</div>
-            <div>Attack 6</div>
-            <div>Attack 7</div>
-            <div>Attack 8</div>
-          </div>
-        </div>
-      )}
+      {isAttack && <AttackOptions level={level} setIsAttack={setIsAttack} />}
 
       {/* Player */}
       <div className="player-status">
@@ -59,16 +107,26 @@ export default function BattleStatusMenu({level}) {
       {/* Menu */}
       <div className="menu">
         <div>
-          <div className="menu-option" onClick={() => setIsAttack(true)}>
+          <button
+            className="menu-option"
+            data-button={0}
+            onClick={() => setIsAttack(true)}
+          >
             Attack
-          </div>
-          <div className="menu-option">Items</div>
-        </div>
-        <div>
-          <div className="menu-option" onClick={onClickStatusHandler}>
+          </button>
+          <button className="menu-option" data-button={2}>
+            Items
+          </button>
+          <button
+            className="menu-option"
+            data-button={1}
+            onClick={onClickStatusHandler}
+          >
             Status
-          </div>
-          <div className="menu-option">Escape</div>
+          </button>
+          <button className="menu-option" data-button={3}>
+            Escape
+          </button>
         </div>
       </div>
     </div>

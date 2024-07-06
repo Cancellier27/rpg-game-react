@@ -104,12 +104,16 @@ export class OverWorld {
       currentLevel: this.levelId,
       gameObjects: this.gameObjects,
       cameraPerson: this.gameObjects.hero,
+      
+      // fade information
       isFadeIn: this.isFadeIn,
       isFadeOut: this.isFadeOut,
+
+      // battle
       isBattle: this.overWorldMap.isBattle,
       battle: this.overWorldMap.battle,
 
-      // Passing the display message data and callback
+      // textMessage
       OWMap: this.overWorldMap,
       messageOnComplete: this.overWorldMap.messageOnComplete,
 

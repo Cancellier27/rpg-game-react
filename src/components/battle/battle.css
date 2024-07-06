@@ -143,7 +143,7 @@
   width: 30%;
   height: 100%;
 
-  padding-left: 10px;
+  padding-left: 8px;
   font-size: 160%;
   display: flex;
   justify-content: space-evenly;
@@ -151,12 +151,29 @@
 }
 
 .menu-option {
-  border: 0.2px solid var(--menu-border-color);
+  border: 1px solid var(--menu-border-color);
+  border-radius: 2px;
   margin-top: 2px;
+  margin-left: 2px;
   width: 42px;
-
+  font-size: 80%;
+  background: none;
   cursor: pointer;
 }
+
+.menu-option:hover {
+  border-color: var(--menu-selected-background);
+}
+
+.menu-option:focus {
+  border-color: var(--menu-selected-background);
+  outline: 0;
+}
+
+.menu-option:active {
+  background-color: var(--menu-active-background);
+}
+
 
 /* Status board container ---------------- */
 .status-board-container {
@@ -256,10 +273,13 @@
 .attack-list {
   position: relative;
   z-index: 40;
-  top: 140px;
-  left: 248px;
+  top: 133px;
+  left: 245px;
   padding: 2px;
   font-size: 110%;
+
+  width: 105px;
+  height: 60px;
 
   background: var(--menu-background);
   border-top: 1px solid var(--menu-border-color);
@@ -267,30 +287,34 @@
   color: var(--menu-font-color);
 
   display: grid;
-  grid-template-columns: 48px 48px;
-  grid-template-rows: repeat(4, 25%);
-  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1px;
 
   grid-auto-flow: column;
-
-  width: 100px;
-  height: 50px;
 }
 
 .attack-list div {
   height: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   border-radius: 2px;
+  border: 1px solid var(--menu-border-color);
 }
 
 .attack-list div:hover {
   cursor: pointer;
-  background-color: var(--menu-selected-background);
+  border-color: var(--menu-selected-background);
 }
 
 .attack-list div:active {
   cursor: pointer;
   background-color: var(--menu-active-background);
+}
+
+.attack-list div:focus {
+  background-color: var(--menu-selected-background);
 }
