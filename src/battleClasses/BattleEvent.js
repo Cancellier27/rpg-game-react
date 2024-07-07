@@ -5,9 +5,10 @@ import {DAMAGE_BLINK} from "../helpers/consts"
 import { BattleAnimations } from "../Content/BattleAnimations"
 
 export class BattleEvent {
-  constructor(event, battle) {
+  constructor(event, battle, map) {
     this.event = event
     this.battle = battle
+    this.map = map
   }
 
   textMessage(resolve) {
@@ -30,12 +31,13 @@ export class BattleEvent {
     const menu = new SubmissionMenu({
       caster: this.event.caster,
       enemy: this.event.enemy,
+      map: this.map,
       onComplete: (submission) => {
         resolve(submission)
       }
     })
 
-    menu.init(this.battle.map)
+    menu.init()
   }
 
   async stateChange(resolve) {

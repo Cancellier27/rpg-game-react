@@ -57,6 +57,7 @@ export class TurnCycle {
 
 
     this.currentTeam = this.currentTeam === "player" ? "enemy" : "player"
+    
     this.turn()
 
   }

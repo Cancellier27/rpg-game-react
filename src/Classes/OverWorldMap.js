@@ -11,6 +11,8 @@ export class OverWorldMap {
 
     this.isBattle = false
     this.battle = null
+    this.decideFn = null
+    this.isPlayerChoosing = false
 
     this.isCutscenePlaying = false
 

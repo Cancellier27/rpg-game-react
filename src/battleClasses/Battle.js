@@ -62,7 +62,7 @@ export class Battle {
       battle: this,
       onNewEvent: event => {
         return new Promise(resolve => {
-          const battleEvent = new BattleEvent(event, this)
+          const battleEvent = new BattleEvent(event, this, this.map)
           battleEvent.init(resolve)
         })
       }

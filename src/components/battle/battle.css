@@ -150,6 +150,7 @@
   align-items: center;
 }
 
+.menu-option-blocked,
 .menu-option {
   border: 1px solid var(--menu-border-color);
   border-radius: 2px;
@@ -159,6 +160,7 @@
   font-size: 80%;
   background: none;
   cursor: pointer;
+  outline: 0;
 }
 
 .menu-option:hover {
@@ -294,27 +296,26 @@
   grid-auto-flow: column;
 }
 
-.attack-list div {
+.attack-list button {
   height: 100%;
+  outline: 0;
+  cursor: pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: none;
+  font-size: 50%;
 
   border-radius: 2px;
   border: 1px solid var(--menu-border-color);
 }
 
-.attack-list div:hover {
-  cursor: pointer;
+.attack-list button:hover {
   border-color: var(--menu-selected-background);
 }
 
-.attack-list div:active {
-  cursor: pointer;
+.attack-list button:active {
   background-color: var(--menu-active-background);
 }
 
-.attack-list div:focus {
-  background-color: var(--menu-selected-background);
+.attack-list button:focus {
+  border-color: var(--menu-selected-background);
 }

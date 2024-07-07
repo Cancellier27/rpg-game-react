@@ -5,6 +5,7 @@ import StatusBoard from "./StatusBoard"
 import {useEffect, useState} from "react"
 import {KeyPressListener} from "../../classes/KeyPressListener"
 import AttackOptions from "./AttackOptions"
+import BattleMenuButtons from "./BattleMenuButtons"
 
 export default function BattleStatusMenu({level}) {
   const [isStatusBoard, setIsStatusBoard] = useState(false)
@@ -14,6 +15,8 @@ export default function BattleStatusMenu({level}) {
     return isStatusBoard ? setIsStatusBoard(false) : setIsStatusBoard(true)
   }
 
+  // console.log(level.OWMap.isPlayerChoosing)
+
   useEffect(() => {
     let prevFocus
 
@@ -22,6 +25,7 @@ export default function BattleStatusMenu({level}) {
         button.focus()
       })
       button.addEventListener("focus", () => {
+        console.log(button)
         prevFocus = button
         // descriptionElementText.innerText = button.dataset.description;
       })
@@ -106,28 +110,7 @@ export default function BattleStatusMenu({level}) {
 
       {/* Menu */}
       <div className="menu">
-        <div>
-          <button
-            className="menu-option"
-            data-button={0}
-            onClick={() => setIsAttack(true)}
-          >
-            Attack
-          </button>
-          <button className="menu-option" data-button={2}>
-            Items
-          </button>
-          <button
-            className="menu-option"
-            data-button={1}
-            onClick={onClickStatusHandler}
-          >
-            Status
-          </button>
-          <button className="menu-option" data-button={3}>
-            Escape
-          </button>
-        </div>
+        <BattleMenuButtons level={level} setIsAttack={setIsAttack} onClickStatusHandler={onClickStatusHandler} />
       </div>
     </div>
   )

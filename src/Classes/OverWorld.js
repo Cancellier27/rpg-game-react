@@ -112,6 +112,7 @@ export class OverWorld {
       // battle
       isBattle: this.overWorldMap.isBattle,
       battle: this.overWorldMap.battle,
+      decideFn: this.overWorldMap.decideFn,
 
       // textMessage
       OWMap: this.overWorldMap,
