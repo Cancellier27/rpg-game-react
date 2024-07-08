@@ -1,10 +1,8 @@
 import {Actions} from "../../Content/Actions"
 import {KeyPressListener} from "../../classes/KeyPressListener"
-import { useEffect, useState } from "react"
+import {useEffect} from "react"
 
 export default function AttackOptions({level, setIsAttack}) {
-  const [attackList, setAttackList] = useState([])
-
   useEffect(() => {
     let prevAttackFocus
 
@@ -45,7 +43,7 @@ export default function AttackOptions({level, setIsAttack}) {
       const nextButton = Array.from(
         document.querySelectorAll("button[data-attack]")
       ).find((el) => {
-        return Number(el.dataset.attack) === current - 2
+        return Number(el.dataset.attack) === current - 4
       })
       nextButton?.focus()
     })
@@ -54,21 +52,23 @@ export default function AttackOptions({level, setIsAttack}) {
       const nextButton = Array.from(
         document.querySelectorAll("button[data-attack]")
       ).find((el) => {
-        return Number(el.dataset.attack) === current + 2
+        return Number(el.dataset.attack) === current + 4
       })
       nextButton?.focus()
     })
 
+    // close the dialog if press escape button
+    const keyEscape = new KeyPressListener("Escape", () => setIsAttack(false))
 
     // remove event listener if components unmounts
     return () => {
+      keyEscape.unbind()
       keyPressUp.unbind()
       keyPressDown.unbind()
       keyPressLeft.unbind()
       keyPressRight.unbind()
     }
   }, [])
-
 
   const attacks = level.battle.combatants["player1"].actions.map(
     (attack, index) => {
@@ -93,8 +93,6 @@ export default function AttackOptions({level, setIsAttack}) {
       attacks.push(<button key={`placeholder-attack-${i}`}>-</button>)
     }
   }
-
-
 
   return (
     <div className="attack-list-container">

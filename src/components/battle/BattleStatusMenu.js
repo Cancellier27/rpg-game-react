@@ -15,8 +15,6 @@ export default function BattleStatusMenu({level}) {
     return isStatusBoard ? setIsStatusBoard(false) : setIsStatusBoard(true)
   }
 
-  // console.log(level.OWMap.isPlayerChoosing)
-
   useEffect(() => {
     let prevFocus
 
@@ -25,7 +23,6 @@ export default function BattleStatusMenu({level}) {
         button.focus()
       })
       button.addEventListener("focus", () => {
-        console.log(button)
         prevFocus = button
         // descriptionElementText.innerText = button.dataset.description;
       })
@@ -110,7 +107,11 @@ export default function BattleStatusMenu({level}) {
 
       {/* Menu */}
       <div className="menu">
-        <BattleMenuButtons level={level} setIsAttack={setIsAttack} onClickStatusHandler={onClickStatusHandler} />
+        <BattleMenuButtons
+          level={level}
+          setIsAttack={setIsAttack}
+          onClickStatusHandler={onClickStatusHandler}
+        />
       </div>
     </div>
   )
