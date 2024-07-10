@@ -1,6 +1,7 @@
 export default function BattleMenuButtons({
   level,
   setIsAttack,
+  isAttacking,
   onClickStatusHandler
 }) {
   if (level.OWMap.isPlayerChoosing) {
@@ -13,7 +14,7 @@ export default function BattleMenuButtons({
         >
           Attack
         </button>
-        <button className="menu-option" data-button={2}>
+        <button className="menu-option" data-button={4}>
           Items
         </button>
         <button
@@ -23,7 +24,7 @@ export default function BattleMenuButtons({
         >
           Status
         </button>
-        <button className="menu-option" data-button={3}>
+        <button className="menu-option" data-button={5}>
           Escape
         </button>
       </div>

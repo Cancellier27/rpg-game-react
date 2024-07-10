@@ -4,58 +4,58 @@ import {useEffect} from "react"
 
 export default function AttackOptions({level, setIsAttack}) {
   useEffect(() => {
-    let prevAttackFocus
+    // let prevAttackFocus
 
-    document.querySelectorAll(".attack-options").forEach((button) => {
-      button.addEventListener("mouseenter", () => {
-        button.focus()
-      })
-      button.addEventListener("focus", () => {
-        prevAttackFocus = button
-        // descriptionElementText.innerText = button.dataset.description;
-      })
-    })
+    // document.querySelectorAll(".attack-options").forEach((button) => {
+    //   button.addEventListener("mouseenter", () => {
+    //     button.focus()
+    //   })
+    //   button.addEventListener("focus", () => {
+    //     prevAttackFocus = button
+    //     // descriptionElementText.innerText = button.dataset.description;
+    //   })
+    // })
 
-    setTimeout(() => {
-      document.querySelector(".attack-options").focus()
-    }, 10)
+    // setTimeout(() => {
+    //   document.querySelector(".attack-options").focus()
+    // }, 10)
 
-    const keyPressUp = new KeyPressListener("ArrowUp", () => {
-      const current = Number(prevAttackFocus.getAttribute("data-attack"))
-      const nextButton = Array.from(
-        document.querySelectorAll("button[data-attack]")
-      ).find((el) => {
-        return Number(el.dataset.attack) === current - 1
-      })
-      nextButton?.focus()
-    })
-    const keyPressDown = new KeyPressListener("ArrowDown", () => {
-      const current = Number(prevAttackFocus.getAttribute("data-attack"))
-      const nextButton = Array.from(
-        document.querySelectorAll("button[data-attack]")
-      ).find((el) => {
-        return Number(el.dataset.attack) === current + 1
-      })
-      nextButton?.focus()
-    })
-    const keyPressLeft = new KeyPressListener("ArrowLeft", () => {
-      const current = Number(prevAttackFocus.getAttribute("data-attack"))
-      const nextButton = Array.from(
-        document.querySelectorAll("button[data-attack]")
-      ).find((el) => {
-        return Number(el.dataset.attack) === current - 4
-      })
-      nextButton?.focus()
-    })
-    const keyPressRight = new KeyPressListener("ArrowRight", () => {
-      const current = Number(prevAttackFocus.getAttribute("data-attack"))
-      const nextButton = Array.from(
-        document.querySelectorAll("button[data-attack]")
-      ).find((el) => {
-        return Number(el.dataset.attack) === current + 4
-      })
-      nextButton?.focus()
-    })
+    // const keyPressUp = new KeyPressListener("ArrowUp", () => {
+    //   const current = Number(prevAttackFocus.getAttribute("data-attack"))
+    //   const nextButton = Array.from(
+    //     document.querySelectorAll("button[data-attack]")
+    //   ).find((el) => {
+    //     return Number(el.dataset.attack) === current - 1
+    //   })
+    //   nextButton?.focus()
+    // })
+    // const keyPressDown = new KeyPressListener("ArrowDown", () => {
+    //   const current = Number(prevAttackFocus.getAttribute("data-attack"))
+    //   const nextButton = Array.from(
+    //     document.querySelectorAll("button[data-attack]")
+    //   ).find((el) => {
+    //     return Number(el.dataset.attack) === current + 1
+    //   })
+    //   nextButton?.focus()
+    // })
+    // const keyPressLeft = new KeyPressListener("ArrowLeft", () => {
+    //   const current = Number(prevAttackFocus.getAttribute("data-attack"))
+    //   const nextButton = Array.from(
+    //     document.querySelectorAll("button[data-attack]")
+    //   ).find((el) => {
+    //     return Number(el.dataset.attack) === current - 4
+    //   })
+    //   nextButton?.focus()
+    // })
+    // const keyPressRight = new KeyPressListener("ArrowRight", () => {
+    //   const current = Number(prevAttackFocus.getAttribute("data-attack"))
+    //   const nextButton = Array.from(
+    //     document.querySelectorAll("button[data-attack]")
+    //   ).find((el) => {
+    //     return Number(el.dataset.attack) === current + 4
+    //   })
+    //   nextButton?.focus()
+    // })
 
     // close the dialog if press escape button
     const keyEscape = new KeyPressListener("Escape", () => setIsAttack(false))
@@ -63,10 +63,10 @@ export default function AttackOptions({level, setIsAttack}) {
     // remove event listener if components unmounts
     return () => {
       keyEscape.unbind()
-      keyPressUp.unbind()
-      keyPressDown.unbind()
-      keyPressLeft.unbind()
-      keyPressRight.unbind()
+      // keyPressUp.unbind()
+      // keyPressDown.unbind()
+      // keyPressLeft.unbind()
+      // keyPressRight.unbind()
     }
   }, [])
 
@@ -74,9 +74,9 @@ export default function AttackOptions({level, setIsAttack}) {
     (attack, index) => {
       return (
         <button
-          className="attack-options"
+          className="menu-option"
           key={Actions[attack].name}
-          data-attack={index}
+          data-button={index}
           onClick={() => {
             level.decideFn(attack)
             setIsAttack(false)

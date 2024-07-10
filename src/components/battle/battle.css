@@ -275,7 +275,8 @@
 .attack-list {
   position: relative;
   z-index: 40;
-  top: 133px;
+  /* top: 133px; */
+  top: 0px;
   left: 245px;
   padding: 2px;
   font-size: 110%;

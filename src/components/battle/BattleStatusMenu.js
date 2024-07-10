@@ -29,7 +29,7 @@ export default function BattleStatusMenu({level}) {
     })
 
     setTimeout(() => {
-      document.querySelector(".menu-option").focus()
+      document.querySelector(".menu-option")?.focus()
     }, 10)
 
     const keyPressUp = new KeyPressListener("ArrowUp", () => {
@@ -55,7 +55,7 @@ export default function BattleStatusMenu({level}) {
       const nextButton = Array.from(
         document.querySelectorAll("button[data-button]")
       ).find((el) => {
-        return Number(el.dataset.button) === current - 2
+        return Number(el.dataset.button) === current - 4
       })
       nextButton?.focus()
     })
@@ -64,7 +64,7 @@ export default function BattleStatusMenu({level}) {
       const nextButton = Array.from(
         document.querySelectorAll("button[data-button]")
       ).find((el) => {
-        return Number(el.dataset.button) === current + 2
+        return Number(el.dataset.button) === current + 4
       })
       nextButton?.focus()
     })
@@ -76,7 +76,7 @@ export default function BattleStatusMenu({level}) {
       keyPressLeft.unbind()
       keyPressRight.unbind()
     }
-  }, [])
+  }, [isAttack])
 
   return (
     <div className="battle-status-menu">
@@ -106,13 +106,15 @@ export default function BattleStatusMenu({level}) {
       </div>
 
       {/* Menu */}
-      <div className="menu">
-        <BattleMenuButtons
-          level={level}
-          setIsAttack={setIsAttack}
-          onClickStatusHandler={onClickStatusHandler}
-        />
-      </div>
+      {!isAttack && (
+        <div className="menu">
+          <BattleMenuButtons
+            level={level}
+            setIsAttack={setIsAttack}
+            onClickStatusHandler={onClickStatusHandler}
+          />
+        </div>
+      )}
     </div>
   )
 }
