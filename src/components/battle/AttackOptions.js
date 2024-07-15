@@ -1,9 +1,11 @@
 import {Actions} from "../../Content/Actions"
 import {KeyPressListener} from "../../classes/KeyPressListener"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 
 export default function AttackOptions({level, setIsAttack}) {
-  useEffect(() => {
+
+
+  useEffect(() => { 
     // close the dialog if press escape button
     const keyEscape = new KeyPressListener("Escape", () => setIsAttack(false))
 
@@ -12,6 +14,7 @@ export default function AttackOptions({level, setIsAttack}) {
       keyEscape.unbind()
     }
   }, [])
+
 
   const attacks = level.battle.combatants["player1"].actions.map(
     (attack, index) => {
@@ -31,11 +34,17 @@ export default function AttackOptions({level, setIsAttack}) {
     }
   )
 
+  // go back button
+  attacks.push(<button className="menu-arrow-selector" data-button={attacks.length} key={`placeholder-attack-back`} onClick={() => setIsAttack(false)} >Go Back</button>)
+
   if (attacks.length < 8) {
     for (let i = 8 - attacks.length; i > 0; i--) {
-      attacks.push(<button key={`placeholder-attack-${i}`}>-</button>)
+        attacks.push(<button key={`placeholder-attack-${i}`}>-</button>)
     }
   }
+  
+
+
 
   return (
     <div className="attack-list-container">
