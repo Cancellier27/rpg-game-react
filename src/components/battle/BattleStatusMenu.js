@@ -18,7 +18,7 @@ export default function BattleStatusMenu({level}) {
   useEffect(() => {
     let prevFocus
 
-    document.querySelectorAll(".menu-option").forEach((button) => {
+    document.querySelectorAll(".menu-arrow-selector").forEach((button) => {
       button.addEventListener("mouseenter", () => {
         button.focus()
       })
@@ -29,7 +29,7 @@ export default function BattleStatusMenu({level}) {
     })
 
     setTimeout(() => {
-      document.querySelector(".menu-option")?.focus()
+      document.querySelector(".menu-arrow-selector")?.focus()
     }, 10)
 
     const keyPressUp = new KeyPressListener("ArrowUp", () => {
@@ -106,15 +106,15 @@ export default function BattleStatusMenu({level}) {
       </div>
 
       {/* Menu */}
+      <div className="menu">
       {!isAttack && (
-        <div className="menu">
           <BattleMenuButtons
             level={level}
             setIsAttack={setIsAttack}
             onClickStatusHandler={onClickStatusHandler}
           />
+        )}
         </div>
-      )}
     </div>
   )
 }
