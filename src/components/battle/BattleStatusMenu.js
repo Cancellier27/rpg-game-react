@@ -5,11 +5,13 @@ import StatusBoard from "./StatusBoard"
 import {useEffect, useState} from "react"
 import {KeyPressListener} from "../../classes/KeyPressListener"
 import AttackOptions from "./AttackOptions"
+import ItemOptions from "./ItemOptions"
 import BattleMenuButtons from "./BattleMenuButtons"
 
 export default function BattleStatusMenu({level}) {
   const [isStatusBoard, setIsStatusBoard] = useState(false)
   const [isAttack, setIsAttack] = useState(false)
+  const [isItem, setIsItem] = useState(false)
 
   function onClickStatusHandler() {
     return isStatusBoard ? setIsStatusBoard(false) : setIsStatusBoard(true)
@@ -85,6 +87,7 @@ export default function BattleStatusMenu({level}) {
       )}
 
       {isAttack && <AttackOptions level={level} setIsAttack={setIsAttack} />}
+      {isItem && <ItemOptions level={level} setIsItem={setIsItem} />}
 
       {/* Player */}
       <div className="player-status">
@@ -107,10 +110,11 @@ export default function BattleStatusMenu({level}) {
 
       {/* Menu */}
       <div className="menu">
-      {!isAttack && (
+      {!isAttack && !isItem && (
           <BattleMenuButtons
             level={level}
             setIsAttack={setIsAttack}
+            setIsItem={setIsItem}
             onClickStatusHandler={onClickStatusHandler}
           />
         )}

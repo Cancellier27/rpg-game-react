@@ -18,6 +18,11 @@ export class TurnCycle {
       enemy
     })
 
+    // check if any items were used and filters them
+    if(submission.instanceId) {
+      caster.items = caster.items.filter(i => i.instanceId !== submission.instanceId)
+    }
+
     const resultingEvents = caster.getReplacedEvents(submission.action.success)
     
     for (let i = 0; i < resultingEvents.length; i++) {

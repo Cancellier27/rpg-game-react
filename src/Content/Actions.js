@@ -23,4 +23,25 @@ export const Actions = {
       {type: "textMessage", text: "{TARGET} fell to sleep"},
     ],
   },
+  // items
+  item_recoverStatusSmall: {
+    name: "Small Potion",
+    description: "Recovers 10 hp",
+    targetType: "friendly",
+    success: [
+      {type: "textMessage", text: "{CASTER} uses a {ACTION}"},
+      {type: "stateChange", recover: 10},
+      {type: "textMessage", text: "HP recovered"},
+    ],
+  },
+  item_recoverStatusBig: {
+    name: "Big Potion",
+    description: "Recovers 100 hp",
+    targetType: "friendly",
+    success: [
+      {type: "textMessage", text: "{CASTER} uses a {ACTION}"},
+      {type: "stateChange", recover: 100},
+      {type: "textMessage", text: "{CASTER} HP recovered!"},
+    ],
+  }
 }

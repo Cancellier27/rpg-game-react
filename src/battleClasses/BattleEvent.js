@@ -2,7 +2,7 @@ import {TextMessage} from "../classes/TextMessage"
 import {SubmissionMenu} from "./SubmissionMenu"
 import {utils} from "../helpers/utils"
 import {DAMAGE_BLINK} from "../helpers/consts"
-import { BattleAnimations } from "../Content/BattleAnimations"
+import {BattleAnimations} from "../Content/BattleAnimations"
 
 export class BattleEvent {
   constructor(event, battle, map) {
@@ -45,10 +45,10 @@ export class BattleEvent {
     const element = document.querySelector(`.${target.classId}`)
     let who = this.event.onCaster ? caster : target
 
-    if(action.targetType === "friendly") {
+    if (action.targetType === "friendly") {
       who = caster
     }
-    
+
     if (damage) {
       // modify the target to have less hp
       target.hp = target.hp - damage
@@ -57,20 +57,20 @@ export class BattleEvent {
       element.classList.add("battle-damage-blink")
     }
 
-    if(recover) {
+    if (recover) {
       let newHp = who.hp + recover
 
-      if(newHp > who.maxHp) {
+      if (newHp > who.maxHp) {
         newHp = who.maxHp
       }
 
       who.hp = newHp
     }
 
-    if(status) {
+    if (status) {
       who.status = {...status}
-    } 
-     if (status === null) {
+    }
+    if (status === null) {
       who.status = null
     }
 
@@ -84,8 +84,8 @@ export class BattleEvent {
   }
 
   animation(resolve) {
-    const fn = BattleAnimations[this.event.animation];
-    fn(this.event, resolve);
+    const fn = BattleAnimations[this.event.animation]
+    fn(this.event, resolve)
   }
 
   init(resolve) {

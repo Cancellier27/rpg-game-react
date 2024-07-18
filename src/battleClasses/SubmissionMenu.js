@@ -8,18 +8,22 @@ export class SubmissionMenu {
     this.map = map
   }
 
-  decide(action = null) {
+  decide(action = null, instanceId = null) {
     if (action) {
+      // player turn
       this.map.isPlayerChoosing = false
       this.onComplete({
         action: Actions[action],
-        target: this.enemy
+        target: action.targetType === "friendly" ? this.caster : this.enemy,
+        instanceId
       })
     } else {
+      // enemy turn
       this.map.isPlayerChoosing = false
       this.onComplete({
         action: Actions[this.caster.actions[0]],
-        target: this.enemy
+        target: Actions[this.caster.actions[0]].targetType === "friendly" ? this.caster : this.enemy,
+        instanceId
       })
     }
   }
@@ -27,9 +31,8 @@ export class SubmissionMenu {
   init() {
     if (this.caster.isPlayerControlled) {
       // show some ui
-      this.map.decideFn = (action) => this.decide(action)
+      this.map.decideFn = (action, instanceId) => this.decide(action, instanceId)
       this.map.isPlayerChoosing = true
-
     } else {
       this.decide()
     }
