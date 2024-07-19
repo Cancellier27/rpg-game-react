@@ -8,6 +8,10 @@ export class Combatant {
     this.battle = battle
   }
 
+  get givesXp() {
+    return this.level * 20
+  }
+
   getPostEvents() {
     if (this.status?.type === "heal") {
       return [

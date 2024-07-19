@@ -52,6 +52,7 @@ export class BattleEvent {
     if (damage) {
       // modify the target to have less hp
       target.hp = target.hp - damage
+      if (target.hp <= 0) target.hp = 0
 
       // start blinking
       element.classList.add("battle-damage-blink")
@@ -79,6 +80,58 @@ export class BattleEvent {
 
     //stop blinking
     element.classList.remove("battle-damage-blink")
+
+    resolve()
+  }
+
+  async giveXp(resolve) {
+    const maxXp = this.event.combatant.maxXp
+    let xpNextLvl = 0
+    
+    if(maxXp <= this.event.combatant.xp + this.event.xp) {
+      this.event.combatant.xp = this.event.combatant.maxXp
+      this.event.combatant.level += 1
+      xpNextLvl = this.event.combatant.xp + this.event.xp - maxXp
+
+
+      const message = new TextMessage({
+        text: "Hero has leveled up!",
+        onComplete: () => {
+          resolve()
+        }
+      })
+
+      message.init(this.battle.map)
+    }
+
+    this.event.combatant.xp = xpNextLvl
+
+    
+
+
+    // for (let i = 0; i < this.event.xp; i++) {
+      
+    //   if(this.event.combatant.xp === this.event.combatant.maxXp) {
+        
+    //     this.event.combatant.level += 1
+
+    //     const message = new TextMessage({
+    //       text: "Hero has leveled up!",
+    //       onComplete: () => {
+    //         resolve()
+    //       }
+    //     })
+    
+    //     message.init(this.battle.map)
+
+    //     await utils.wait(3000)
+
+    //     this.event.combatant.xp = 0
+
+    //   }
+
+    //   this.event.combatant.xp += 1
+    // } 
 
     resolve()
   }

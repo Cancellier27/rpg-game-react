@@ -3,6 +3,7 @@ export default function PlayerInfo({level}) {
 
   Object.values(level.battle.combatants).forEach((combatant) => {
     if (combatant.team === "player") {
+      let xpBar = (combatant.xp / combatant.maxXp) * 100
       let hpBar = (combatant.hp / combatant.maxHp) * 100
       let mpBar = (combatant.mp / combatant.maxMp) * 100
 
@@ -11,9 +12,12 @@ export default function PlayerInfo({level}) {
           className="player-info"
           key={`${combatant.name},${combatant.maxHp}`}
         >
-          <p className="player-info-name">
-            {`${combatant.name}`.toUpperCase()}
-          </p>
+          <div className="player-info-name">
+            <p>{`${combatant.name}`.toUpperCase()}</p>
+            <div className="xp-bar-total">
+              <div className="xp-bar-used" style={{width: `${xpBar}%`}}></div>
+            </div>
+          </div>
 
           <div className="player-info-hp">
             <p className="hp-text">{`${combatant.hp}/${combatant.maxHp}`}</p>

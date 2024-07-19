@@ -78,7 +78,7 @@ export default function BattleStatusMenu({level}) {
       keyPressLeft.unbind()
       keyPressRight.unbind()
     }
-  }, [isAttack])
+  }, [isAttack, isItem])
 
   return (
     <div className="battle-status-menu">

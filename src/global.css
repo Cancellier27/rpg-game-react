@@ -7,7 +7,10 @@
   --menu-font-color: #3A160D;
   --menu-selected-background: #7fc2ff;
   --menu-active-background: #93cbff;
-  --border-shadow: rgb(92, 91, 91)
+  --border-shadow: rgb(92, 91, 91);
+  --xp-bar-color: yellow;
+  --mp-bar-color: cyan;
+  --hp-bar-color: rgb(26, 182, 26);
 }
 
 * {

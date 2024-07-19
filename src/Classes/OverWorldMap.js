@@ -41,6 +41,22 @@ export class OverWorldMap {
     this.overWorld.isFadeOut = false
   }
 
+  async endBattleScene() {
+    this.overWorld.isFadeIn = true
+
+    await utils.wait(FADE_TIME)
+    this.overWorld.isFadeIn = false
+    this.overWorld.isFadeOut = true
+
+    this.battle = null
+    this.isBattle = false
+
+    await utils.wait(FADE_TIME)
+    this.overWorld.isFadeOut = false
+  }
+
+
+
   isSpaceTaken(currentX, currentY, direction) {
     const {x, y} = utils.nextPosition(currentX, currentY, direction)
     return this.walls[`${x},${y}`] || false

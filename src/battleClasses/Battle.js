@@ -5,18 +5,19 @@ import { TurnCycle } from "./TurnCycle";
 import { BattleEvent } from "./BattleEvent";
 
 export class Battle {
-  constructor({map}) {
+  constructor({map, onComplete}) {
+    this.onComplete = onComplete
     this.map = map
     this.battleMap = "DemoRoomBattle"
     this.combatants = {
       "player1" : new Combatant({
         ...Players.hero,
         team:"player",
-        hp: 80,
+        hp: 10,
         maxHp: 100,
         mp:20,
         maxMp: 20,
-        xp: 0,
+        xp: 95,
         maxXp: 100,
         level: 1,
         status: null,
@@ -25,7 +26,7 @@ export class Battle {
       "enemy1" : new Combatant({
         ...Enemies.n001,
         team:"enemy",
-        hp: 20,
+        hp: 5,
         maxHp: 50,
         mp:20,
         maxMp: 20,
@@ -34,18 +35,6 @@ export class Battle {
         level: 1,
         status: null
       }, this),
-      // "enemy2" : new Combatant({
-      //   ...Enemies.e001,
-      //   team:"enemy",
-      //   hp: 50,
-      //   maxHp: 50,
-      //   mp:20,
-      //   maxMp: 20,
-      //   xp: 50,
-      //   maxXp: 100,
-      //   level: 1,
-      //   status: null
-      // }, this),
     }
 
     this.activeCombatants = {

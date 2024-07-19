@@ -109,7 +109,8 @@
 .hp-bar-used {
   position: absolute;
   height: 1px;
-  background-color: rgb(26, 182, 26);
+  background-color: var(--hp-bar-color);
+  transition: width 1.5s;
 }
 
 /* MP bars ---------- */
@@ -134,7 +135,32 @@
 .mp-bar-used {
   position: absolute;
   height: 1px;
-  background-color: cyan;
+  background-color: var(--mp-bar-color);
+  transition: width 1.5s;
+}
+
+/* XP bars ---------- */
+
+.player-info-name {
+  position: relative;
+  text-align: center;
+ 
+  font-size: 80%;
+}
+
+.xp-bar-total {
+  left: 7px;
+  position: absolute;
+  width: 70%;
+  height: 1px;
+  background-color: var(--menu-border-color)
+}
+
+.xp-bar-used {
+  position: absolute;
+  height: 1px;
+  background-color: var(--xp-bar-color);
+  transition: width 1s;
 }
 
 /* MENU -------------------------------------------- */

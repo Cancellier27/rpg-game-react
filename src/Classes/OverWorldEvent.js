@@ -78,6 +78,7 @@ export class OverWorldEvent {
   battle(resolve) {
     const battle = new Battle({
       onComplete: () => {
+        this.map.endBattleScene() 
         resolve()
       },
       map: this.map

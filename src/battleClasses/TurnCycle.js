@@ -1,3 +1,5 @@
+import { utils } from "../helpers/utils"
+
 export class TurnCycle {
   constructor({battle, onNewEvent}) {
     this.battle = battle
@@ -17,6 +19,8 @@ export class TurnCycle {
       caster,
       enemy
     })
+
+
 
     // check if any items were used and filters them
     if(submission.instanceId) {
@@ -38,6 +42,7 @@ export class TurnCycle {
     }
 
 
+
     // check for post events
     // do things after our original turn submission
     const postEvents = caster.getPostEvents()
@@ -54,6 +59,36 @@ export class TurnCycle {
       
     }
 
+    // did target die?
+    const targetDead = submission.target.hp <= 0
+
+
+    if(targetDead) {
+      await this.onNewEvent({
+        type: "textMessage", text: `${submission.target.name} was defeated!`
+      })
+
+      if(submission.target.team === "enemy") {
+
+        const playerActiveId = this.battle.activeCombatants.player 
+        const xp = submission.target.givesXp
+
+        await this.onNewEvent(
+          {type: "textMessage", text: `Gained ${xp}xp points`}, 
+        )
+        await this.onNewEvent(
+          {type: "giveXp", xp: xp, combatant: this.battle.combatants[playerActiveId]}, 
+        )
+      }
+
+      // complete the battle animation after 2 sec
+      // await utils.wait(2000)
+      // this.battle.onComplete()
+
+      return
+    }
+
+
     // check for status expired
     const expiredEvent = caster.decrementStatus()
     if(expiredEvent) {
@@ -61,18 +96,15 @@ export class TurnCycle {
     }
 
 
-    this.currentTeam = this.currentTeam === "player" ? "enemy" : "player"
-    
-    this.turn()
+    this.resumeTurn()
+  }
 
+  resumeTurn() {
+    this.currentTeam = this.currentTeam === "player" ? "enemy" : "player"
+    this.turn()
   }
 
   async init() {
-    // await this.onNewEvent({
-    //   type: "textMessage",
-    //   text: "The battle is starting!"
-    // })
-
     // start the first turn
     this.turn()
   }
