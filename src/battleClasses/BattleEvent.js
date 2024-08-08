@@ -93,7 +93,6 @@ export class BattleEvent {
       this.event.combatant.level += 1
       xpNextLvl = this.event.combatant.xp + this.event.xp - maxXp
 
-
       const message = new TextMessage({
         text: "Hero has leveled up!",
         onComplete: () => {
