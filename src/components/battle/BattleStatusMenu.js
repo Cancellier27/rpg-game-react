@@ -19,8 +19,7 @@ export default function BattleStatusMenu({level}) {
 
   useEffect(() => {
     let prevFocus
-    console.log(prevFocus)
-
+ 
     document.querySelectorAll(".menu-arrow-selector").forEach((button) => {
       button.addEventListener("mouseenter", () => {
         button.focus()
@@ -79,7 +78,7 @@ export default function BattleStatusMenu({level}) {
       keyPressLeft.unbind()
       keyPressRight.unbind()
     }
-  }, [isAttack, isItem, isStatusBoard])
+  }, [isAttack, isItem, level.OWMap.isPlayerChoosing ])
 
   return (
     <div className="battle-status-menu">
