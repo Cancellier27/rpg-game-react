@@ -17,6 +17,10 @@ export default function BattleStatusMenu({level}) {
     return isStatusBoard ? setIsStatusBoard(false) : setIsStatusBoard(true)
   }
 
+  function onEscapeHandler() {
+    level.battle.onComplete()
+  }
+
   useEffect(() => {
     let prevFocus
  
@@ -116,6 +120,7 @@ export default function BattleStatusMenu({level}) {
             setIsAttack={setIsAttack}
             setIsItem={setIsItem}
             onClickStatusHandler={onClickStatusHandler}
+            onEscapeHandler={onEscapeHandler}
           />
         )}
         </div>
