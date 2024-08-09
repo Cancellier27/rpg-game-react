@@ -93,6 +93,10 @@ export class BattleEvent {
       this.event.combatant.level += 1
       xpNextLvl = this.event.combatant.xp + this.event.xp - maxXp
 
+      await utils.wait(5000)
+
+      // edit level up bar animation. before message
+
       const message = new TextMessage({
         text: "Hero has leveled up!",
         onComplete: () => {
@@ -100,37 +104,13 @@ export class BattleEvent {
         }
       })
 
-      message.init(this.battle.map)
+        message.init(this.battle.map)
+      // after message displayed
+
+
     }
 
     this.event.combatant.xp = xpNextLvl
-
-    
-
-
-    // for (let i = 0; i < this.event.xp; i++) {
-      
-    //   if(this.event.combatant.xp === this.event.combatant.maxXp) {
-        
-    //     this.event.combatant.level += 1
-
-    //     const message = new TextMessage({
-    //       text: "Hero has leveled up!",
-    //       onComplete: () => {
-    //         resolve()
-    //       }
-    //     })
-    
-    //     message.init(this.battle.map)
-
-    //     await utils.wait(3000)
-
-    //     this.event.combatant.xp = 0
-
-    //   }
-
-    //   this.event.combatant.xp += 1
-    // } 
 
     resolve()
   }
