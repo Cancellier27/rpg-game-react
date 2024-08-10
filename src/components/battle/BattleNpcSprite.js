@@ -6,12 +6,10 @@ import {useEffect, useRef} from "react"
 import {
   CANVAS_SIZE,
   CELL_SIZE,
-  X_ADJUSTMENT,
-  Y_ADJUSTMENT
 } from "../../helpers/consts"
 import {utils} from "../../helpers/utils"
 
-function Sprite({npc, x, y, isShadow, frameCoord, classId}) {
+function BattleNpcSprite({npc, x, y, isShadow, frameCoord, classId}) {
   // get the shadow image
   const shadowSpriteImage = useRecoilValue(npcImages["shadow"])
   // get the hero image
@@ -72,5 +70,5 @@ function Sprite({npc, x, y, isShadow, frameCoord, classId}) {
   )
 }
 
-const MemoizedSprite = React.memo(Sprite)
+const MemoizedSprite = React.memo(BattleNpcSprite)
 export default MemoizedSprite

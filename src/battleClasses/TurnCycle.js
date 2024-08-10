@@ -68,6 +68,8 @@ export class TurnCycle {
         type: "textMessage", text: `${submission.target.name} was defeated!`
       })
 
+      document.querySelector(`.${submission.target.classId}`).classList.add("fade-out")
+
       if(submission.target.team === "enemy") {
 
         const playerActiveId = this.battle.activeCombatants.player 
@@ -82,8 +84,9 @@ export class TurnCycle {
       }
 
       // complete the battle animation after 2 sec
-      // await utils.wait(2000)
-      // this.battle.onComplete()
+      // need to finish animation after message being dismissed, maybe another onNewEvent?
+      await utils.wait(2000)
+      this.battle.onComplete()
 
       return
     }

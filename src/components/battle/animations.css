@@ -45,3 +45,9 @@
   animation: battle-tackle-left 0.8s;
 }
 
+/* Fade out ------------------------- */
+
+.fade-out {
+  opacity: 0;
+  transition: 1s;
+}
