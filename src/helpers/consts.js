@@ -16,6 +16,8 @@ export const SPRITE_SHEET_SRC = {
   DemoRoomUpper: require("../images/maps/DemoUpper.png"),
   KitchenLower: require("../images/maps/KitchenLower.png"),
   KitchenUpper: require("../images/maps/KitchenUpper.png"),
+  StreetUpper: require("../images/maps/StreetUpper.png"),
+  StreetLower: require("../images/maps/StreetLower.png"),
   NpcShadow: require("../images/characters/shadow.png"),
   Hero: require("../images/characters/people/hero.png"),
   Npc1: require("../images/characters/people/npc1.png"),

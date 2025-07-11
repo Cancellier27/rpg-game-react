@@ -4,9 +4,9 @@ import {utils} from "../helpers/utils"
 export const DemoRoom = {
   gameObjects: {
     hero: new Person({
+      isPlayerControlled: true,
       x: utils.withGrid(5),
-      y: utils.withGrid(6),
-      isPlayerControlled: true
+      y: utils.withGrid(9)
     }),
     npcA: new Person({
       x: utils.withGrid(7),
@@ -56,7 +56,7 @@ export const DemoRoom = {
     [utils.asGridCoord(5,10)]: [
       {
         events: [
-          {type: "changeMap", map: "Kitchen"}
+          {type: "changeMap", map: "Street"}
         ]
       }
     ],

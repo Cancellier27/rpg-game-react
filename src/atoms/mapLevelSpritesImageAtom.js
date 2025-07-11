@@ -22,12 +22,24 @@ export const spriteKitchenUpperImageAtom = atom({
   default: null
 })
 
+export const spriteStreetUpperImageAtom = atom({
+  key: "spriteStreetUpperImageAtom",
+  default: null
+})
+
+export const spriteStreetLowerImageAtom = atom({
+  key: "spriteStreetLowerImageAtom",
+  default: null
+})
+
 export const lowerMapsImages = {
   DemoRoom: spriteDemoRoomLowerImageAtom,
-  Kitchen: spriteKitchenLowerImageAtom
+  Kitchen: spriteKitchenLowerImageAtom,
+  Street: spriteStreetLowerImageAtom
 }
 
 export const upperMapsImages = {
   DemoRoom: spriteDemoRoomUpperImageAtom,
-  Kitchen: spriteKitchenUpperImageAtom
+  Kitchen: spriteKitchenUpperImageAtom,
+  Street: spriteStreetUpperImageAtom
 }

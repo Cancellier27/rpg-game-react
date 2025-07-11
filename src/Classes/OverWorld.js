@@ -39,7 +39,7 @@ export class OverWorld {
 
   bindActionInput() {
     new KeyPressListener("Enter", () => {
-      // is there somene o talk here to?
+      // is there someone to talk here to?
       this.overWorldMap.checkForActionCutscene()
     })
   }
@@ -89,9 +89,9 @@ export class OverWorld {
     // start GameLoop
     this.startGameLoop()
 
-    this.overWorldMap.startCutscene([
-      {type: "battle"}
-    ])
+    // this.overWorldMap.startCutscene([
+    //   {type: "battle"}
+    // ])
   }
 
   destroy() {

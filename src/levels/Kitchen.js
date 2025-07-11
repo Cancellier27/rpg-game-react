@@ -6,7 +6,7 @@ export const Kitchen = {
     hero: new Person({
       isPlayerControlled: true,
       x: utils.withGrid(5),
-      y: utils.withGrid(5)
+      y: utils.withGrid(9)
     }),
     npcA: new Person({
       x: utils.withGrid(10),
@@ -24,7 +24,7 @@ export const Kitchen = {
     [utils.asGridCoord(5,10)]: [
       {
         events: [
-          {type: "changeMap", map: "DemoRoom"}
+          {type: "changeMap", map: "Street"}
         ]
       }
     ]

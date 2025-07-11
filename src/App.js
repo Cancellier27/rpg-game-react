@@ -4,7 +4,9 @@ import {
   spriteDemoRoomLowerImageAtom,
   spriteDemoRoomUpperImageAtom,
   spriteKitchenLowerImageAtom,
-  spriteKitchenUpperImageAtom
+  spriteKitchenUpperImageAtom,
+  spriteStreetLowerImageAtom,
+  spriteStreetUpperImageAtom
 } from "./atoms/mapLevelSpritesImageAtom"
 import {
   spriteShadowImageAtom,
@@ -20,34 +22,26 @@ import RenderLevel from "./components/general/RenderLevel"
 function App() {
   // Maps
   // DemoRoom
-  const [spriteDemoRoomLowerImage, setSpriteDemoRoomLowerImage] =
-    useRecoilState(spriteDemoRoomLowerImageAtom)
-  const [spriteDemoRoomUpperImage, setSpriteDemoRoomUpperImage] =
-    useRecoilState(spriteDemoRoomUpperImageAtom)
+  const [spriteDemoRoomLowerImage, setSpriteDemoRoomLowerImage] = useRecoilState(spriteDemoRoomLowerImageAtom)
+  const [spriteDemoRoomUpperImage, setSpriteDemoRoomUpperImage] = useRecoilState(spriteDemoRoomUpperImageAtom)
+  
   // Kitchen
-  const [spriteKitchenLowerImage, setSpriteKitchenLowerImage] = useRecoilState(
-    spriteKitchenLowerImageAtom
-  )
-  const [spriteKitchenUpperImage, setSpriteKitchenUpperImage] = useRecoilState(
-    spriteKitchenUpperImageAtom
-  )
+  const [spriteKitchenLowerImage, setSpriteKitchenLowerImage] = useRecoilState(spriteKitchenLowerImageAtom)
+  const [spriteKitchenUpperImage, setSpriteKitchenUpperImage] = useRecoilState(spriteKitchenUpperImageAtom)
+
+  // Street
+  const [spriteStreetLowerImage, setSpriteStreetLowerImage] = useRecoilState(spriteStreetLowerImageAtom)
+  const [spriteStreetUpperImage, setSpriteStreetUpperImage] = useRecoilState(spriteStreetUpperImageAtom)
 
   // Battle Maps
-  const [spriteDemoRoomBattleImage, setSpriteDemoRoomBattleImage] =
-    useRecoilState(spriteDemoBattleImageAtom)
+  const [spriteDemoRoomBattleImage, setSpriteDemoRoomBattleImage] = useRecoilState(spriteDemoBattleImageAtom)
 
   // Npcs and shadow
-  const [spriteShadowImage, setSpriteShadowImage] = useRecoilState(
-    spriteShadowImageAtom
-  )
-  const [spriteHeroImage, setSpriteHeroImage] =
-    useRecoilState(spriteHeroImageAtom)
-  const [spriteNpc1Image, setSpriteNpc1Image] =
-    useRecoilState(spriteNpc1ImageAtom)
-  const [spriteNpc2Image, setSpriteNpc2Image] =
-    useRecoilState(spriteNpc2ImageAtom)
-  const [spriteNpc3Image, setSpriteNpc3Image] =
-    useRecoilState(spriteNpc3ImageAtom)
+  const [spriteShadowImage, setSpriteShadowImage] = useRecoilState(spriteShadowImageAtom)
+  const [spriteHeroImage, setSpriteHeroImage] = useRecoilState(spriteHeroImageAtom)
+  const [spriteNpc1Image, setSpriteNpc1Image] = useRecoilState(spriteNpc1ImageAtom)
+  const [spriteNpc2Image, setSpriteNpc2Image] = useRecoilState(spriteNpc2ImageAtom)
+  const [spriteNpc3Image, setSpriteNpc3Image] = useRecoilState(spriteNpc3ImageAtom)
 
   // Maps Lower
   useEffect(() => {
@@ -64,7 +58,14 @@ function App() {
     kitchenLowerImage.onload = () => {
       setSpriteKitchenLowerImage(kitchenLowerImage)
     }
-  }, [setSpriteDemoRoomLowerImage, setSpriteKitchenLowerImage])
+
+    // Street
+    const StreetLowerImage = new Image()
+    StreetLowerImage.src = SPRITE_SHEET_SRC.StreetLower
+    StreetLowerImage.onload = () => {
+      setSpriteStreetLowerImage(StreetLowerImage)
+    }
+  }, [setSpriteDemoRoomLowerImage, setSpriteKitchenLowerImage, setSpriteStreetLowerImage])
 
   // Maps Upper
   useEffect(() => {
@@ -81,7 +82,14 @@ function App() {
     kitchenUpperImage.onload = () => {
       setSpriteKitchenUpperImage(kitchenUpperImage)
     }
-  }, [setSpriteDemoRoomUpperImage, setSpriteKitchenUpperImage])
+
+    // Street
+    const StreetUpperImage = new Image()
+    StreetUpperImage.src = SPRITE_SHEET_SRC.StreetUpper
+    StreetUpperImage.onload = () => {
+      setSpriteStreetUpperImage(StreetUpperImage)
+    }
+  }, [setSpriteDemoRoomUpperImage, setSpriteKitchenUpperImage, setSpriteStreetUpperImage])
 
   // Battle Maps
   useEffect(() => {
@@ -129,20 +137,16 @@ function App() {
     npc3Image.onload = () => {
       setSpriteNpc3Image(npc3Image)
     }
-  }, [
-    setSpriteShadowImage,
-    setSpriteHeroImage,
-    setSpriteNpc1Image,
-    setSpriteNpc2Image,
-    setSpriteNpc3Image
-  ])
+  }, [setSpriteShadowImage, setSpriteHeroImage, setSpriteNpc1Image, setSpriteNpc2Image, setSpriteNpc3Image])
 
   // state load check
   if (
-    !spriteDemoRoomLowerImage ||
-    !spriteKitchenLowerImage ||
     !spriteDemoRoomUpperImage ||
+    !spriteDemoRoomLowerImage ||
     !spriteKitchenUpperImage ||
+    !spriteKitchenLowerImage ||
+    !spriteStreetUpperImage ||
+    !spriteStreetLowerImage ||
     !spriteShadowImage ||
     !spriteHeroImage ||
     !spriteNpc1Image ||
