@@ -3,8 +3,9 @@ import {DirectionInput} from "./DirectionInput"
 import {OverWorldMap} from "./OverWorldMap"
 import {GameLoop} from "./GameLoop"
 import {KeyPressListener} from "./KeyPressListener"
-import { FADE_TIME } from "../helpers/consts"
-import { utils } from "../helpers/utils"
+import {FADE_TIME} from "../helpers/consts"
+import {utils} from "../helpers/utils"
+import {loadGame, saveGame} from "../gameSaveState/savegame"
 
 export class OverWorld {
   constructor(levelId, onEmit) {
@@ -14,7 +15,25 @@ export class OverWorld {
     this.isFadeIn = false
     this.isFadeOut = false
 
+    this.saveGameState = null
+
     this.init()
+  }
+
+  // load save game data
+  async load() {
+    try {
+      const savedData = await loadGame()
+      if (savedData) {
+        // store save game state in variable
+        this.saveGameState = savedData
+        console.log("Loaded saved game:", savedData)
+      } else {
+        console.log("No savegame found, starting fresh")
+      }
+    } catch (error) {
+      console.error("Error loading game:", error)
+    }
   }
 
   startGameLoop() {
@@ -53,6 +72,8 @@ export class OverWorld {
   }
 
   async changeMap(mapConfig) {
+    // test console log
+    console.log(this.saveGameState)
     this.isFadeIn = true
 
     await utils.wait(FADE_TIME)
@@ -60,8 +81,8 @@ export class OverWorld {
     this.isFadeIn = false
     this.isFadeOut = true
     this.levelId = mapConfig
-    this.startMap(mapConfig) 
-    
+    this.startMap(mapConfig)
+
     await utils.wait(FADE_TIME)
 
     this.isFadeOut = false
@@ -78,13 +99,16 @@ export class OverWorld {
 
   init() {
     this.startMap(this.levelId)
-    
+
     this.bindActionInput()
     this.bindHeroPositionCheck()
-    
+
     // initializes DirectionInput
     this.directionInput = new DirectionInput()
     this.directionInput.init()
+
+    //Get save data
+    this.load()
 
     // start GameLoop
     this.startGameLoop()
@@ -104,7 +128,7 @@ export class OverWorld {
       currentLevel: this.levelId,
       gameObjects: this.gameObjects,
       cameraPerson: this.gameObjects.hero,
-      
+
       // fade information
       isFadeIn: this.isFadeIn,
       isFadeOut: this.isFadeOut,

@@ -40,10 +40,12 @@ export default function RenderLevel() {
     return null
   }
 
-  return <>
-  {!level.isBattle && <ExploringScene level={level} />}
-  {level.isBattle && <BattleScene level={level}/> }
-  {/* text Message */}
-  <TextBalloon level={level} />
-  </>
+  return (
+    <>
+      {!level.isBattle && <ExploringScene level={level} />}
+      {level.isBattle && <BattleScene level={level} />}
+      {/* text Message */}
+      <TextBalloon level={level} />
+    </>
+  )
 }
