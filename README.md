@@ -1,70 +1,141 @@
-# Getting Started with Create React App
+# 🎮 RPG Game React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**⚠️ This is an ongoing project and is currently under active development. Features and gameplay mechanics are subject to change.**
 
-## Available Scripts
+A pixel art RPG game built with React, featuring classic role-playing game mechanics, character progression, and an immersive gaming experience.
 
-In the project directory, you can run:
+## 🚧 Project Status
 
-### `npm start`
+This project is currently **in development**. While core functionality is being implemented, many features are still being added and refined. The game is not yet in a fully playable state.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Recent Updates
+- ✅ Save game system implementation
+- ✅ Experience points (XP) system fixes
+- 🔄 Character progression mechanics
+- 🔄 Game world and pixel art assets
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🎯 Features
 
-### `npm test`
+### ✅ Currently Implemented
+- Basic game structure and React components
+- Save game functionality
+- Experience points system
+- Character progression mechanics
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔄 In Development
+- Combat system
+- Inventory management
+- Quest system
+- Interactive NPCs
+- Multiple game areas/levels
+- Character customization
 
-### `npm run build`
+### 📋 Planned Features
+- Multiple character classes
+- Magic and spell system
+- Equipment and item crafting
+- Multiplayer capabilities
+- Achievement system
+- Sound effects and background music
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Technologies Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Frontend Framework:** React
+- **Language:** JavaScript (migrating to TypeScript)
+- **Styling:** CSS/SCSS
+- **Art Style:** Pixel Art
+- **State Management:** React Hooks/Context API
+- **Build Tool:** Create React App / Vite
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Getting Started
 
-### `npm run eject`
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository:
+```bash
+git clone https://github.com/Cancellier27/rpg-game-react.git
+cd rpg-game-react
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
 
-## Learn More
+4. Open [http://localhost:3000](http://localhost:3000) to view the game in your browser.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎮 How to Play
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+*Game controls and instructions will be added as the project develops.*
 
-### Code Splitting
+## 🎨 Game Screenshots
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+*Screenshots will be added as the visual elements are completed.*
 
-### Analyzing the Bundle Size
+## 🗺️ Development Roadmap
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Phase 1: Core Systems (Current)
+- [x] Project setup and basic structure
+- [x] Save/Load system
+- [x] Character progression (XP system)
+- [ ] Basic combat mechanics
+- [ ] Inventory system
 
-### Making a Progressive Web App
+### Phase 2: Game World
+- [ ] Multiple areas/maps
+- [ ] NPC interactions
+- [ ] Quest system
+- [ ] Item collection and usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Phase 3: Advanced Features
+- [ ] Character classes and skills
+- [ ] Equipment system
+- [ ] Magic/spell system
+- [ ] Boss battles
 
-### Advanced Configuration
+### Phase 4: Polish & Enhancement
+- [ ] Sound effects and music
+- [ ] Visual effects and animations
+- [ ] Performance optimization
+- [ ] Mobile responsiveness
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🤝 Contributing
 
-### Deployment
+This is a personal learning project, but suggestions and feedback are welcome! If you'd like to contribute:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### `npm run build` fails to minify
+## 📝 Development Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The project is transitioning from JavaScript to TypeScript for better type safety
+- Pixel art assets are being created and integrated progressively
+- Game balance and mechanics are being tested and refined continuously
+
+## 📧 Contact
+
+**Developer:** [Cancellier27](https://github.com/Cancellier27)
+
+**Project Link:** [https://github.com/Cancellier27/rpg-game-react](https://github.com/Cancellier27/rpg-game-react)
+
+---
+
+⭐ **Star this repo if you're interested in following the development progress!**
+
+**Note:** This README will be updated regularly as the project evolves and new features are implemented.
