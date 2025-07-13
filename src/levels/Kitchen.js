@@ -14,7 +14,8 @@ export const Kitchen = {
       talking: [
         {
           events: [
-            {type: "textMessage", text: "You made it!", faceHero: "npcA"}
+            {type: "textMessage", text: "Lets Battle!", faceHero: "npcA"},
+            {type: "battle", faceHero: "npcA"},
           ]
         }
       ]

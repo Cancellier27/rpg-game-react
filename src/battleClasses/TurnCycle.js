@@ -1,4 +1,4 @@
-import { utils } from "../helpers/utils"
+import {utils} from "../helpers/utils"
 
 export class TurnCycle {
   constructor({battle, onNewEvent}) {
@@ -13,6 +13,7 @@ export class TurnCycle {
     const caster = this.battle.combatants[casterId]
     const enemyId = this.battle.activeCombatants[caster.team === "player" ? "enemy" : "player"]
     const enemy = this.battle.combatants[enemyId]
+    const initialPlayerLvl = caster.level
 
     const submission = await this.onNewEvent({
       type: "submissionMenu",
@@ -20,15 +21,13 @@ export class TurnCycle {
       enemy
     })
 
-
-
     // check if any items were used and filters them
-    if(submission.instanceId) {
-      caster.items = caster.items.filter(i => i.instanceId !== submission.instanceId)
+    if (submission.instanceId) {
+      caster.items = caster.items.filter((i) => i.instanceId !== submission.instanceId)
     }
 
     const resultingEvents = caster.getReplacedEvents(submission.action.success)
-    
+
     for (let i = 0; i < resultingEvents.length; i++) {
       const event = {
         ...resultingEvents[i],
@@ -41,12 +40,10 @@ export class TurnCycle {
       await this.onNewEvent(event)
     }
 
-
-
     // check for post events
     // do things after our original turn submission
     const postEvents = caster.getPostEvents()
-    for(let i = 0; i < postEvents.length; i++) {
+    for (let i = 0; i < postEvents.length; i++) {
       const event = {
         ...postEvents[i],
         submission,
@@ -56,48 +53,47 @@ export class TurnCycle {
       }
 
       await this.onNewEvent(event)
-      
     }
 
     // did target die?
     const targetDead = submission.target.hp <= 0
 
-
-    if(targetDead) {
+    if (targetDead) {
       await this.onNewEvent({
-        type: "textMessage", text: `${submission.target.name} was defeated!`
+        type: "textMessage",
+        text: `${submission.target.name} was defeated!`
       })
 
       document.querySelector(`.${submission.target.classId}`).classList.add("fade-out")
 
-      if(submission.target.team === "enemy") {
-
-        const playerActiveId = this.battle.activeCombatants.player 
+      if (submission.target.team === "enemy") {
+        const playerActiveId = this.battle.activeCombatants.player
         const xp = submission.target.givesXp
 
-        await this.onNewEvent(
-          {type: "textMessage", text: `Gained ${xp}xp points`}, 
-        )
-        await this.onNewEvent(
-          {type: "giveXp", xp: xp, combatant: this.battle.combatants[playerActiveId]}, 
-        )
+        await this.onNewEvent({type: "textMessage", text: `Gained ${xp}xp points`})
+        await this.onNewEvent({type: "giveXp", xp: xp, combatant: this.battle.combatants[playerActiveId]})
+
+        // If level up show a message of level up!
+        if (this.battle.combatants[playerActiveId].level > initialPlayerLvl) {
+          await this.onNewEvent({
+            type: "textMessage",
+            text: `Reached level ${this.battle.combatants[playerActiveId].level}!`
+          })
+        }
       }
 
-      // complete the battle animation after 2 sec
-      // need to finish animation after message being dismissed, maybe another onNewEvent?
-      await utils.wait(2000)
+      // complete the battle animation after 1 sec
+      await utils.wait(1000)
       this.battle.onComplete()
 
       return
     }
 
-
     // check for status expired
     const expiredEvent = caster.decrementStatus()
-    if(expiredEvent) {
+    if (expiredEvent) {
       await this.onNewEvent(expiredEvent)
     }
-
 
     this.resumeTurn()
   }

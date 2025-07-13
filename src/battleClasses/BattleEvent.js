@@ -95,7 +95,7 @@ export class BattleEvent {
       xpNextLvl = this.event.combatant.xp + this.event.xp - maxXp  
         
 
-      await utils.wait(1000)
+      // await utils.wait(1000)
       const message = new TextMessage({
         text: "Hero has leveled up!",
         onComplete: () => {
@@ -113,8 +113,6 @@ export class BattleEvent {
     await utils.wait(500)
     xpBarStyle.transition = "width 1s"
     this.event.combatant.xp += xpNextLvl
-
-    resolve()
   }
 
   animation(resolve) {
