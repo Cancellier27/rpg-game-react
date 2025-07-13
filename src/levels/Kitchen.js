@@ -8,24 +8,23 @@ export const Kitchen = {
       x: utils.withGrid(5),
       y: utils.withGrid(9)
     }),
-    npcA: new Person({
+    npcB: new Person({
       x: utils.withGrid(10),
       y: utils.withGrid(8),
       talking: [
         {
           events: [
-            {type: "textMessage", text: "You made it!", faceHero: "npcA"}
+            {type: "textMessage", text: "You made it!", faceHero: "npcB"},
+            {type: "battle", enemy: "npcB"}
           ]
         }
       ]
     })
   },
   cutsceneSpaces: {
-    [utils.asGridCoord(5,10)]: [
+    [utils.asGridCoord(5, 10)]: [
       {
-        events: [
-          {type: "changeMap", map: "Street"}
-        ]
+        events: [{type: "changeMap", map: "Street"}]
       }
     ]
   }

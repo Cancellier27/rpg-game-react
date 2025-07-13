@@ -5,7 +5,7 @@ import { TurnCycle } from "./TurnCycle";
 import { BattleEvent } from "./BattleEvent";
 
 export class Battle {
-  constructor({map, onComplete}) {
+  constructor({map, onComplete, enemy}) {
     this.onComplete = onComplete
     this.map = map
     this.battleMap = "DemoRoomBattle"
@@ -24,13 +24,13 @@ export class Battle {
         isPlayerControlled: true
       }, this),
       "enemy1" : new Combatant({
-        ...Enemies.n001,
+        ...Enemies[enemy],
         team:"enemy",
-        hp: 5,
-        maxHp: 50,
+        hp: 100,
+        maxHp: 100,
         mp:20,
         maxMp: 20,
-        xp: 20,
+        xp: 100,
         maxXp: 100,
         level: 1,
         status: null
