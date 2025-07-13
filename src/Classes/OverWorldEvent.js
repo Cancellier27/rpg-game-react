@@ -1,6 +1,6 @@
 import {utils} from "../helpers/utils"
 import {TextMessage} from "./TextMessage"
-import { Battle } from "../battleClasses/Battle"
+import {Battle} from "../battleClasses/Battle"
 
 export class OverWorldEvent {
   constructor({map, event}) {
@@ -58,9 +58,7 @@ export class OverWorldEvent {
     // face the hero when talking
     if (this.event.faceHero) {
       const obj = this.map.gameObjects[this.event.faceHero]
-      obj.direction = utils.oppositeDirection(
-        this.map.gameObjects["hero"].direction
-      )
+      obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
     }
 
     const message = new TextMessage({
@@ -78,14 +76,14 @@ export class OverWorldEvent {
   battle(resolve) {
     const battle = new Battle({
       onComplete: () => {
-        this.map.endBattleScene() 
+        this.map.endBattleScene()
         resolve()
       },
-      map: this.map
+      map: this.map,
+      enemy: this.event.enemy
     })
 
-    this.map.startBattleScene(battle) 
-
+    this.map.startBattleScene(battle)
   }
 
   init() {

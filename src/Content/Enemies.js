@@ -5,7 +5,7 @@ export const EnemyType = {
 }
 
 export const Enemies = {
-  n001: {
+  npcA: {
     name: "Hailey",
     classId: "hailey-enemy",
     type: EnemyType.normal,
@@ -18,7 +18,7 @@ export const Enemies = {
     },
     actions: ["damage1"]
   },
-  e001: {
+  npcB: {
     name: "Filipe",
     classId: "filipe-enemy",
     type: EnemyType.elite,
