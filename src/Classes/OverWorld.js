@@ -27,7 +27,7 @@ export class OverWorld {
       if (savedData) {
         // store save game state in variable
         this.saveGameState = savedData
-        console.log("Loaded saved game:", savedData)
+        console.log("Loaded saved game")
       } else {
         console.log("No savegame found, starting fresh")
       }
@@ -72,8 +72,9 @@ export class OverWorld {
   }
 
   async changeMap(mapConfig) {
-    // test console log
-    console.log(this.saveGameState)
+    // saves game when change maps
+    saveGame(this.saveGameState)
+
     this.isFadeIn = true
 
     await utils.wait(FADE_TIME)

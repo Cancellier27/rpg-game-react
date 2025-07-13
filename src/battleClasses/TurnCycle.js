@@ -1,4 +1,5 @@
 import {utils} from "../helpers/utils"
+import {updateState} from "../helpers/updateState"
 
 export class TurnCycle {
   constructor({battle, onNewEvent}) {
@@ -75,15 +76,23 @@ export class TurnCycle {
 
         // If level up show a message of level up!
         if (this.battle.combatants[playerActiveId].level > initialPlayerLvl) {
+          console.log("battle 02")
           await this.onNewEvent({
             type: "textMessage",
             text: `Reached level ${this.battle.combatants[playerActiveId].level}!`
           })
         }
+
+        // update hero Status in overWorld
+        updateState.updateHeroState(
+          this.battle.map.overWorld.saveGameState.save_01.hero,
+          this.battle.combatants[playerActiveId]
+        )
       }
 
       // complete the battle animation after 1 sec
       await utils.wait(1000)
+      console.log("battle Completed!")
       this.battle.onComplete()
 
       return

@@ -6,7 +6,6 @@ const createWindow = () => {
     width: 1200,
     height: 800,
     center: true,
-    resizable: false,
     webPreferences: {
       nodeIntegration: true, // or preload script with contextIsolation true (recommended)
       contextIsolation: false

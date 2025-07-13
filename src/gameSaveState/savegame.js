@@ -9,8 +9,6 @@ function init() {
   if (isElectron()) {
     fs = window.require("fs")
     path = window.require("path")
-    // electron = window.require("electron")
-
     // Instead of using deprecated remote, use this workaround:
     savePath = path.join("C:/Dev/pizza-legends-react/src/gameSaveState/SaveGamesData", "savegame.json") // or use __dirname/build folder if you prefer
   }

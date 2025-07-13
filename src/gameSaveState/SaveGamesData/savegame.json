@@ -10,22 +10,44 @@
         "npc": "hero",
         "x": 1,
         "y": 2,
-        "frameCoord": [0, 1]
+        "frameCoord": [
+          0,
+          1
+        ]
       },
-      "actions": ["negativeStatus", "healingStatus", "damage1"],
+      "actions": [
+        "negativeStatus",
+        "healingStatus",
+        "damage1"
+      ],
       "items": [
-        {"actionId": "item_recoverStatusSmall", "instanceId": "p1"},
-        {"actionId": "item_recoverStatusSmall", "instanceId": "p2"},
-        {"actionId": "item_recoverStatusBig", "instanceId": "p1"},
-        {"actionId": "item_recoverStatusBig", "instanceId": "p2"},
-        {"actionId": "item_recoverStatusBig", "instanceId": "p3"}
+        {
+          "actionId": "item_recoverStatusSmall",
+          "instanceId": "p1"
+        },
+        {
+          "actionId": "item_recoverStatusSmall",
+          "instanceId": "p2"
+        },
+        {
+          "actionId": "item_recoverStatusBig",
+          "instanceId": "p1"
+        },
+        {
+          "actionId": "item_recoverStatusBig",
+          "instanceId": "p2"
+        },
+        {
+          "actionId": "item_recoverStatusBig",
+          "instanceId": "p3"
+        }
       ],
       "team": "player",
-      "hp": 10,
+      "hp": 100,
       "maxHp": 100,
       "mp": 20,
       "maxMp": 20,
-      "xp": 95,
+      "xp": 80,
       "maxXp": 100,
       "level": 1,
       "status": null,

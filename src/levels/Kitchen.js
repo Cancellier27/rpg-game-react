@@ -15,7 +15,7 @@ export const Kitchen = {
         {
           events: [
             {type: "textMessage", text: "Lets Battle!", faceHero: "npcA"},
-            {type: "battle", faceHero: "npcA"},
+            {type: "battle", enemy: "npcA"},
           ]
         }
       ]
