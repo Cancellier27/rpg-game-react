@@ -42,6 +42,8 @@ export class BattleEvent {
 
   async stateChange(resolve) {
     const {caster, target, damage, recover, status, action} = this.event
+    console.log(caster)
+    console.log(target)
     const element = document.querySelector(`.${target.classId}`)
     let who = this.event.onCaster ? caster : target
 

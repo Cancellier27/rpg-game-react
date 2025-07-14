@@ -1,5 +1,5 @@
 import {Combatant} from "./Combatant"
-import {Enemies} from "../Content/Enemies"
+// import {Enemies} from "../Content/Enemies"
 // import {Players} from "../Content/Players"
 import {TurnCycle} from "./TurnCycle"
 import {BattleEvent} from "./BattleEvent"
@@ -14,29 +14,27 @@ export class Battle {
     // populate player into combatants
     this.party = Object.keys(this.saveGame.party).forEach((key) => {
       let combatantsLength = Object.keys(this.combatants).length + 1
-      console.log(enemies)
-      return (this.combatants[`player_${combatantsLength}`] = new Combatant(this.saveGame.party[key]))
+      return (this.combatants[`player${combatantsLength}`] = new Combatant(this.saveGame.party[key]))
     })
     // populate enemies into combatants
     this.enemies = Object.keys(enemies).forEach((key) => {
       let combatantsLength = Object.keys(this.combatants).length + 1
-      console.log(combatantsLength)
-      return (this.combatants[`enemy_${combatantsLength}`] = new Combatant(enemies[key]))
+      return (this.combatants[`enemy${combatantsLength}`] = new Combatant(enemies[key]))
     })
 
-    this.activeCombatants = Object.fromEntries(Object.keys(this.combatants).map((key) => [key, key]))
+    // this.activeCombatants = Object.fromEntries(Object.keys(this.combatants).map((key) => [key, key]))
 
-    // this.activeCombatants = {
-    //   player: "player1",
-    //   enemy: "enemy1"
-    // }
+    this.activeCombatants = {
+      player: "player1",
+      enemy: "enemy2"
+    }
 
     this.init()
   }
 
   init() {
-    console.log(this.combatants)
     console.log(this.activeCombatants)
+    console.log(this.combatants)
     this.turCycle = new TurnCycle({
       battle: this,
       onNewEvent: (event) => {

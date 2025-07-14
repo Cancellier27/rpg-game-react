@@ -14,7 +14,7 @@ export class TurnCycle {
     const caster = this.battle.combatants[casterId]
     const enemyId = this.battle.activeCombatants[caster.team === "player" ? "enemy" : "player"]
     const enemy = this.battle.combatants[enemyId]
-    const initialPlayerLvl = caster.level
+    // const initialPlayerLvl = caster.level
 
     const submission = await this.onNewEvent({
       type: "submissionMenu",
@@ -96,7 +96,7 @@ export class TurnCycle {
 
         // update hero Status in overWorld
         updateState.updateHeroState(
-          this.battle.map.overWorld.saveGameState.save_01.hero,
+          this.battle.map.overWorld.saveGameState.save_01.party.hero,
           this.battle.combatants[playerActiveId]
         )
       }

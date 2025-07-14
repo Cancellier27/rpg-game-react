@@ -77,8 +77,6 @@ export class OverWorldEvent {
   battle(resolve) {
     const enemiesData = updateState.loadMapData(this.map.overWorld.levelId)
     let enemy = this.event.enemy.split(",")
-    console.log(enemiesData)
-    console.log(enemy)
 
     const battle = new Battle({
       onComplete: () => {

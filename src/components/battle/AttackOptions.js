@@ -1,6 +1,6 @@
 import {Actions} from "../../Content/Actions"
 import {KeyPressListener} from "../../classes/KeyPressListener"
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
 
 export default function AttackOptions({level, setIsAttack}) {
 
