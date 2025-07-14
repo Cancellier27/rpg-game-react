@@ -85,13 +85,9 @@ export class BattleEvent {
   }
 
   async lvlUp(resolve) {
-    const maxXp = this.event.combatant.maxXp
-    const xpBar = document.querySelector(".xp-bar-used")
     const xpBarStyle = document.querySelector(".xp-bar-used").style
     xpBarStyle.transition = "width 1s"
-    let xpNextLvl = this.event.xp
 
-    xpNextLvl = this.event.combatant.xp + this.event.xp - maxXp
     // raise xp
     this.event.combatant.xp = this.event.combatant.maxXp
     // raise lvl by 1
@@ -99,13 +95,13 @@ export class BattleEvent {
 
     const message = new TextMessage({
       text: "Hero has leveled up!",
-      onComplete: () => {
-        xpBar.display = "none"
-        this.event.combatant.xp = 0
-        utils.wait(100)
-        resolve()
-      }
+      onComplete: () => resolve()
     })
+
+    // wait for animation to complete, 1 sec
+    await utils.wait(1000)
+    xpBarStyle.transition = "none"
+    this.event.combatant.xp = 0
 
     message.init(this.battle.map)
   }

@@ -75,9 +75,15 @@ export class TurnCycle {
 
         // check if player will level up
         if (maxXp <= playerXP + xp) {
-          let extraXP = (playerXP + xp) - maxXp
+          const extraXP = (playerXP + xp) % maxXp
+          const xpTimes = Math.floor((playerXP + xp) / maxXp)
           await this.onNewEvent({type: "textMessage", text: `Gained ${xp}xp points`})
-          await this.onNewEvent({type: "lvlUp", xp: xp, combatant: this.battle.combatants[playerActiveId]})
+
+          // check if the player will lvl up more than once
+          for (let i = 1; i <= xpTimes; i++) {
+            await this.onNewEvent({type: "lvlUp", xp: xp, combatant: this.battle.combatants[playerActiveId]})
+          }
+
           await this.onNewEvent({type: "giveXp", xp: extraXP, combatant: this.battle.combatants[playerActiveId]})
           await this.onNewEvent({
             type: "textMessage",

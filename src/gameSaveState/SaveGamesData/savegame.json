@@ -1,57 +1,59 @@
 {
   "save_01": {
     "progression": 0,
-    "hero": {
-      "name": "Hero",
-      "classId": "hero-player",
-      "type": "PlayerType.main",
-      "icon": null,
-      "sprite": {
-        "npc": "hero",
-        "x": 1,
-        "y": 2,
-        "frameCoord": [
-          0,
-          1
-        ]
-      },
-      "actions": [
-        "negativeStatus",
-        "healingStatus",
-        "damage1"
-      ],
-      "items": [
-        {
-          "actionId": "item_recoverStatusSmall",
-          "instanceId": "p1"
+    "party": {
+      "hero": {
+        "name": "Hero",
+        "classId": "hero-player",
+        "type": "PlayerType.main",
+        "icon": null,
+        "sprite": {
+          "npc": "hero",
+          "x": 1,
+          "y": 2,
+          "frameCoord": [
+            0,
+            1
+          ]
         },
-        {
-          "actionId": "item_recoverStatusSmall",
-          "instanceId": "p2"
-        },
-        {
-          "actionId": "item_recoverStatusBig",
-          "instanceId": "p1"
-        },
-        {
-          "actionId": "item_recoverStatusBig",
-          "instanceId": "p2"
-        },
-        {
-          "actionId": "item_recoverStatusBig",
-          "instanceId": "p3"
-        }
-      ],
-      "team": "player",
-      "hp": 100,
-      "maxHp": 100,
-      "mp": 20,
-      "maxMp": 20,
-      "xp": 95,
-      "maxXp": 100,
-      "level": 1,
-      "status": null,
-      "isPlayerControlled": true
+        "actions": [
+          "negativeStatus",
+          "healingStatus",
+          "damage1"
+        ],
+        "items": [
+          {
+            "actionId": "item_recoverStatusSmall",
+            "instanceId": "p1"
+          },
+          {
+            "actionId": "item_recoverStatusSmall",
+            "instanceId": "p2"
+          },
+          {
+            "actionId": "item_recoverStatusBig",
+            "instanceId": "p1"
+          },
+          {
+            "actionId": "item_recoverStatusBig",
+            "instanceId": "p2"
+          },
+          {
+            "actionId": "item_recoverStatusBig",
+            "instanceId": "p3"
+          }
+        ],
+        "team": "player",
+        "hp": 100,
+        "maxHp": 100,
+        "mp": 20,
+        "maxMp": 20,
+        "xp": 95,
+        "maxXp": 100,
+        "level": 1,
+        "status": null,
+        "isPlayerControlled": true
+      }
     }
   }
 }

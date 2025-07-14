@@ -1,0 +1,46 @@
+{
+  "npcA": {
+    "name": "Hailey",
+    "classId": "hailey-enemy",
+    "type": "normal",
+    "icon": null,
+    "sprite": {
+      "npc": "npcA",
+      "x": 8,
+      "y": 2,
+      "frameCoord": [0, 3]
+    },
+    "actions": ["damage1"],
+    "team": "enemy",
+    "hp": 10,
+    "maxHp": 100,
+    "mp": 20,
+    "maxMp": 20,
+    "xp": 225,
+    "maxXp": 100,
+    "level": 1,
+    "status": null
+  },
+  "npcC": {
+    "name": "Filipe",
+    "classId": "filipe-enemy",
+    "type": "elite",
+    "icon": null,
+    "sprite": {
+      "npc": "npcC",
+      "x": 9,
+      "y": 1,
+      "frameCoord": [0, 3]
+    },
+    "actions": ["damage1"],
+    "team": "enemy",
+    "hp": 100,
+    "maxHp": 100,
+    "mp": 20,
+    "maxMp": 20,
+    "xp": 25,
+    "maxXp": 100,
+    "level": 1,
+    "status": null
+  }
+}

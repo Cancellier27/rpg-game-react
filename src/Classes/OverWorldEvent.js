@@ -1,4 +1,5 @@
 import {utils} from "../helpers/utils"
+import {updateState} from "../helpers/updateState"
 import {TextMessage} from "./TextMessage"
 import {Battle} from "../battleClasses/Battle"
 
@@ -74,13 +75,22 @@ export class OverWorldEvent {
   }
 
   battle(resolve) {
+    const enemiesData = updateState.loadMapData(this.map.overWorld.levelId)
+    let enemy = this.event.enemy.split(",")
+    console.log(enemiesData)
+    console.log(enemy)
+
     const battle = new Battle({
       onComplete: () => {
         this.map.endBattleScene()
         resolve()
       },
       map: this.map,
-      enemy: this.event.enemy
+      enemies: Object.fromEntries(
+        Object.entries(enemiesData).filter(([key, _]) => {
+          return enemy.includes(key)
+        })
+      )
     })
 
     this.map.startBattleScene(battle)
