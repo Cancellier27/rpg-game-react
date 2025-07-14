@@ -84,33 +84,41 @@ export class BattleEvent {
     resolve()
   }
 
-  async giveXp(resolve) {
+  async lvlUp(resolve) {
     const maxXp = this.event.combatant.maxXp
+    const xpBar = document.querySelector(".xp-bar-used")
     const xpBarStyle = document.querySelector(".xp-bar-used").style
+    xpBarStyle.transition = "width 1s"
     let xpNextLvl = this.event.xp
 
-    if (maxXp <= this.event.combatant.xp + this.event.xp) {
-      this.event.combatant.xp = this.event.combatant.maxXp
-      this.event.combatant.level += 1
-      xpNextLvl = this.event.combatant.xp + this.event.xp - maxXp
+    xpNextLvl = this.event.combatant.xp + this.event.xp - maxXp
+    // raise xp
+    this.event.combatant.xp = this.event.combatant.maxXp
+    // raise lvl by 1
+    this.event.combatant.level += 1
 
-      const message = new TextMessage({
-        text: "Hero has leveled up!",
-        onComplete: () => {
-          resolve()
-        }
-      })
+    const message = new TextMessage({
+      text: "Hero has leveled up!",
+      onComplete: () => {
+        xpBar.display = "none"
+        this.event.combatant.xp = 0
+        utils.wait(100)
+        resolve()
+      }
+    })
 
-      message.init(this.battle.map)
+    message.init(this.battle.map)
+  }
 
-      xpBarStyle.transition = "none"
-      this.event.combatant.xp = 0
-    }
+  async giveXp(resolve) {
+    const xpBar = document.querySelector(".xp-bar-used")
+    const xpBarStyle = document.querySelector(".xp-bar-used").style
+    xpBar.display = "block"
 
-    await utils.wait(500)
+    // raise xp
+    utils.wait(500)
+    this.event.combatant.xp += this.event.xp
     xpBarStyle.transition = "width 1s"
-    this.event.combatant.xp += xpNextLvl
-    
     resolve()
   }
 

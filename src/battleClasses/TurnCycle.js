@@ -70,17 +70,22 @@ export class TurnCycle {
       if (submission.target.team === "enemy") {
         const playerActiveId = this.battle.activeCombatants.player
         const xp = submission.target.givesXp
+        const maxXp = this.battle.combatants[playerActiveId].maxXp
+        let playerXP = this.battle.combatants[playerActiveId].xp
 
-        await this.onNewEvent({type: "textMessage", text: `Gained ${xp}xp points`})
-        await this.onNewEvent({type: "giveXp", xp: xp, combatant: this.battle.combatants[playerActiveId]})
-
-        // If level up show a message of level up!
-        if (this.battle.combatants[playerActiveId].level > initialPlayerLvl) {
-          console.log("battle 02")
+        // check if player will level up
+        if (maxXp <= playerXP + xp) {
+          let extraXP = (playerXP + xp) - maxXp
+          await this.onNewEvent({type: "textMessage", text: `Gained ${xp}xp points`})
+          await this.onNewEvent({type: "lvlUp", xp: xp, combatant: this.battle.combatants[playerActiveId]})
+          await this.onNewEvent({type: "giveXp", xp: extraXP, combatant: this.battle.combatants[playerActiveId]})
           await this.onNewEvent({
             type: "textMessage",
             text: `Reached level ${this.battle.combatants[playerActiveId].level}!`
           })
+        } else {
+          await this.onNewEvent({type: "giveXp", xp: xp, combatant: this.battle.combatants[playerActiveId]})
+          await this.onNewEvent({type: "textMessage", text: `Gained ${xp}xp points`})
         }
 
         // update hero Status in overWorld
